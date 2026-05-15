@@ -1,0 +1,92 @@
+// File: frontend/components/home/products/Breadcrumb.tsx
+import Link from "next/link";
+import { LuChevronRight, LuHouse } from "react-icons/lu";
+
+type Props = {
+    categoryName: string;
+    categorySlug: string;
+    productName: string;
+};
+
+export default function Breadcrumb({
+    categoryName,
+    categorySlug,
+    productName,
+}: Props) {
+    return (
+        <nav
+            className="
+        py-1
+        text-xs
+        bg-[var(--store-bg)]
+        overflow-hidden
+      "
+            aria-label="Breadcrumb"
+        >
+            <ol
+                className="
+          flex
+          items-center
+          gap-2
+          font-medium
+          text-[var(--store-text-muted)]
+          whitespace-nowrap
+          overflow-hidden
+        "
+            >
+                {/* Inicio */}
+                <li className="shrink-0">
+                    <Link
+                        href="/"
+                        className="
+              flex items-center gap-1.5
+              transition-colors duration-200
+              hover:text-[var(--store-text)]
+            "
+                    >
+                        <LuHouse size={15} className="mb-[1px]" />
+                        <span>Inicio</span>
+                    </Link>
+                </li>
+
+                <LuChevronRight
+                    size={14}
+                    className="shrink-0 text-[var(--store-text-muted)] opacity-70"
+                />
+
+                {/* Categoría */}
+                <li className="shrink-0">
+                    <Link
+                        href={`/categoria/${categorySlug}`}
+                        className="
+              flex items-center gap-1.5
+              transition-colors duration-200
+              hover:text-[var(--store-text)]
+            "
+                    >
+                        <span>{categoryName}</span>
+                    </Link>
+                </li>
+
+                <LuChevronRight
+                    size={14}
+                    className="shrink-0 text-[var(--store-text-muted)] opacity-70"
+                />
+
+                {/* Producto actual */}
+                <li
+                    className="
+            flex items-center gap-1
+            min-w-0
+            text-[var(--store-text)]
+            pointer-events-none
+          "
+                >
+                    <span className="truncate font-semibold">
+                        {productName}
+                    </span>
+                </li>
+            </ol>
+        </nav>
+    );
+}
