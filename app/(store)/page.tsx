@@ -88,9 +88,6 @@ export default function HomePage() {
                         <HeroFlashSale />
                         <HeroNewArrivals />
 
-
-
-
                     </div>
                 </div>
             </section>

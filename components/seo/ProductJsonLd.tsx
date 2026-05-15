@@ -3,7 +3,7 @@ import type { ProductWithCategoryResponse } from "@/src/schemas"
 export default function ProductJsonLd({ producto }: { producto: ProductWithCategoryResponse }) {
     if (!producto) return null
 
-    const firstImage = producto.imagenes?.[0] || 'https://www.gophone.pe/logomini.svg'
+    const firstImage = producto.imagenes?.[0] || 'https://www.gophone.pe/logoblanco.svg'
     const url = `https://www.gophone.pe/productos/${producto.slug}`
     const brand = producto.atributos?.Marca || 'GoPhone'
 

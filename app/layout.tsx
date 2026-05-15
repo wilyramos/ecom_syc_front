@@ -66,11 +66,11 @@ export const metadata: Metadata = {
         title: "S&C Mobile",
         description:
             "Tecnología con garantía, precios competitivos y atención personalizada. Compra iPhones y accesorios con envío rápido.",
-        images: ["https://sycmobile.pe/logomini.svg"]
+        images: ["https://sycmobile.pe/logoblanco.svg"]
     },
     icons: {
         icon: "/favicon.ico",
-        apple: "/logomini.svg",
+        apple: "/logoblanco.svg",
         shortcut: "/favicon.ico"
     },
     alternates: {
