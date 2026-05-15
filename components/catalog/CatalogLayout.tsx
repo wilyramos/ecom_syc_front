@@ -25,8 +25,6 @@ export default function CatalogLayout({
     isFallback
 }: CatalogLayoutProps) {
 
-    // Title builder - Mantenemos la lógica pero eliminamos el itálico genérico 
-    // para usar el contraste de pesos (bold/light) en el componente Header
     const getTitle = (): TitlePart[] => {
         if (context.searchQuery) {
             return [
@@ -51,7 +49,7 @@ export default function CatalogLayout({
     if (context.brandName) breadcrumbs.push({ label: context.brandName, href: "#" });
 
     return (
-        <section className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 lg:px-12 pb-20 animate-in fade-in duration-700">
+        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-20 animate-in fade-in duration-700">
             
             {/* Header con espaciado amplio vertical */}
             <header className="py-8 md:py-12">

@@ -31,6 +31,7 @@ export default async function PosV3Layout({
             <div className="flex flex-1 flex-col overflow-hidden">
                 <Header user={user} />
 
+                {/* CAMBIO AQUÍ: Cambiamos overflow-hidden por overflow-y-auto */}
                 <main className="relative flex-1 overflow-y-auto">
                     {children}
                 </main>

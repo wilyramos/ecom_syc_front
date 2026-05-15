@@ -1,3 +1,5 @@
+//File: frontend/components/POS/compras/ProductSearchInputPurchase.tsx
+
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -5,11 +7,7 @@ import { useState, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { FiSearch } from "react-icons/fi";
 
-
-
 export default function ProductSearchInputPurchase() {
-
-
 
     const router = useRouter();
     const searchParams = useSearchParams();

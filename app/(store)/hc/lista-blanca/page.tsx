@@ -98,7 +98,7 @@ export default function ListaBlancaPage() {
                     </div>
                     
                     <div className="flex flex-wrap justify-center gap-4">
-                        <a href="https://wa.me/51925054636" className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-bg-tertiary)] text-xs font-bold text-[var(--color-text-primary)] hover:shadow-md transition-all">
+                        <a href="https://wa.me/51972416683" className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-bg-primary)] rounded-full border border-[var(--color-bg-tertiary)] text-xs font-bold text-[var(--color-text-primary)] hover:shadow-md transition-all">
                             <FaWhatsapp className="text-[var(--color-success)]" size={16} />
                             +51 925 054 636
                         </a>

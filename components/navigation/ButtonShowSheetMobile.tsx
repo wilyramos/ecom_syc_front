@@ -34,24 +34,21 @@ export default function ButtonShowSheetMobile({ categories }: Props) {
         {
             href: "/novedades",
             label: "Novedades",
-            description: "Lo último en tecnología"
         },
         {
             href: "/ofertas",
             label: "Ofertas",
-            description: "Precios imbatibles"
         },
         {
             href: routes.catalog(),
             label: "Catálogo General",
-            description: "Explora todos los productos"
         },
     ];
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <button className="p-2 text-[var(--color-text-inverse)] active:scale-95 transition-transform outline-none">
+                <button className="p-2 text-[var(--color-text-primary)] active:scale-95 transition-transform outline-none">
                     <Menu size={26} strokeWidth={1.5} />
                 </button>
             </SheetTrigger>
@@ -88,12 +85,7 @@ export default function ButtonShowSheetMobile({ categories }: Props) {
                                         <span className="text-[14px] font-bold uppercase tracking-tight leading-none">
                                             {link.label}
                                         </span>
-                                        <span className={cn(
-                                            "text-[10px] font-medium mt-1.5",
-                                            isActive ? "opacity-60" : "text-[var(--color-text-secondary)]"
-                                        )}>
-                                            {link.description}
-                                        </span>
+                                       
                                     </div>
                                 </Link>
                             );

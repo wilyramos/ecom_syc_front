@@ -98,7 +98,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
 
     return (
         <div
-            className="group relative flex flex-col transition-all duration-500 bg-white rounded-xl border-2"
+            className="group relative flex flex-col transition-all duration-500 bg-white rounded-xl border-2 border-gray-200"
             onMouseDown={(e) => setStartX(e.clientX)}
             onMouseUp={(e) => {
                 if (startX === null) return;

@@ -12,7 +12,7 @@ import { HiOutlineUser } from "react-icons/hi";
 export default function NavBar() {
     return (
         <NavBarClient>
-            <header className="sticky top-0 z-50 h-20 flex flex-col justify-center text-[var(--color-text-inverse)] bg-[var(--color-bg-inverse)] transition-colors duration-300">
+            <header className="sticky top-0 z-50 h-20 flex flex-col justify-center text-[var(--color-text-secondary)]  transition-colors duration-300">
                 <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 ">
 
                     {/* Left column */}
@@ -24,14 +24,14 @@ export default function NavBar() {
                         <Link href="/" className="relative hidden h-20 w-[140px] md:flex"
 
                         >
-                            <Logo color="white" size="fill" />
+                            <Logo color="black" size="fill" />
                         </Link>
                     </div>
 
                     {/* Center column */}
                     <div className="flex items-center justify-center ">
                         <Link href="/" className="relative h-19 w-full max-w-[140px] flex items-center justify-center md:hidden">
-                            <Logo color="white" size="fill" />
+                            <Logo color="black" size="fill" />
                             {/* S&C Mobile */}
                         </Link>
                         <div className="hidden md:flex flex-1 w-full max-w-xl">
@@ -44,7 +44,7 @@ export default function NavBar() {
                         <div className="hidden md:flex items-center gap-1">
                             <Link
                                 href="/auth/registro"
-                                className="flex items-center gap-1 text-[var(--color-text-inverse)] rounded-full transition-colors duration-200 hover:text-[var(--color-accent)]"
+                                className="flex items-center gap-1 text-[var(--color-text-primary)] rounded-full transition-colors duration-200 hover:text-[var(--color-accent)]"
                                 aria-label="Cuenta"
                             >
                                 <div className="hover:bg-[var(--color-surface-hover)] rounded-full p-2 transition-colors duration-200">

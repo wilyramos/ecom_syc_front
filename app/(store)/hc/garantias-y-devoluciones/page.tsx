@@ -121,7 +121,7 @@ export default function GarantiasDevolucionesPage() {
                     </div>
                     
                     <div className="flex flex-wrap justify-center gap-4">
-                        <a href="https://wa.me/51925054636" className="flex items-center gap-2 px-5 py-2.5 bg-[var(--store-surface)] rounded-full border border-[var(--store-border)] text-xs font-bold text-[var(--store-text)] hover:shadow-md transition-all">
+                        <a href="https://wa.me/51972416683" className="flex items-center gap-2 px-5 py-2.5 bg-[var(--store-surface)] rounded-full border border-[var(--store-border)] text-xs font-bold text-[var(--store-text)] hover:shadow-md transition-all">
                             <FaWhatsapp className="text-green-600" size={16} />
                             +51 925 054 636
                         </a>

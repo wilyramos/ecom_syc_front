@@ -22,30 +22,26 @@ export default function HeroFlashSale() {
         return () => clearInterval(timer);
     }, []);
 
-    if (!mounted) return <div className="min-h-[400px] bg-[var(--color-bg-primary)]" />;
+    if (!mounted) return <div className=" bg-[var(--color-bg-primary)]" />;
 
     return (
         <Link 
             href="/ofertas"
-            className="group relative flex flex-col justify-between p-8 md:p-12 bg-[var(--color-bg-primary)] min-h-[400px] border-r border-b border-[var(--color-border-subtle)] overflow-hidden transition-colors hover:bg-[var(--color-bg-secondary)]"
+            className="group relative flex flex-col justify-between p-8 md:p-12 bg-[var(--color-bg-primary)]  border-r border-b border-[var(--color-border-default)] overflow-hidden transition-colors hover:bg-[var(--color-bg-secondary)]"
         >
-            <div className="space-y-4">
-                <span className="text-[var(--color-text-primary)] font-semibold text-xs uppercase tracking-widest opacity-60">
-                    Oferta del día
-                </span>
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-[var(--color-text-primary)] leading-tight">
-                    Precios fugaces. <br />
-                    <span className="text-[var(--color-text-tertiary)] group-hover:text-[var(--color-text-primary)] transition-colors duration-500">Oportunidad única.</span>
+            <div>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tight text-[var(--color-text-primary)] leading-tight uppercase font-sans group-hover:text-[var(--color-accent-hover)] transition-colors duration-300">
+                    Ofertas del día
                 </h2>
             </div>
 
             <div className="flex items-end justify-between">
-                <div className="flex items-baseline gap-4">
+                <div className="flex items-baseline gap-4 bg-[var(--color-bg-secondary)] group-hover:bg-[var(--color-bg-primary)] px-4 py-2 rounded-md border border-[var(--color-border-subtle)] transition-colors">
                     <TimeDisplay value={timeLeft.hours} label="h" />
                     <TimeDisplay value={timeLeft.minutes} label="m" />
                     <TimeDisplay value={timeLeft.seconds} label="s" />
                 </div>
-                <ChevronRight className="w-6 h-6 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-text-primary)] group-hover:translate-x-1 transition-all" />
+                <ChevronRight className="w-6 h-6 text-[var(--color-text-tertiary)] group-hover:text-[var(--color-accent-hover)] group-hover:translate-x-1 transition-all" />
             </div>
         </Link>
     );
@@ -53,9 +49,9 @@ export default function HeroFlashSale() {
 
 const TimeDisplay = ({ value, label }: { value: number; label: string }) => (
     <div className="flex items-baseline gap-0.5">
-        <span className="text-3xl font-bold tabular-nums tracking-tighter text-[var(--color-text-primary)]">
+        <span className="text-3xl font-black tabular-nums tracking-tighter text-[var(--color-text-primary)] font-mono">
             {value.toString().padStart(2, "0")}
         </span>
-        <span className="text-xs font-medium text-[var(--color-text-tertiary)] uppercase">{label}</span>
+        <span className="text-xs font-black text-[var(--color-accent-hover)] uppercase font-sans">{label}</span>
     </div>
 );

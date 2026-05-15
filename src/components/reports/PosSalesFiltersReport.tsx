@@ -6,9 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const tabs = [
-    { href: "/sales", label: "General", icon: LayoutDashboard },
-    { href: "/sales/products", label: "Productos", icon: Package },
-    { href: "/sales/vendors", label: "Vendedores", icon: Users },
+    { href: "/reports", label: "General", icon: LayoutDashboard },
+    { href: "/reports/products", label: "Productos", icon: Package },
+    { href: "/reports/vendors", label: "Vendedores", icon: Users },
 ];
 
 export default function PosSalesFiltersReport() {

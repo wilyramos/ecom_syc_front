@@ -7,7 +7,6 @@ import {
     AccordionContent,
 } from "@/components/ui/accordion";
 import type { ProductWithCategoryResponse } from "@/src/schemas";
-import { getDeliveryRange } from "@/lib/utils";
 import Link from "next/link";
 import { Truck, ShieldCheck, ChevronRight, FileText } from "lucide-react";
 
@@ -46,20 +45,20 @@ export default function ProductExpandableSections({ producto }: Props) {
                     </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-12 pt-2 px-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="flex">
                         {/* Información de Entrega */}
                         <div className="space-y-4">
-                            <div className="space-y-1">
+                            {/* <div className="space-y-1">
                                 <h4 className="text-[11px] font-bold text-[var(--color-text-tertiary)] uppercase tracking-[0.1em]">
                                     Fecha estimada de entrega
                                 </h4>
                                 <p className="text-3xl font-bold text-[var(--color-text-primary)] tracking-tight">
                                     {getDeliveryRange(producto.diasEnvio || 1)}
                                 </p>
-                            </div>
-                            <p className="text-sm text-[var(--color-text-tertiary)] leading-relaxed max-w-xs">
+                            </div> */}
+                            {/* <p className="text-sm text-[var(--color-text-tertiary)] leading-relaxed max-w-xs">
                                 Recibe tu pedido directamente en tu domicilio con nuestra red de logística prioritaria.
-                            </p>
+                            </p> */}
                             {hasWeight && (
                                 <div className="pt-2 flex items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
                                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-default)]" />
@@ -106,7 +105,7 @@ export default function ProductExpandableSections({ producto }: Props) {
                         <p className="text-base text-[var(--color-text-tertiary)] leading-relaxed">
                             Todos los productos son <span className="text-[var(--color-text-primary)] font-semibold">100% originales.</span> Cuentan con respaldo oficial de hardware válido directamente de la misma marca, generalmente por un periodo de <span className="text-[var(--color-text-primary)] font-semibold">12 meses.</span>
                         </p>
-                        
+
                         <div className="inline-flex items-start gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)]">
                             <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
                             <p className="text-xs text-[var(--color-text-tertiary)] font-medium leading-relaxed">

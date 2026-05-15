@@ -1,7 +1,6 @@
 import { getProductsByAdmin } from "@/src/services/products";
 import ProductsTablePOS from "@/components/POS/products/ProductsTablePOS";
 import Pagination from "@/components/home/Pagination";
-import ProductSearchInput from "@/components/admin/products/ProductSearchInput";
 
 type SearchParams = Promise<{
     page?: string;
@@ -24,7 +23,7 @@ export default async function pageProductosPOS({ searchParams }: { searchParams:
 
     return (
         <>
-            <ProductSearchInput />
+            {/* <ProductSearchInput /> */}
             <ProductsTablePOS products={productsData} />
             <div className="pt-2">
                 <Pagination

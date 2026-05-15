@@ -40,7 +40,7 @@ export default function ButtonSearchMobile() {
         <>
             <button
                 onClick={() => setOpenSearch(!openSearch)}
-                className="md:hidden p-2 rounded-full text-[var(--color-text-inverse)] hover:bg-[var(--color-surface-hover)] transition-colors active:scale-95"
+                className="md:hidden p-2 rounded-full text-[var(--color-text-primary)] hover:bg-[var(--color-text-secondary)] transition-colors active:scale-95"
                 aria-label="Buscar productos"
             >
                 {openSearch ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}

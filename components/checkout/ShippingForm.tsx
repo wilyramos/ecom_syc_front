@@ -213,7 +213,7 @@ export default function ShippingForm() {
                 <Input 
                     {...register('direccion', { required: true })} 
                     aria-invalid={errors.direccion ? "true" : "false"}
-                    placeholder="Av. Principal 123"
+                    placeholder="Ej. Av. Principal 123, Urb. Las Flores..."
                 />
                 <div className="h-6">
                     {errors.direccion && <ErrorMessage>La dirección es obligatoria</ErrorMessage>}

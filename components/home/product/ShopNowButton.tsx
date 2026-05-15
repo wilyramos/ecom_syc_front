@@ -47,7 +47,7 @@ ${detallesVariante ? detallesVariante + "\n" : ""}*Precio:* S/ ${precioFinal.toF
 \n¿Podrían confirmarme la disponibilidad para concretar el pedido?`;
 
         // 3. Generar URL y redireccionar
-        const whatsappUrl = `https://wa.me/51925054636?text=${encodeURIComponent(mensaje)}`;
+        const whatsappUrl = `https://wa.me/51972416683?text=${encodeURIComponent(mensaje)}`;
 
         toast.success("Redirigiendo a WhatsApp...");
         window.open(whatsappUrl, '_blank');

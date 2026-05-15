@@ -6,8 +6,15 @@ import SidebarProfileNav from '@/components/profile/SidebarProfileNav';
 
 export default async function ProfileLayout({ children }: { children: React.ReactNode }) {
     const { user } = await verifySession();
-    // if (user.rol === 'administrador') redirect('/admin');
-    if (!user) redirect('/auth/login');
+    // Validar que el usuario exista
+    if (!user) {
+        redirect('/auth/login');
+    }
+
+    // Redireccionar a admin si el usuario es administrador
+    if (user.rol === 'administrador') {
+        redirect('/admin');
+    }
 
     return (
         <div className="flex flex-col md:flex-row bg-[var(--color-bg-primary)]">

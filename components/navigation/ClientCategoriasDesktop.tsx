@@ -136,13 +136,13 @@ function CategoryCard({
                     {hasImage && (
                         <div
                             className="
-                                relative flex h-[140px]
+                                relative flex h-[100px]
                                 items-center justify-center
                                 bg-[var(--color-bg-secondary)]
                             "
                         >
                             <Image
-                                src={image}
+                                src={image || "/logoblanco.svg"}
                                 alt={title}
                                 fill
                                 quality={90}

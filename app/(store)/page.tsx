@@ -81,7 +81,7 @@ export default function HomePage() {
                 <ProductosNuevos />
             </section>
 
-            <section className="py-20 bg-[var(--color-bg-primary)]">
+            <section className=" bg-[var(--color-bg-primary)]">
                 <div className="max-w-7xl mx-auto border-t border-l border-[var(--color-border-subtle)]">
                     <div className="grid grid-cols-1 md:grid-cols-2">
                         {/* Fila 1 */}

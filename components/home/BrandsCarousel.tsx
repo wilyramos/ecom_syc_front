@@ -23,7 +23,7 @@ export default function BrandsCarousel({ brands }: { brands: TBrand[] }) {
         <section className="w-full max-w-7xl mx-auto px-4 lg:px-0 mb-16">
             {/* Encabezado Estandarizado Apple Style */}
             <HeaderConTituloConControles 
-                title={"Marcas disponibles"} 
+                title={"Marcas"} 
                 viewAllHref="/catalogo"
             />
 
@@ -43,7 +43,7 @@ export default function BrandsCarousel({ brands }: { brands: TBrand[] }) {
                     <Link 
                         key={b._id} 
                         href={routes.catalog({ brand: b.slug })}
-                        className="group relative flex items-center justify-center transition-all duration-700 grayscale opacity-40 hover:grayscale-0 hover:opacity-100"
+                        className="group relative flex items-center justify-center "
                     >
                         {/* Contenedor del Logo con altura fija para alineación visual */}
                         <div className="relative h-12 md:h-16 w-full flex items-center justify-center">

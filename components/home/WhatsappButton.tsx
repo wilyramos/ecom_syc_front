@@ -7,7 +7,7 @@ export default function WhatsappButton() {
     return (
         <div className="fixed bottom-24 md:bottom-6 left-4 md:left-6 z-50 group">
             <Link
-                href="https://wa.me/51925054636?text=Hola%2C%20queria%20consultar%20sobre%20"
+                href="https://wa.me/51972416683?text=Hola%2C%20queria%20consultar%20sobre%20"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="

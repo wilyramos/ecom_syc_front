@@ -39,7 +39,7 @@ export default function ButtonShowCart() {
         }).join("\n\n");
 
         const message = `Hola GoPhone! 📱 Me gustaría realizar el siguiente pedido:\n\n${itemsMessage}\n\n*Total a pagar: S/ ${total}*\n\n¿Podrían confirmarme la disponibilidad para coordinar el pago y envío?`;
-        const whatsappUrl = `https://wa.me/51925054636?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/51972416683?text=${encodeURIComponent(message)}`;
 
         setCartOpen(false);
         window.open(whatsappUrl, '_blank');
@@ -51,7 +51,7 @@ export default function ButtonShowCart() {
                 <button className="relative p-2 rounded-full transition-all duration-300 hover:bg-[var(--color-bg-secondary)] group cursor-pointer active:scale-95">
                     <IoMdCart
                         size={20}
-                        className="text-[var(--color-text-inverse)] group-hover:text-[var(--color-accent)] transition-colors"
+                        className="text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors"
                     />
                     {carrito.length > 0 && (
                         <span className="absolute -top-0.5 -right-0.5 bg-[var(--color-accent)] text-[var(--color-text-inverse)] text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center shadow-sm animate-in zoom-in duration-200">
@@ -79,7 +79,7 @@ export default function ButtonShowCart() {
                 <div className="flex-1 overflow-y-auto overflow-x-hidden px-5 py-2 scrollbar-hide">
                     {carrito.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center space-y-4">
-                            <div className="p-6 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-tertiary)]">
+                            <div className="p-6 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)]">
                                 <ShoppingCart size={40} strokeWidth={1.5} />
                             </div>
                             <div className="text-center space-y-1">

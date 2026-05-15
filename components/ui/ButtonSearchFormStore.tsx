@@ -132,7 +132,7 @@ export default function ButtonSearchFormStore({ isMobile = false, onSearchComple
                         className="
                         h-11 w-full
                         rounded-full
-                        
+                        border-none
                         bg-[var(--color-bg-secondary)]
                         pl-11
                         pr-11

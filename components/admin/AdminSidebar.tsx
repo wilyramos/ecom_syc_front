@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
-    LayoutDashboard,
     Package2, Shapes,
     BarChart3, Store,
     ChevronDown
@@ -23,7 +22,7 @@ type NavLink = {
 };
 
 const links: NavLink[] = [
-    { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
+    // { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
     { href: "/admin/products", icon: Package2, label: "Productos" },
     { href: "/admin/slider", icon: RiSlideshow2Line, label: "Slider" },
     {
@@ -150,7 +149,6 @@ export default function AdminSidebar({ user }: { user: User }) {
                         </div>
                     </div>
 
-                    {/* Componente AdminMenu integrado aquí */}
                     <AdminMenu user={user} />
                 </div>
             </div>
