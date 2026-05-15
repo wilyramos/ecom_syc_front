@@ -48,14 +48,14 @@ export default function ButtonShowSheetMobile({ categories }: Props) {
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <button className="p-2 text-[var(--color-text-primary)] active:scale-95 transition-transform outline-none">
+                <button className="p-2 text-[var(--color-text-primary)] active:scale-95 transition-transform outline-none hover:bg-[var(--color-surface-hover)]">
                     <Menu size={26} strokeWidth={1.5} />
                 </button>
             </SheetTrigger>
 
             <SheetContent
                 side="left"
-                className="flex flex-col p-0"
+                className="flex flex-col h-full p-0 border-l border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] overflow-hidden"
             >
                 <div className="px-4 pt-3 border-b border-[var(--color-border-subtle)]">
                     <SheetHeader className="text-left">
@@ -93,7 +93,7 @@ export default function ButtonShowSheetMobile({ categories }: Props) {
                     </div>
 
                     <div className="px-2 pb-10">
-                        <h3 className="text-[10px] font-bold text-[var(--color-text-tertiary)] uppercase tracking-[0.2em] mb-4 ml-2">Explorar</h3>
+                        <h3 className="text-[10px] font-bold text-[var(--color-text-tertiary)] uppercase mb-4 ml-2">Categorias</h3>
                         <div className="space-y-1">
                             {categories.filter(c => !c.parent).map((parent) => (
                                 <details key={parent._id} className="group overflow-hidden border border-transparent hover:border-[var(--color-border-subtle)] transition-all">

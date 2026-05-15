@@ -12,17 +12,17 @@ interface Props {
 
 export default function HeaderConTituloConControles({ title, viewAllHref, label }: Props) {
     return (
-        <div className="w-full flex flex-col gap-1 mb-8">
-            <div className="flex items-end justify-between border-b border-[var(--color-border-subtle)] pb-4">
+        <div className="w-full flex flex-col gap-1 mb-4">
+            <div className="flex items-end justify-between pb-4">
                 
                 {/* Título y Label */}
                 <div className="flex flex-col gap-1">
                     {label && (
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-text-secondary)]">
                             {label}
                         </span>
                     )}
-                    <h2 className="text-xl md:text-2xl font-bold tracking-tighter text-[var(--color-text-primary)] leading-none">
+                    <h2 className="text-xl md:text-2xl font-semibold tracking-tighter text-[var(--color-text-primary)] leading-none">
                         {title}
                     </h2>
                 </div>
@@ -43,7 +43,7 @@ export default function HeaderConTituloConControles({ title, viewAllHref, label 
             {viewAllHref && (
                 <Link 
                     href={viewAllHref} 
-                    className="md:hidden text-xs font-bold uppercase tracking-widest text-[var(--color-text-primary)] flex items-center gap-1 pt-2"
+                    className="md:hidden text-xs font-semibold uppercase tracking-widest text-[var(--color-text-primary)] flex items-center gap-1 pt-2"
                 >
                     Ver todo <ChevronRight size={12} />
                 </Link>

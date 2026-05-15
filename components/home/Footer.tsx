@@ -76,11 +76,11 @@ export default function Footer() {
                                 {[
                                     {
                                         icon: <FaInstagram size={16} />,
-                                        href: "https://instagram.com/gophone.pe",
+                                        href: "https://instagram.com/sycmobile.peru",
                                     },
                                     {
                                         icon: <FaFacebookF size={15} />,
-                                        href: "https://facebook.com/gophone.pe",
+                                        href: "https://www.facebook.com/p/SYC-Mobile-Per%C3%BA-100090151432838/",
                                     },
                                     {
                                         icon: <FaWhatsapp size={16} />,

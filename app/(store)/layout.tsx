@@ -42,16 +42,18 @@ export const metadata: Metadata = {
     }
 };
 
+
+// File: frontend/app/(store)/layout.tsx
+
 export default function layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            {/* <StoreMaintenance /> */}
             <section className="flex flex-col min-h-screen">
-                {/* Asegura que el header sea inferior al z-9999 del banner */}
                 <header className="relative z-40">
                     <NavBar />
                 </header>
 
+                {/* Ajusta el padding-top según tu navbar: 20 sin aviso, 24-28 con aviso */}
                 <main className="flex-1 pt-20 md:pt-28">
                     {children}
                 </main>
