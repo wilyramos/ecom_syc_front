@@ -87,7 +87,6 @@ export default function HomePage() {
                         {/* Fila 1 */}
                         <HeroFlashSale />
                         <HeroNewArrivals />
-
                     </div>
                 </div>
             </section>

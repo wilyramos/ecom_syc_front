@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 function NavigationMenu({
   className,
   children,
-  viewport = true,
+  viewport = false,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
   viewport?: boolean

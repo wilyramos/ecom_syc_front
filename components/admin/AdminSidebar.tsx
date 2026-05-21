@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import {
     Package2, Shapes,
     BarChart3, Store,
-    ChevronDown
+    ChevronDown,
+    Library
 } from "lucide-react";
 import { User } from "@/src/schemas";
 import Logo from "../ui/Logo";
-import { RiSlideshow2Line } from "react-icons/ri";
 import AdminMenu from "@/components/admin/AdminMenu"; // Asegúrate que la ruta sea correcta
 
 type NavLink = {
@@ -24,7 +24,7 @@ type NavLink = {
 const links: NavLink[] = [
     // { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
     { href: "/admin/products", icon: Package2, label: "Productos" },
-    { href: "/admin/slider", icon: RiSlideshow2Line, label: "Slider" },
+    // { href: "/admin/slider", icon: RiSlideshow2Line, label: "Slider" },
     {
         icon: Shapes,
         label: "Catálogo",
@@ -32,6 +32,14 @@ const links: NavLink[] = [
             { href: "/admin/brands", label: "Marcas" },
             { href: "/admin/lines", label: "Líneas" },
             { href: "/admin/products/category", label: "Categorías" },
+        ],
+    },
+    {
+        icon: Library,
+        label: "Marketing",
+        children: [
+            { href: "/admin/slider", label: "Slider" },
+            { href: "/admin/collections", label: "Colecciones" },
         ],
     },
     { href: "/admin/reports", icon: BarChart3, label: "Reportes" },

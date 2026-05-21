@@ -1,4 +1,3 @@
-// frontend/components/navigation/NavBar.tsx
 import Link from "next/link";
 import Logo from "../ui/Logo";
 import ButtonShowCart from "../ui/ButtonShowCart";
@@ -12,28 +11,31 @@ import { HiOutlineUser } from "react-icons/hi";
 export default function NavBar() {
     return (
         <NavBarClient>
-            <header className="sticky top-0 z-50 h-20 flex flex-col justify-center text-[var(--color-text-secondary)]  transition-colors duration-300">
-                <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 ">
+            <header className="sticky top-0 z-50 h-20 flex flex-col justify-center text-[var(--color-text-secondary)] transition-colors duration-300">
+                {/* Añadimos 'relative' al contenedor padre para que el posicionamiento absoluto del logo móvil funcione correctamente */}
+                <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 relative">
 
                     {/* Left column */}
-                    <div className="flex justify-start items-start gap-1">
+                    <div className="flex justify-start items-center gap-1">
                         <div className="md:hidden flex items-center gap-1">
                             <ServerSheetMobile />
                             <ButtonSearchMobile />
                         </div>
-                        <Link href="/" className="relative hidden h-20 w-[140px] md:flex"
-
-                        >
+                        <Link href="/" className="relative hidden h-20 w-[140px] md:flex">
                             <Logo color="black" size="fill" />
                         </Link>
                     </div>
 
                     {/* Center column */}
-                    <div className="flex items-center justify-center ">
-                        <Link href="/" className="relative h-19 w-full max-w-[140px] flex items-center justify-center md:hidden">
-                            <Logo color="black" size="fill" />
-                            {/* S&C Mobile */}
-                        </Link>
+                    <div className="flex items-center justify-center">
+                        {/* LOGO MÓVIL: Absoluto, centrado matemáticamente a la mitad de la pantalla */}
+                        <div className="md:hidden absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
+                            <Link href="/" className="relative h-19 w-[140px] flex items-center justify-center">
+                                <Logo color="black" size="fill" />
+                            </Link>
+                        </div>
+                        
+                        {/* Buscador de escritorio se mantiene intacto */}
                         <div className="hidden md:flex flex-1 w-full max-w-xl">
                             <ButtonSearchFormStore />
                         </div>

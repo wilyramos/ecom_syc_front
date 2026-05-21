@@ -33,6 +33,12 @@ export default function Footer() {
                 desc: "Normativa vigente MTC",
                 external: true,
             },
+            {
+                label: "Checa tu cel no registrado",
+                href: "https://checacelnoregistrado.osiptel.gob.pe/",
+                desc: "Verifica si tu celular está registrado",
+                external: true,
+            }
         ],
         soporte: [
             { label: "Centro de ayuda", href: "/hc/contacto-y-soporte" },

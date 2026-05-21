@@ -39,7 +39,7 @@ export default function Logo({
                     priority
                     quality={90}
                     sizes="(max-width: 768px) 100vw, 300px"
-                    className="object-contain object-left"
+                    className="object-contain object-center"
                 />
             </div>
         );

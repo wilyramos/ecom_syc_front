@@ -26,7 +26,7 @@ export default function NavBarClient({ children }: { children: ReactNode }) {
                 `}
             >
                 <div className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] border-b border-white/10">
-                    <div className="flex items-center justify-center gap-2 px-4 py-2">
+                    <div className="flex items-center justify-center gap-2 px-4">
                         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
                             <Truck size={15} strokeWidth={2} />
                         </div>
