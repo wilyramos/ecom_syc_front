@@ -7,9 +7,8 @@ import ProductosDestacados from "@/components/home/ProductosDestacados";
 import CategoriasDestacadasWrapper from "@/components/home/CategoriasDestacadasWrapper";
 import FeaturesList from "@/components/home/FeaturesList";
 import BrandsList from "@/components/home/BrandsList";
-import HeroNewArrivals from "@/components/catalog/HeroNewArrivals";
-import HeroFlashSale from "@/components/home/FlashSaleBanner";
 import CarruselPrincipal from "@/components/home/CarruselPrincipal";
+import ColleccionesSection from "@/components/home/Colleccionessection";
 
 // Metadata for SEO and social sharing
 export const metadata: Metadata = {
@@ -81,14 +80,8 @@ export default function HomePage() {
                 <ProductosNuevos />
             </section>
 
-            <section className=" bg-[var(--color-bg-primary)]">
-                <div className="max-w-7xl mx-auto border-t border-l border-[var(--color-border-subtle)]">
-                    <div className="grid grid-cols-1 md:grid-cols-2">
-                        {/* Fila 1 */}
-                        <HeroFlashSale />
-                        <HeroNewArrivals />
-                    </div>
-                </div>
+            <section className="bg-[var(--color-bg-primary)]">
+                <ColleccionesSection />
             </section>
 
 

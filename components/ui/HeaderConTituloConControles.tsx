@@ -22,7 +22,7 @@ export default function HeaderConTituloConControles({ title, viewAllHref, label 
                             {label}
                         </span>
                     )}
-                    <h2 className="text-xl md:text-2xl font-semibold tracking-tighter text-[var(--color-text-primary)] leading-none">
+                    <h2 className="text-base md:text-lg font-semibold tracking-tighter text-[var(--color-text-primary)] leading-none">
                         {title}
                     </h2>
                 </div>

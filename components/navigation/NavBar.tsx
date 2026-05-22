@@ -16,13 +16,22 @@ export default function NavBar() {
                 <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 relative">
 
                     {/* Left column */}
-                    <div className="flex justify-start items-center gap-1">
+                    <div className="flex justify-start items-center gap-6">
                         <div className="md:hidden flex items-center gap-1">
                             <ServerSheetMobile />
                             <ButtonSearchMobile />
                         </div>
-                        <Link href="/" className="relative hidden h-20 w-[140px] md:flex">
+                        
+                        <Link href="/" className="relative hidden h-20 w-[140px] md:flex items-center">
                             <Logo color="black" size="fill" />
+                        </Link>
+
+                        {/* Botón "Nosotros" para escritorio */}
+                        <Link 
+                            href="/nosotros" 
+                            className="hidden md:block text-sm font-medium text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                        >
+                            Nosotros
                         </Link>
                     </div>
 

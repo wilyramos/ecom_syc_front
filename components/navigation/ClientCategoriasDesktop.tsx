@@ -41,7 +41,7 @@ export default function ClientCategoriasDesktop({
     return (
         <NavigationMenu className="z-50 w-full max-w-none justify-start">
             <NavigationMenuList className="flex items-center gap-1">
-                
+
                 {/* 1. SECCIÓN DE CATEGORÍAS */}
                 {rootCategories.map((cat) => {
                     const sub = grouped[cat._id] || [];
@@ -54,7 +54,7 @@ export default function ClientCategoriasDesktop({
                             {sub.length > 0 && (
                                 <NavigationMenuContent>
                                     <div className="grid grid-cols-[240px_1fr] w-[740px] bg-card overflow-hidden">
-                                        
+
                                         {/* Panel izquierdo */}
                                         <div className="bg-background-secondary p-6 flex flex-col justify-between relative group">
                                             <Link
@@ -95,7 +95,7 @@ export default function ClientCategoriasDesktop({
                     );
                 })}
 
-                {/* 2. SECCIÓN DE COLECCIONES (Renderizadas directamente al lado de las categorías) */}
+                {/* 2. SECCIÓN DE COLECCIONES */}
                 {collections.map((col) => {
                     const hasCustomColor = typeof col.color === "string" && col.color.trim().length > 0;
                     const customColor = col.color ?? undefined;
@@ -105,15 +105,18 @@ export default function ClientCategoriasDesktop({
                             <NavigationMenuLink asChild>
                                 <Link
                                     href={`/colecciones/${col.slug}`}
-                                    className="group relative flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-background-secondary/60 transition-all duration-200"
-                                    style={hasCustomColor ? { 
+                                    className="group flex items-center flex-row gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-background-secondary/60"
+                                    style={hasCustomColor ? {
+                                        color: customColor,
                                         "--collection-hover-color": customColor,
-                                    } as React.CSSProperties : undefined}
+                                    } as React.CSSProperties : {
+                                        color: "currentColor"
+                                    }}
                                 >
-                                    {/* Indicador / Contenedor visual de la Colección */}
+                                    {/* Icono / Imagen forzado al lado izquierdo en la misma línea */}
                                     <div
                                         className="w-5 h-5 rounded-md flex-shrink-0 overflow-hidden border border-border/60 flex items-center justify-center bg-background transition-transform group-hover:scale-105"
-                                        style={hasCustomColor ? { backgroundColor: customColor } : undefined}
+                                        style={hasCustomColor ? { borderColor: customColor } : undefined}
                                     >
                                         {col.image ? (
                                             <Image
@@ -122,23 +125,26 @@ export default function ClientCategoriasDesktop({
                                                 width={20}
                                                 height={20}
                                                 className="object-cover w-full h-full"
+                                                unoptimized
+                                                quality={5}
                                             />
                                         ) : col.icon ? (
-                                            <span 
-                                                className="text-xs leading-none"
-                                                style={hasCustomColor ? { color: "#fff", filter: "drop-shadow(0px 1px 1px rgba(0,0,0,0.2))" } : undefined}
+                                            <span
+                                                className="text-xs leading-none flex items-center justify-center"
+                                                style={hasCustomColor ? { color: customColor } : undefined}
                                             >
                                                 {col.icon}
                                             </span>
-                                        ) : hasCustomColor ? null : (
-                                            <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
+                                        ) : (
+                                            <div
+                                                className="w-1.5 h-1.5 rounded-full"
+                                                style={hasCustomColor ? { backgroundColor: customColor } : { backgroundColor: "var(--muted-foreground)" }}
+                                            />
                                         )}
                                     </div>
 
-                                    {/* Texto con cambio de color dinámico en Hover */}
-                                    <span 
-                                        className="transition-colors duration-200 group-hover:text-[var(--collection-hover-color,var(--primary))]"
-                                    >
+                                    {/* Nombre de la colección alineado horizontalmente */}
+                                    <span className="transition-colors duration-200 whitespace-nowrap">
                                         {col.name}
                                     </span>
                                 </Link>
@@ -166,7 +172,7 @@ function ListItem({
             <NavigationMenuLink asChild>
                 <Link
                     href={href}
-                    className="group flex items-center gap-2.5 p-1.5 rounded transition-colors hover:bg-background-secondary"
+                    className="group flex items-center gap-1 transition-colors hover:bg-background-secondary"
                 >
                     <div className="relative w-7 h-7 flex-shrink-0 bg-background overflow-hidden border border-border rounded transition-colors">
                         {image ? (
@@ -176,7 +182,7 @@ function ListItem({
                                 fill
                                 className="object-contain p-0.5 transition-transform duration-300 group-hover:scale-105"
                                 sizes="28px"
-                                quality={40}
+                                quality={10}
                                 unoptimized
                             />
                         ) : (
