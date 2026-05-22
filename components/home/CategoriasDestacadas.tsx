@@ -18,7 +18,7 @@ export default function ClientCarouselCategorias({ categorias }: { categorias: C
     };
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 lg:px-0 mb-12">
+        <section className="w-full max-w-7xl mx-auto px-4 lg:px-0 ">
             {/* Encabezado sin rellenos internos, solo margen inferior */}
             <HeaderConTituloConControles
                 viewAllHref="/categorias"

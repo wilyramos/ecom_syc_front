@@ -2,7 +2,6 @@
 
 import { Metadata } from "next";
 import { metadata as globalMetadata } from "@/app/layout";
-import ProductosNuevos from "@/components/home/ProductosNuevos";
 import ProductosDestacados from "@/components/home/ProductosDestacados";
 import CategoriasDestacadasWrapper from "@/components/home/CategoriasDestacadasWrapper";
 import FeaturesList from "@/components/home/FeaturesList";
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
     description:
         "S&C Mobile es tu tienda de confianza en Cañete para la compra de celulares, accesorios y más. Ofrecemos productos de calidad, envío rápido y atención personalizada.",
     keywords: [
-        "GoPhone",
+        "S&C Mobile",
         "tienda iPhone Cañete",
         "venta de celulares Cañete",
         "accesorios para celulares",
@@ -28,17 +27,6 @@ export const metadata: Metadata = {
         "comprar iPhone Cañete",
         "gadgets Cañete",
         "tienda online Cañete",
-        "GoPhone Perú",
-        "cases y fundas Cañete",
-        "cargadores y cables Cañete",
-        "auriculares y audífonos Cañete",
-        "repuestos y reparación de celulares",
-        "ofertas de tecnología Cañete",
-        "smartphones en Cañete",
-        "tienda de tecnología en Cañete",
-        "iPhone",
-        "audífonos",
-        "cases"
     ],
     openGraph: {
         ...globalMetadata.openGraph,
@@ -51,16 +39,16 @@ export const metadata: Metadata = {
                 url: "https://sycmobile.pe/favicon.ico",
                 width: 1200,
                 height: 630,
-                alt: "GoPhone Home - Accesorios y Tecnología",
+                alt: "S&C Mobile Home - Accesorios y Tecnología",
             },
         ],
     },
     twitter: {
         ...globalMetadata.twitter,
-        title: "GoPhone - Venta de accesorios y tecnología en Cañete",
+        title: "S&C Mobile - Venta de accesorios y tecnología en Cañete",
         description:
-            "Compra iPhones, accesorios y más en GoPhone, tu tienda online de confianza en Cañete.",
-        images: ["https://gophone.pe/favicon.ico"],
+            "Compra iPhones, accesorios y más en S&C Mobile, tu tienda online de confianza en Cañete.",
+        images: ["https://sycmobile.pe/favicon.ico"],
     }
 };
 
@@ -71,16 +59,15 @@ export default function HomePage() {
             <section className="">
                 <CarruselPrincipal />
             </section>
-            <section className="py-10">
+            <section className="py-5">
                 <CategoriasDestacadasWrapper />
             </section>
-
-
-            <section className="py-10 bg-[var(--color-bg-secondary)]">
+            {/* 
+            <section className="py-5 bg-[var(--color-bg-secondary)]">
                 <ProductosNuevos />
-            </section>
+            </section> */}
 
-            <section className="bg-[var(--color-bg-primary)]">
+            <section className="bg-[var(--color-bg-primary) py-5">
                 <ColleccionesSection />
             </section>
 

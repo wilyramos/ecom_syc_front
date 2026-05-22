@@ -20,6 +20,6 @@ export const useRecentlyViewedStore = create<RecentlyViewedState>()(
             }),
             clearHistory: () => set({ history: [] }),
         }),
-        { name: 'gophone-recent-v3' } // LocalStorage Key
+        { name: 'sycmobile-recent-v3' } // LocalStorage Key
     )
 );

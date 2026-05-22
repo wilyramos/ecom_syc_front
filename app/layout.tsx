@@ -9,12 +9,12 @@ import MercadoPagoProvider from "@/components/provider/MercadoPagoProvider";
 
 const poppins = Poppins({
     subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700"],
+    weight: ["500"],
     display: "swap",
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://gophone.pe"),
+    metadataBase: new URL("https://sycmobile.pe"),
     title: {
         default: "S&C Mobile",
         template: "%s | S&C Mobile"

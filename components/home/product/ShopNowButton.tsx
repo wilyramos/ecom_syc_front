@@ -41,7 +41,7 @@ export default function ShopNowButton({ product, variant, disabled }: Props) {
                 .join("\n")
             : "";
 
-        const mensaje = `Hola GoPhone! Me interesa comprar este producto:
+        const mensaje = `Hola S&C Mobile! Me interesa comprar este producto:
 \n*Producto:* ${product.nombre}
 ${detallesVariante ? detallesVariante + "\n" : ""}*Precio:* S/ ${precioFinal.toFixed(2)}
 \n¿Podrían confirmarme la disponibilidad para concretar el pedido?`;

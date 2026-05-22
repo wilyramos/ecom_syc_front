@@ -38,7 +38,7 @@ export default function ButtonShowCart() {
             return `• ${item.nombre} ${variantInfo ? `(${variantInfo})` : ""} \n  Cant: ${item.cantidad} - Subtotal: S/ ${(item.precio * item.cantidad).toFixed(2)}`;
         }).join("\n\n");
 
-        const message = `Hola GoPhone! 📱 Me gustaría realizar el siguiente pedido:\n\n${itemsMessage}\n\n*Total a pagar: S/ ${total}*\n\n¿Podrían confirmarme la disponibilidad para coordinar el pago y envío?`;
+        const message = `Hola S&C Mobile! 📱 Me gustaría realizar el siguiente pedido:\n\n${itemsMessage}\n\n*Total a pagar: S/ ${total}*\n\n¿Podrían confirmarme la disponibilidad para coordinar el pago y envío?`;
         const whatsappUrl = `https://wa.me/51972416683?text=${encodeURIComponent(message)}`;
 
         setCartOpen(false);

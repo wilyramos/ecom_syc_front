@@ -26,13 +26,20 @@ export default function NavBar() {
                             <Logo color="black" size="fill" />
                         </Link>
 
-                        {/* Botón "Nosotros" para escritorio */}
+                        {/* Botón "Nosotros y soporte tecnico" para escritorio */}
                         <Link 
                             href="/nosotros" 
-                            className="hidden md:block text-sm font-medium text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                            className="hidden md:block text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200"
                         >
                             Nosotros
                         </Link>
+                        <Link
+                            href="/soporte-tecnico"
+                            className="hidden md:block text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                        >
+                            Soporte Técnico
+                        </Link>
+
                     </div>
 
                     {/* Center column */}
@@ -54,7 +61,7 @@ export default function NavBar() {
                     <div className="flex items-center justify-end gap-2">
                         <div className="hidden md:flex items-center gap-1">
                             <Link
-                                href="/auth/registro"
+                                href="/auth/login"
                                 className="flex items-center gap-1 text-[var(--color-text-primary)] rounded-full transition-colors duration-200 hover:text-[var(--color-accent)]"
                                 aria-label="Cuenta"
                             >

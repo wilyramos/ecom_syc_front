@@ -9,7 +9,7 @@ export default async function ProductosNuevos() {
     }
 
     return (
-        <section className="mx-auto py-5 ">
+        <section className="mx-auto ">
             <div className=" mx-auto space-y-2">
                 <ClientCarouselProductosNuevos products={newProducts.products} />
             </div>

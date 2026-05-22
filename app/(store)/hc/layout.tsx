@@ -22,15 +22,15 @@ export const metadata: Metadata = {
         title: "Centro de Ayuda | Gophone Perú",
         description:
             "Soporte y soluciones rápidas para tus compras en Gophone. Revisa garantías, devoluciones, políticas, contacto y más.",
-        url: "https://gophone.pe/hc",
+        url: "https://sycmobile.pe/hc",
         siteName: "Gophone Perú",
         type: "website",
         images: [
             {
-                url: "https://gophone.pe/og-image.jpg", // *Si no tienes imagen aún, puedo generarte una*
+                url: "https://sycmobile.pe/og-image.jpg", // *Si no tienes imagen aún, puedo generarte una*
                 width: 1200,
                 height: 630,
-                alt: "Centro de Ayuda Gophone Perú"
+                alt: "Centro de Ayuda sycmobile Perú"
             },
         ],
     },

@@ -22,10 +22,9 @@ export default function ClientCarouselProductosNuevos({ products }: Props) {
         <section className="w-full max-w-7xl mx-auto relative px-4 lg:px-0">
             {/* Encabezado simple sin controles de flechas */}
             <HeaderConTituloConControles
-                label="Novedades"
                 title={
                     <>
-                        Nuevos
+                        Nuevos productos
                     </>
                 }
                 viewAllHref="/novedades"

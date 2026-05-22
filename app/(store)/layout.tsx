@@ -19,26 +19,26 @@ export const metadata: Metadata = {
         ...globalMetadata.openGraph,
         title: "S&C Mobile",
         description:
-            "Productos, compras, cuenta y soporte dentro de la tienda GoPhone.",
-        url: "https://gophone.pe/productos",
+            "Productos, compras, cuenta y soporte dentro de la tienda S&C Mobile.",
+        url: "https://sycmobile.pe/productos",
         images: [
             {
-                url: "https://gophone.pe/favicon.ico",
+                url: "https://sycmobile.pe/favicon.ico",
                 width: 1200,
                 height: 630,
-                alt: "GoPhone Tienda"
+                alt: "S&C Mobile Tienda"
             }
         ]
     },
     twitter: {
         ...globalMetadata.twitter,
-        title: "GoPhone | Tienda",
+        title: "S&C Mobile | Tienda",
         description:
-            "Explora productos, compras y soporte en la tienda GoPhone.",
-        images: ["https://gophone.pe/favicon.ico"]
+            "Explora productos, compras y soporte en la tienda S&C Mobile.",
+        images: ["https://sycmobile.pe/favicon.ico"]
     },
     alternates: {
-        canonical: "https://gophone.pe/catalogo"
+        canonical: "https://sycmobile.pe/catalogo"
     }
 };
 

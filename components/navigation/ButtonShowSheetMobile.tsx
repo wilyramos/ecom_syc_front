@@ -32,12 +32,12 @@ export default function ButtonShowSheetMobile({ categories }: Props) {
 
     const mainLinks = [
         {
-            href: "/novedades",
-            label: "Novedades",
+            href: "/nosotros",
+            label: "Nosotros",
         },
         {
-            href: "/ofertas",
-            label: "Ofertas",
+            href: "/soporte-tecnico",
+            label: "Soporte Técnico",
         },
         {
             href: routes.catalog(),

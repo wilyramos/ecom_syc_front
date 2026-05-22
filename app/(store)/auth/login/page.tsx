@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import LoginForm from '@/components/auth/LoginForm'
 
 export const metadata: Metadata = {
-    title: 'GoPhone - Iniciar Sesión',
-    description: 'Inicia sesión en tu cuenta de GoPhone para acceder a tus pedidos, favoritos y más.',
-    keywords: 'iniciar sesión, GoPhone , cuenta',
+    title: 'S&C Mobile - Iniciar Sesión',
+    description: 'Inicia sesión en tu cuenta de S&C Mobile para acceder a tus pedidos, favoritos y más.',
+    keywords: 'iniciar sesión, S&C Mobile , cuenta',
 }
 
 export default function PageLogin() {

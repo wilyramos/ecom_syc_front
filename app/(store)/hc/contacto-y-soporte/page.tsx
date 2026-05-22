@@ -1,107 +1,46 @@
 "use client";
 
-import {
-    Mail,
-    MapPin,
-    MessageSquare,
-    Clock
-} from "lucide-react";
+import { Mail, MapPin, Clock } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import Link from "next/link";
 
 export default function ContactoSoportePage() {
-    const contactMethods = [
-        {
-            title: "WhatsApp",
-            value: "+51 925 054 636",
-            description: "Respuesta inmediata por chat.",
-            href: "https://wa.me/51972416683",
-            icon: FaWhatsapp,
-            color: "text-green-600"
-        },
-        {
-            title: "Email",
-            value: "contacto@gophone.pe",
-            description: "Consultas técnicas y ventas.",
-            href: "mailto:contacto@gophone.pe",
-            icon: Mail,
-            color: "text-[var(--store-primary)]"
-        },
-        {
-            title: "Ubicación",
-            value: "Jr. O Higgins 120",
-            description: "San Vicente de Cañete, Perú.",
-            href: "#",
-            icon: MapPin,
-            color: "text-red-500"
-        },
-        {
-            title: "Horario",
-            value: "Lun–Sáb 10am – 7pm",
-            description: "Atención personalizada.",
-            icon: Clock,
-            color: "text-[var(--store-text)]"
-        }
+    const methods = [
+        { title: "Canal Digital", val: "+51 972 416 683", desc: "Atención comercial inmediata", href: "https://wa.me/51972416683", icon: FaWhatsapp, color: "text-green-600 dark:text-green-400" },
+        { title: "Buzón Oficial", val: "contacto@sycmobile.pe", desc: "Gestiones, garantías y soporte técnico", href: "mailto:contacto@sycmobile.pe", icon: Mail, color: "text-primary" },
+        { title: "Sede Central", val: "Av. Mariscal Benavides 713", desc: "San Vicente de Cañete, Perú", icon: MapPin, color: "text-destructive" },
+        { title: "Disponibilidad", val: "Lun–Sáb 10am – 7pm", desc: "Horario de atención presencial", icon: Clock, color: "text-muted-foreground" }
     ];
 
     return (
-        <section className="max-w-4xl mx-auto px-4 py-12 md:py-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
-
-            {/* --- HEADER EDITORIAL --- */}
-            <header className="mb-16 text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--store-primary)]/10 text-[var(--store-primary)] text-[10px] font-bold uppercase tracking-widest mb-6">
-                    <MessageSquare size={14} />
-                    <span>Centro de Ayuda</span>
-                </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-[var(--store-text)] tracking-tight mb-4 leading-[1.1]">
-                    Estamos aquí para <br className="hidden md:block" /> ayudarte.
-                </h1>
-                <p className="text-lg text-[var(--store-text-muted)] max-w-2xl leading-relaxed mt-4">
-                    Ya sea una duda técnica o una consulta sobre tu pedido, nuestro equipo de especialistas está listo para asistirte.
-                </p>
+        <section className="max-w-4xl mx-auto px-4 py-10 space-y-8">
+            <header className="text-center md:text-left">
+                <h1 className="text-2xl font-bold tracking-tight text-foreground mb-1">Atención al Cliente</h1>
+                <p className="text-sm text-muted-foreground">Canales oficiales de comunicación y asistencia para tus solicitudes.</p>
             </header>
 
-            {/* --- GRID DE CONTACTO --- */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
-                {contactMethods.map((method, index) => (
-                    <div
-                        key={index}
-                        className="p-8 rounded-[2rem] bg-[var(--store-surface)] border border-[var(--store-border)] shadow-sm hover:border-[var(--store-primary)] transition-all duration-300 group"
-                    >
-                        <method.icon className={`${method.color} mb-6 transition-transform group-hover:scale-110`} size={28} />
-                        <h3 className="text-sm font-bold text-[var(--store-text-muted)] uppercase tracking-wider mb-2">
-                            {method.title}
-                        </h3>
-                        {method.href ? (
-                            <a href={method.href} className="text-lg font-bold text-[var(--store-text)] hover:text-[var(--store-primary)] transition-colors block mb-1">
-                                {method.value}
-                            </a>
-                        ) : (
-                            <p className="text-lg font-bold text-[var(--store-text)] mb-1">
-                                {method.value}
-                            </p>
-                        )}
-                        <p className="text-sm text-[var(--store-text-muted)]">
-                            {method.description}
-                        </p>
-                    </div>
-                ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {methods.map((m, idx) => {
+                    const Tag = m.href ? "a" : "div";
+                    return (
+                        <Tag key={idx} href={m.href} className={`p-4 rounded-lg bg-card border border-border flex items-center gap-4 ${m.href ? "hover:border-primary transition-colors" : ""}`}>
+                            <div className={`p-2 rounded-md bg-secondary ${m.color}`}><m.icon size={18} /></div>
+                            <div className="min-w-0 text-sm">
+                                <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{m.title}</h3>
+                                <p className="font-medium text-foreground truncate">{m.val}</p>
+                                <p className="text-xs text-muted-foreground">{m.desc}</p>
+                            </div>
+                        </Tag>
+                    );
+                })}
             </div>
 
-            {/* --- FORMULARIO Y SOPORTE --- */}
-            
-
-            <footer className="mt-20 text-center">
-                <p className="text-[10px] text-[var(--store-text-muted)] font-bold tracking-[0.25em] uppercase mb-8">
-                    GoPhone · San Vicente de Cañete
-                </p>
-                <Link
-                    href="/"
-                    className="inline-flex items-center justify-center px-10 py-4 bg-[var(--store-surface)] text-[var(--store-text)] border border-[var(--store-border)] rounded-full font-semibold text-sm hover:bg-[var(--store-bg)] transition-all active:scale-95"
-                >
-                    Volver a la tienda
-                </Link>
-            </footer>
+            <div className="w-full bg-neutral-100 dark:bg-neutral-800 relative rounded-lg overflow-hidden aspect-video max-h-[240px] border border-border">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d918.4!2d-76.378026!3d-13.0751543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x910ff91c690bec53%3A0xc4cf99c4e2a85b45!2sSYC%20Mobile%20Per%C3%BA!5e0!3m2!1ses!2spe!4v1"
+                    width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade" title="Ubicación SYC Mobile Perú" className="absolute inset-0 w-full h-full"
+                />
+            </div>
         </section>
     );
 }

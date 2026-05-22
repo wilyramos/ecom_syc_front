@@ -47,7 +47,7 @@ export default function ClientCategoriasDesktop({
                     const sub = grouped[cat._id] || [];
                     return (
                         <NavigationMenuItem key={cat._id}>
-                            <NavigationMenuTrigger>
+                            <NavigationMenuTrigger className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]">
                                 {cat.nombre}
                             </NavigationMenuTrigger>
 
@@ -63,7 +63,7 @@ export default function ClientCategoriasDesktop({
                                                 aria-label={`Ver todo ${cat.nombre}`}
                                             />
                                             <div>
-                                                <h3 className="text-xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors mb-2">
+                                                <h3 className="text-xl font-bold text-[var(--color-text-secondary)] tracking-tight group-hover:text-primary transition-colors mb-2">
                                                     {cat.nombre}
                                                 </h3>
                                                 <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">

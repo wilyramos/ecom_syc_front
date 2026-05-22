@@ -16,8 +16,8 @@ export default function StoreMaintenance() {
     const [open, setOpen] = useState(true);
 
     const social = [
-        { icon: <FaFacebookF />, href: "https://facebook.com/gophone.pe", name: "Facebook" },
-        { icon: <FaInstagram />, href: "https://instagram.com/gophone.pe", name: "Instagram" },
+        { icon: <FaFacebookF />, href: "https://facebook.com/sycmobile.pe", name: "Facebook" },
+        { icon: <FaInstagram />, href: "https://instagram.com/sycmobile.pe", name: "Instagram" },
         { icon: <FaWhatsapp />, href: "https://wa.me/51972416683", name: "WhatsApp" },
     ];
 

@@ -16,7 +16,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     const resolvedSP = await searchParams;
     const data       = await getCatalogDataByCollection(slug, resolvedSP);
 
-    if (!data) return { title: "Colección | GoPhone" };
+    if (!data) return { title: "Colección | S&C Mobile" };
 
     const { collectionName, collectionDesc, searchQuery } = data.context;
 
@@ -24,11 +24,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
         ? `Resultados para "${searchQuery}" en ${collectionName}`
         : (collectionName ?? "Colección");
 
-    const fullTitle   = `${title} | GoPhone`;
+    const fullTitle   = `${title} | S&C Mobile`;
     const description = collectionDesc
         ?? `Explora ${collectionName} al mejor precio en Perú. Envíos a todo el país y garantía oficial.`;
 
-    const baseUrl   = process.env.NEXT_PUBLIC_BASE_URL ?? "https://gophone.pe";
+    const baseUrl   = process.env.NEXT_PUBLIC_BASE_URL ?? "https://sycmobile.pe";
     const canonical = `${baseUrl}/colecciones/${slug}`;
 
     return {
@@ -39,7 +39,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
             title:    fullTitle,
             description,
             url:      canonical,
-            siteName: "GoPhone",
+            siteName: "S&C Mobile",
             images: data.context.collectionImage
                 ? [{ url: data.context.collectionImage, width: 1200, height: 630, alt: title }]
                 : [{ url: `${baseUrl}/images/og-catalog.jpg`, width: 1200, height: 630, alt: title }],
@@ -66,7 +66,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
     const data = await getCatalogDataByCollection(slug, resolvedSP);
     if (!data) return notFound();
 
-    const baseUrl        = process.env.NEXT_PUBLIC_BASE_URL ?? "https://gophone.pe";
+    const baseUrl        = process.env.NEXT_PUBLIC_BASE_URL ?? "https://sycmobile.pe";
     const collectionName = data.context.collectionName ?? "Colección";
 
     // Schema estructurado

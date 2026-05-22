@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 
 // El diccionario se mantiene fuera para no recargarlo en cada render
@@ -83,7 +85,7 @@ const diccionarioColores: Record<string, string> = {
     "morado pastel": "bg-[#C8A2C8]",
     "violeta oscuro": "bg-[#5D3FD3]",
     "violeta claro": "bg-[#D2B7FF]",
-    uva: "bg-[#580F41]",
+    upa: "bg-[#580F41]",
     ciruela: "bg-[#8E4585]",
     berenjena: "bg-[#311432]",
     "azul petróleo": "bg-[#084C61]",
@@ -155,20 +157,23 @@ export default function ColorCircle({
     const bgClass = diccionarioColores[color?.trim().toLowerCase()] ?? "bg-gray-200";
 
     return (
-        <div className="border p-0.2 rounded-full">
+        <div
+            className="p-[1.5px] rounded-full bg-transparent flex items-center justify-center border border-gray-200/60 shadow-sm bg-gray-50/30"
+            title={color}
+        >
             <div
-                title={color}
                 style={{ width: size, height: size }}
                 className={cn(
-                    "rounded-full shrink-0",
-                    // BORDE: Negro al 10% de opacidad. 
-                    // Esto es crucial para que colores como 'blanco' o 'crema' 
-                    // no desaparezcan sobre fondos blancos.
-                    "border border-black/10",
+                    "rounded-full shrink-0 relative transition-all duration-300",
 
-                    // SOMBRA INTERNA: Da el efecto de "pastilla" o material físico
-                    // en lugar de un círculo plano digital.
-                    "shadow-[inset_0_1px_1px_rgba(0,0,0,0.1)]",
+                    // Borde sutil y preciso fiel a Apple (0.5px real simula black/8)
+                    "border border-black/[0.08] dark:border-white/[0.15]",
+
+                    // Sombra exterior difuminada 3D limpia
+                    "shadow-[0_1px_2px_rgba(0,0,0,0.1),_inset_0_-1px_1px_rgba(0,0,0,0.05)]",
+
+                    // Reflejo superior sutil que genera volumen metálico/cerámico
+                    "after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-b after:from-white/20 after:to-transparent after:pointer-events-none",
 
                     bgClass
                 )}

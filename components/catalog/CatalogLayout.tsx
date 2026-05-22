@@ -49,7 +49,7 @@ export default function CatalogLayout({
     if (context.brandName) breadcrumbs.push({ label: context.brandName, href: "#" });
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-20 animate-in fade-in duration-700">
+        <section className="w-full max-w-7xl mx-auto px-4 pb-20 animate-in fade-in duration-700">
             
             {/* Header con espaciado amplio vertical */}
             <header className="py-8 md:py-12">
@@ -63,7 +63,7 @@ export default function CatalogLayout({
             <div className="flex flex-col lg:flex-row gap-10 xl:gap-16 relative">
 
                 {/* SIDEBAR: Más delgado y sin borde sólido, solo separación por aire */}
-                <aside className="hidden lg:block w-64 xl:w-72 shrink-0">
+                <aside className="hidden lg:block w-40 xl:w-52 shrink-0">
                     <div className="sticky top-28">
                         <div className="pb-4 mb-8 border-b border-[var(--color-border-subtle)]">
                             <span className="text-md font-bold uppercase tracking-[0.2em] text-[var(--color-text-tertiary)]">

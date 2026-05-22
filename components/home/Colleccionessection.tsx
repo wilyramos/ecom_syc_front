@@ -10,9 +10,8 @@ export default async function ColleccionesSection() {
     if (!collections || collections.length === 0) return null;
 
     return (
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4">
             <HeaderConTituloConControles
-                label="Selecciones"
                 title="Colecciones"
                 viewAllHref="/colecciones"
             />

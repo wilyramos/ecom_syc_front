@@ -1,14 +1,12 @@
 'use client'
 
-import { useEffect, useTransition } from "react"
+import { useEffect } from "react"
 import { useActionState } from "react"
 import { toast } from "sonner"
-import { GoogleLogin, CredentialResponse } from "@react-oauth/google"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 
 import { createAccountAction } from "@/actions/create-account-action"
-import { googleLoginAction as googleRegisterAction } from "@/actions/auth/google-login-action"
 import { Input } from "../ui/input"
 
 interface SuccessResponse {
@@ -26,7 +24,7 @@ export default function RegisterForm() {
         success: {} as SuccessResponse,
     })
 
-    const [isPending, startTransition] = useTransition()
+    // const [isPending, startTransition] = useTransition()
 
     useEffect(() => {
         if (state.errors.length > 0) {
@@ -37,27 +35,27 @@ export default function RegisterForm() {
         }
     }, [state])
 
-    const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
-        if (!credential) return toast.error("Token de Google no recibido")
+    // const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
+    //     if (!credential) return toast.error("Token de Google no recibido")
 
-        startTransition(async () => {
-            const result = await googleRegisterAction({ credential, redirectTo })
-            if (result?.error) toast.error(result.error)
-        })
-    }
+    //     startTransition(async () => {
+    //         const result = await googleRegisterAction({ credential, redirectTo })
+    //         if (result?.error) toast.error(result.error)
+    //     })
+    // }
 
     return (
         <div className="mt-4 space-y-4 text-gray-700 text-sm">
             
             {/* Google Login */}
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
                 <GoogleLogin
                     onSuccess={handleGoogleLoginSuccess}
                     onError={() => toast.error("Error al registrarte con Google")}
                     size="large"
                     shape="circle"
                 />
-            </div>
+            </div> */}
 
             {/* Divider */}
             <div className="relative text-center text-sm text-black my-6">
@@ -113,7 +111,7 @@ export default function RegisterForm() {
                 <input
                     type="submit"
                     value="Crear cuenta"
-                    disabled={isPending}
+                    // disabled={state.isRunning}
                     className="w-full bg-black hover:bg-gray-700 text-white font-semibold py-2 rounded transition-colors cursor-pointer mt-4"
                 />
 

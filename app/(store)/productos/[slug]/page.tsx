@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     if (!product) notFound();
 
     const categoryName = product.categoria?.nombre || 'General';
-    const image = product.imagenes?.[0] || 'https://www.gophone.pe/favicon.ico';
-    const url = `https://www.gophone.pe/productos/${product.slug}`;
+    const image = product.imagenes?.[0] || 'https://www.sycmobile.pe/favicon.ico';
+    const url = `https://www.sycmobile.pe/productos/${product.slug}`;
 
     // ← Usar metaTitle/metaDescription si existen, sino fallback automático
     const title = product.metaTitle?.trim()
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     const description = product.metaDescription?.trim()
         || (product.descripcion
             ? product.descripcion.replace(/<[^>]+>/g, '').slice(0, 160)
-            : 'Descubre nuestros productos en GoPhone. Calidad y tecnología a tu alcance.');
+            : 'Descubre nuestros productos en sycmobile. Calidad y tecnología a tu alcance.');
 
     // Fusionar tags del producto con keywords base
     const productTags = product.tags ?? [];
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         product.nombre,
         categoryName,
         ...productTags,
-        'GoPhone',
+        'sycmobile',
         'Cañete',
         'Productos',
         'Tienda Online',
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
             title,
             description,
             url,
-            siteName: 'GoPhone',
+            siteName: 'S&C Mobile',
             type: 'website',
             images: [
                 {
@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
             title,
             description,
             images: [image],
-            creator: '@GoPhone',
+            creator: '@sycmobile',
         },
         icons: {
             icon: "/favicon.ico",

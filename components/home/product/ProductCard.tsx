@@ -98,7 +98,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
 
     return (
         <div
-            className="group relative flex flex-col transition-all duration-500 bg-white rounded-xl border-2 border-gray-200"
+            className="group relative flex flex-col transition-all duration-500 border rounded-lg"
             onMouseDown={(e) => setStartX(e.clientX)}
             onMouseUp={(e) => {
                 if (startX === null) return;
@@ -109,7 +109,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
         >
             <Link href={`/productos/${product.slug}`} className="flex flex-col h-full">
                 {/* --- CONTENEDOR IMAGEN --- */}
-                <div className="relative w-full aspect-square overflow-hidden mb-4">
+                <div className="relative w-full aspect-square overflow-hidden mb-5">
                     {previewImages.length > 0 ? (
                         <div className="relative w-full h-full">
                             <div
@@ -123,7 +123,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                                             alt={product.nombre}
                                             fill
                                             sizes="(max-width: 768px) 50vw, 33vw"
-                                            className="object-contain p-4 mix-blend-multiply"
+                                            className="object-contain p-6 mix-blend-multiply"
                                             quality={90}
                                             unoptimized
                                         />
@@ -136,23 +136,25 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                                 <>
                                     <button
                                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); prevImage(); }}
-                                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md text-black p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white z-10"
+                                        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white z-10 shadow-sm"
+                                        type="button"
                                     >
-                                        <ChevronLeft size={16} />
+                                        <ChevronLeft size={20} />
                                     </button>
                                     <button
                                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); nextImage(); }}
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md text-black p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white z-10"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-md text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white z-10 shadow-sm"
+                                        type="button"
                                     >
-                                        <ChevronRight size={16} />
+                                        <ChevronRight size={20} />
                                     </button>
-                                    <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 pointer-events-none">
+                                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 pointer-events-none">
                                         {previewImages.map((_, idx) => (
                                             <span
                                                 key={idx}
                                                 className={cn(
-                                                    "h-1 rounded-full transition-all duration-500",
-                                                    idx === currentIndex ? "w-4 bg-black/60" : "w-1 bg-black/10"
+                                                    "h-1.5 rounded-full transition-all duration-500",
+                                                    idx === currentIndex ? "w-5 bg-black/60" : "w-1.5 bg-black/10"
                                                 )}
                                             />
                                         ))}
@@ -162,73 +164,68 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                         </div>
                     ) : (
                         <div className="flex items-center justify-center w-full h-full text-[var(--color-text-tertiary)] opacity-30">
-                            <MdOutlineImageNotSupported size={32} strokeWidth={1} />
+                            <MdOutlineImageNotSupported size={40} strokeWidth={1} />
                         </div>
                     )}
 
                     {/* Badges Minimalistas */}
-                    <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+                    <div className="absolute top-4 left-4 flex flex-col gap-2">
                         {discountedPrice > 0 && (
-                            <span className="px-2 py-0.5 bg-black text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                            <span className="px-1 py-1 bg-[var(--color-accent)] text-white text-[10px] font-bold uppercase tracking-wider rounded">
                                 -{Math.round(discountedPrice)}%
                             </span>
                         )}
-
                     </div>
                 </div>
 
                 {/* --- INFO PRODUCTO --- */}
-                <div className="flex flex-col px-2 md:px-4 pb-2">
-                    <div className="flex items-center justify-center gap-2 mb-1">
-                        {/* <span className="text-[10px] font-bold tracking-[0.1em] text-[var(--color-text-tertiary)] uppercase truncate">
-                            {product.brand?.nombre || "General"}
-                        </span> */}
-
+                <div className="flex flex-col px-3 md:px-5 pb-4 flex-grow">
+                    <div className="flex items-center justify-center gap-2.5 mb-2">
                         {/* Colores Estilo Apple (Apilados) */}
                         {uniqueColors.length > 0 && (
-                            <div className="flex -space-x-1 hover:space-x-1 transition-all duration-300">
+                            <div className="flex -space-x-1.5 hover:space-x-1 transition-all duration-300">
                                 {uniqueColors.slice(0, 4).map((c, index) => (
                                     <button
                                         key={index}
                                         onClick={(e) => handleColorSelect(e, c)}
                                         className={cn(
-                                            "relative ring-1 ring-white rounded-full transition-all duration-300",
+                                            "relative ring-2 ring-white rounded-full transition-all duration-300",
                                             selectedColor === c ? "z-10 scale-125" : "z-0 hover:z-20 hover:scale-110"
                                         )}
+                                        type="button"
                                     >
-                                        <ColorCircle color={c} size={10} />
+                                        <ColorCircle color={c} size={14} />
                                     </button>
                                 ))}
                             </div>
                         )}
                     </div>
 
-                    {/* --- INFO PRODUCTO --- */}
-                    <div className="flex flex-col pb-2">
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                            <span className="text-[10px] font-bold tracking-[0.1em] text-[var(--color-text-tertiary)] uppercase truncate">
-                                {product.brand?.nombre || ""}
-                            </span>
+                    <div className="flex flex-col pb-2 flex-grow justify-between">
+                        <div>
+                            <div className="flex items-start justify-between gap-2 mb-1.5">
+                                <span className="text-[12px] font-bold tracking-[0.1em] text-[var(--color-text-tertiary)] uppercase truncate">
+                                    {product.brand?.nombre || ""}
+                                </span>
+                            </div>
 
-
+                            <h3 className="text-sm font-medium text-[var(--color-text-primary)] leading-snug line-clamp-3 mb-4 group-hover:text-black transition-colors">
+                                {product.nombre}
+                            </h3>
                         </div>
 
-                        <h3 className="text-xs font-medium text-[var(--color-text-primary)] leading-snug line-clamp-3 mb-3 group-hover:text-black transition-colors">
-                            {product.nombre}
-                        </h3>
-
-                        <div className="mt-auto h-8 flex items-center">
+                        <div className="h-10 flex items-center mt-auto">
                             {stock === 0 ? (
-                                <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[var(--color-text-tertiary)] bg-[var(--color-bg-secondary)] px-3 py-1 rounded-full border border-[var(--color-border-subtle)]">
+                                <span className="text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-text-tertiary)] bg-[var(--color-bg-secondary)] px-4 py-1.5 rounded-full border border-[var(--color-border-subtle)]">
                                     Agotado
                                 </span>
                             ) : (
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-[16px] font-bold text-[var(--color-text-primary)] tracking-tight">
+                                <div className="flex items-baseline gap-2.5">
+                                    <span className="text-[19px] font-bold text-[var(--color-text-primary)] tracking-tight">
                                         S/ {precio.toFixed(2)}
                                     </span>
                                     {product.precioComparativo && product.precioComparativo > precio && (
-                                        <span className="text-[12px] text-[var(--color-text-tertiary)] line-through font-light">
+                                        <span className="text-[14px] text-[var(--color-text-tertiary)] line-through font-light">
                                             S/ {product.precioComparativo.toFixed(2)}
                                         </span>
                                     )}

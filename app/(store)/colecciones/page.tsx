@@ -6,7 +6,7 @@ import { getActiveCollections } from "@/src/services/collection-service";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Colecciones | GoPhone",
+    title: "Colecciones | S&C Mobile",
     description: "Explora nuestras colecciones temáticas. Encuentra lo que buscas por categoría, temporada u ocasión.",
 };
 

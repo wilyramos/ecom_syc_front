@@ -114,27 +114,6 @@ export default function ProcesoCompraPage() {
                     </Link>
                 </div>
             </div>
-
-            {/* --- FOOTER DE PÁGINA --- */}
-            <footer className="mt-24 text-center">
-                <p className="text-[10px] text-[var(--color-text-tertiary)] font-bold tracking-[0.25em] uppercase mb-8">
-                    GoPhone · Tecnología con Garantía Real
-                </p>
-                <div className="flex flex-col md:flex-row justify-center gap-4">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center justify-center px-10 py-4 bg-[var(--color-action-primary)] text-[var(--color-text-inverse)] rounded-full font-semibold text-sm hover:bg-[var(--color-action-primary-hover)] transition-all active:scale-95 shadow-lg shadow-[var(--color-action-primary)]/20"
-                    >
-                        Empezar a comprar
-                    </Link>
-                    <Link
-                        href="/hc"
-                        className="inline-flex items-center justify-center px-10 py-4 bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] border border-[var(--color-bg-tertiary)] rounded-full font-semibold text-sm hover:bg-[var(--color-bg-tertiary)] transition-all"
-                    >
-                        Volver al Centro de Ayuda
-                    </Link>
-                </div>
-            </footer>
         </section>
     );
 }

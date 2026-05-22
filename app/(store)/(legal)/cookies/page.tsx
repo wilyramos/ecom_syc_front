@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Política de Cookies | GoPhone",
-    description: "Información sobre el uso de cookies en el sitio web de GoPhone.",
+    title: "Política de Cookies | S&C Mobile",
+    description: "Información sobre el uso de cookies en el sitio web de S&C Mobile.",
 };
 
 export default function CookiesPage() {

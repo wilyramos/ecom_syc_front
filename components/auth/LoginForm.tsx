@@ -1,15 +1,13 @@
 'use client'
 
-import { useState, useEffect, useTransition } from "react"
+import { useState, useEffect } from "react"
 import { useActionState } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { toast } from "react-toastify"
 import { FiEye, FiEyeOff } from "react-icons/fi"
-import { GoogleLogin, CredentialResponse } from "@react-oauth/google"
 
 import { authenticateUserAction } from "@/actions/authenticate-user-action"
-import { googleLoginAction } from "@/actions/auth/google-login-action"
 import { Input } from "../ui/input"
 
 interface AuthState {
@@ -29,34 +27,34 @@ export default function LoginForm() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
-    const [isPending, startTransition] = useTransition()
+    // const [isPending, startTransition] = useTransition()
 
     useEffect(() => {
         state.errors.forEach(error => toast.error(error))
         if (state.success) toast.success(state.success)
     }, [state])
 
-    const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
-        if (!credential) return toast.error("Token de Google no recibido")
+    // const handleGoogleLoginSuccess = ({ credential }: CredentialResponse) => {
+    //     if (!credential) return toast.error("Token de Google no recibido")
 
-        startTransition(async () => {
-            const result = await googleLoginAction({ credential, redirectTo })
-            if (result?.error) toast.error(result.error)
-        })
-    }
+    //     startTransition(async () => {
+    //         const result = await googleLoginAction({ credential, redirectTo })
+    //         if (result?.error) toast.error(result.error)
+    //     })
+    // }
 
     return (
         <div className="mt-4 space-y-5 text-gray-700">
             
             {/* Google Login */}
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
                 <GoogleLogin
                     onSuccess={handleGoogleLoginSuccess}
                     onError={() => toast.error("Error al iniciar sesión con Google")}
                     size="large"
                     shape="circle"
                 />
-            </div>
+            </div> */}
 
             {/* Divider */}
             <div className="relative text-center text-sm text-black my-6">
@@ -111,7 +109,6 @@ export default function LoginForm() {
                 {/* Submit */}
                 <button
                     type="submit"
-                    disabled={isPending}
                     className="w-full bg-black hover:bg-gray-700 text-white py-2 rounded mt-4 transition-colors"
                 >
                     Iniciar Sesión

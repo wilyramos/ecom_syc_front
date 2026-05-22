@@ -3,9 +3,9 @@ import type { ProductWithCategoryResponse } from "@/src/schemas"
 export default function ProductJsonLd({ producto }: { producto: ProductWithCategoryResponse }) {
     if (!producto) return null
 
-    const firstImage = producto.imagenes?.[0] || 'https://www.gophone.pe/logoblanco.svg'
-    const url = `https://www.gophone.pe/productos/${producto.slug}`
-    const brand = producto.atributos?.Marca || 'GoPhone'
+    const firstImage = producto.imagenes?.[0] || 'https://www.sycmobile.pe/logoblanco.svg'
+    const url = `https://www.sycmobile.pe/productos/${producto.slug}`
+    const brand = producto.atributos?.Marca || 'S&C Mobile'
 
     // Price siempre como string con 2 decimales
     const price = (producto.precio ?? 0).toFixed(2)
@@ -38,7 +38,7 @@ export default function ProductJsonLd({ producto }: { producto: ProductWithCateg
             availability,
             seller: {
                 '@type': 'Organization',
-                name: 'GoPhone',
+                name: 'S&C Mobile',
             },
             shippingDetails: {
                 '@type': 'OfferShippingDetails',
