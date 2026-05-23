@@ -26,7 +26,6 @@ export default function HeaderConTituloConControles({ title, viewAllHref, label 
                     </h2>
                 </div>
 
-                {/* Link "Ver todo" a la derecha en Desktop */}
                 {viewAllHref && (
                     <Link
                         href={viewAllHref}
