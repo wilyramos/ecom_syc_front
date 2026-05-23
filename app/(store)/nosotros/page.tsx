@@ -1,60 +1,85 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function NosotrosPage() {
   return (
-    <main
-      className="min-h-screen bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)] font-sans p-6 md:p-12 bg-cover bg-center bg-no-repeat bg-fixed"
-      style={{
-        backgroundImage: "url('/logoblanco.svg')",
-        backgroundBlendMode: "overlay",
-        backgroundColor: "rgba(0,0,0,0.9)"
-      }}
-    >
-      <div className="max-w-6xl mx-auto space-y-6">
+    <main className="min-h-screen bg-white text-slate-900 font-sans p-6 md:p-16">
+      <div className="max-w-5xl mx-auto space-y-10">
 
         {/* HERO */}
-        <header className="border-b border-[var(--color-border-strong)] pb-12">
-          <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
-            SMARTPHONES<br />
-            <span style={{ color: "var(--color-accent)" }}>ORIGINALES</span>
+        <header className="space-y-2">
+          <h1 className="text-5xl md:text-8xl font-extrabold uppercase tracking-tight leading-[0.9]">
+            Smartphones
+            <br />
+            <span className="text-[#3098b3]">Originales</span>
           </h1>
-          <p className="text-xl md:text-2xl font-bold text-[var(--color-text-tertiary)] uppercase tracking-wide">
-            ORIGINALES, ACCESIBLES Y CONFIABLES.
+
+          <p className="text-lg md:text-xl font-medium text-slate-500 uppercase tracking-widest">
+            Originales, accesibles y confiables.
           </p>
         </header>
 
         {/* DESCRIPCIÓN */}
-        <section className="text-lg md:text-xl text-[var(--color-text-secondary)] leading-relaxed max-w-4xl">
-          Somos una tienda especializada en tecnología de alta gama importada desde Estados Unidos.
-          Ofrecemos accesorios originales y dispositivos 100% legales, tanto sellados como open box,
-          homologados por el MTC y registrados en Lista Blanca ante OSIPTEL.
-          Apostamos por una experiencia transparente, segura y confiable.
+        <section className="text-xl md:text-2xl text-slate-700 leading-relaxed max-w-4xl">
+
+          Somos una tienda especializada en tecnología de alta Gama  importada desde Estados Unidos . Ofrecemos Accesorios originales y dispositivos 100% legales , tanto sellados como open box , homologados por el MTC y registrados en Lista Blanca ante Opsitel . Apostamos por una experiencia transparente , segura y confiable .
+        </section>
+
+
+
+        {/* VISUAL */}
+        <section className="relative w-full h-[400px] overflow-hidden">
+          <Image
+            src="/lista-blanca.webp"
+            alt="Certificación Lista Blanca"
+            fill
+            className="object-cover"
+          />
         </section>
 
         {/* NODO CENTRAL */}
-        <section className="p-8 md:p-12 border-2" style={{ borderColor: "var(--color-accent)", backgroundColor: "rgba(0,0,0,0.5)" }}>
-          <h2 className="text-5xl md:text-7xl font-black uppercase mb-10">Nosotros vendemos Equipo Legítimo</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="border border-[var(--color-border-strong)] p-6 text-center font-bold text-xl uppercase">100% Homologado MTC</div>
-            <div className="border border-[var(--color-border-strong)] p-6 text-center font-bold text-xl uppercase">IMEI Registrado OSIPTEL</div>
-          </div>
-        </section>
+        <section className="bg-[#E0F7FF]  border-[#3098b3] p-6 md:p-12">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase mb-2 text-slate-900">
+            Garantía de Legalidad
+          </h2>
 
-        {/* ALERTA */}
-        <section className="p-10" style={{ backgroundColor: "var(--color-error)" }}>
-          <h2 className="text-4xl md:text-5xl font-black uppercase mb-4 text-[var(--color-text-inverse)]">Alerta: Bloqueo</h2>
-          <p className="text-xl font-bold mb-8 max-w-2xl text-[var(--color-text-inverse)]">
-            Sin registro en la Lista Blanca OSIPTEL, tu dispositivo será bloqueado.
-            Garantizamos equipos 100% legales y blindados.
-          </p>
-          <Link
-            href="https://www.osiptel.gob.pe"
-            target="_blank"
-            className="inline-block px-8 py-4 font-black uppercase transition-colors"
-            style={{ backgroundColor: "var(--color-bg-inverse)", color: "var(--color-text-inverse)" }}
-          >
-            Verificar Lista Blanca →
-          </Link>
+          {/* <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white border border-slate-200 p-6">
+              <span className="block font-bold text-[#3098b3] mb-2">
+                Homologado
+              </span>
+
+              <p className="text-slate-600">
+                100% Homologado por el MTC
+              </p>
+            </div>
+
+            <div className="bg-white border border-slate-200 p-6">
+              <span className="block font-bold text-[#3098b3] mb-2">
+                Registrado
+              </span>
+
+              <p className="text-slate-600">
+                IMEI habilitado en Lista Blanca OSIPTEL
+              </p>
+            </div>
+          </div> */}
+
+          {/* ENLACE OSIPTEL */}
+          <div className="mt-6 border-t border-slate-200">
+            <p className="text-slate-600 mb-4">
+              Puedes verificar la legalidad de cualquier equipo aquí:
+            </p>
+
+            <Link
+              href="https://checacelnoregistrado.osiptel.gob.pe/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-[#3098b3] text-white px-6 py-3 font-bold transition-colors hover:bg-[#00B2D6]"
+            >
+              Verificar en OSIPTEL →
+            </Link>
+          </div>
         </section>
 
       </div>
