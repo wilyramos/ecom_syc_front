@@ -8,6 +8,7 @@ import {
     VariantCart,
     TReceiptType,
     receiptTypeSchema,
+    type TApiProduct,
 } from '@/src/schemas';
 import { saveCartToDB } from '@/lib/api/cart';
 
@@ -28,7 +29,7 @@ interface Store {
     comprobante: TReceiptType;
     setComprobante: (comprobante: TReceiptType) => void;
 
-    addToCart: (item: ProductWithCategoryResponse, variant?: VariantCart) => void;
+    addToCart: (item: TApiProduct | ProductWithCategoryResponse, variant?: VariantCart) => void;
     updateQuantity: (id: string, quantity: number, variantId?: string) => void;
     removeFromCart: (id: string, variantId?: string) => void;
 

@@ -101,8 +101,6 @@ export default function CatalogHeader({ title, breadcrumbs }: Props) {
                             >
                                 <SelectItem value="relevancia" className="rounded-lg text-[13px]">Relevancia</SelectItem>
                                 <SelectItem value="recientes" className="rounded-lg text-[13px]">Más Recientes</SelectItem>
-                                <SelectItem value="rating" className="rounded-lg text-[13px]">Mejor Valorados</SelectItem>
-                                <SelectItem value="discount" className="rounded-lg text-[13px]">Mayor Descuento</SelectItem>
                                 <SelectItem value="price-asc" className="rounded-lg text-[13px]">Precio: Menor a Mayor</SelectItem>
                                 <SelectItem value="price-desc" className="rounded-lg text-[13px]">Precio: Mayor a Menor</SelectItem>
                                 <SelectItem value="name-asc" className="rounded-lg text-[13px]">Nombre: A - Z</SelectItem>

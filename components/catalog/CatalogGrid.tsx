@@ -47,7 +47,7 @@ export default function CatalogGrid({ products, isFallback }: Props) {
                 </div>
 
                 {/* Grid de Sugerencias */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-1 md:gap-2">
                     {products.map((product) => (
                         <ProductCard key={product._id} product={product} />
                     ))}
@@ -68,7 +68,7 @@ export default function CatalogGrid({ products, isFallback }: Props) {
     }
 
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-0.5 md:gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-0.5 md:gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {products.map((product) => (
                 <ProductCard key={product._id} product={product} />
             ))}

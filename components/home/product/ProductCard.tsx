@@ -9,6 +9,7 @@ import ColorCircle from "@/components/ui/ColorCircle";
 import type { TApiProduct } from "@/src/schemas";
 import { cn } from "@/lib/utils";
 import { MdOutlineImageNotSupported } from "react-icons/md";
+import AddToCartButton from "./AddToCartButton";
 
 export default function ProductCard({ product }: { product: TApiProduct }) {
     const searchParams = useSearchParams();
@@ -18,7 +19,6 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
     const [startX, setStartX] = useState<number | null>(null);
 
     const precio = product.precio ?? 0;
-    const stock = product.stock ?? 0;
 
     // --- LÓGICA DE COLORES ---
     const uniqueColors = useMemo(() => {
@@ -215,11 +215,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                         </div>
 
                         <div className="h-10 flex items-center mt-auto">
-                            {stock === 0 ? (
-                                <span className="text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-text-tertiary)] bg-[var(--color-bg-secondary)] px-4 py-1.5 rounded-full border border-[var(--color-border-subtle)]">
-                                    Agotado
-                                </span>
-                            ) : (
+                            
                                 <div className="flex items-baseline gap-2.5">
                                     <span className="text-[19px] font-bold text-[var(--color-text-primary)] tracking-tight">
                                         S/ {precio.toFixed(2)}
@@ -230,8 +226,14 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                                         </span>
                                     )}
                                 </div>
-                            )}
+
+                              
+                        
                         </div>
+
+                            <div className="mt-3">
+                                <AddToCartButton product={product} />
+                            </div>
                     </div>
                 </div>
             </Link>
