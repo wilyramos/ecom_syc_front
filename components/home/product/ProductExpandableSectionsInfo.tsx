@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/accordion";
 import type { ProductWithCategoryResponse } from "@/src/schemas";
 import Link from "next/link";
-import { Truck, ShieldCheck, ChevronRight, FileText } from "lucide-react";
 
 type Props = {
     producto: ProductWithCategoryResponse
@@ -38,8 +37,7 @@ export default function ProductExpandableSections({ producto }: Props) {
             <AccordionItem value="envios" className="border-t border-b-0 border-[var(--color-border-subtle)]">
                 <AccordionTrigger className="py-6 hover:no-underline group px-0">
                     <div className="flex items-center gap-4">
-                        <Truck size={20} strokeWidth={1.5} className="text-[var(--color-text-primary)]" />
-                        <span className="text-base font-semibold tracking-tight text-[var(--color-text-primary)]">
+                        <span className="text-base  tracking-tight text-[var(--color-text-primary)]">
                             Entrega y Devoluciones
                         </span>
                     </div>
@@ -79,11 +77,9 @@ export default function ProductExpandableSections({ producto }: Props) {
                             </div>
                             <Link
                                 href="/hc/garantias-y-devoluciones"
-                                className="inline-flex items-center text-sm font-semibold text-[var(--color-text-primary)] hover:opacity-60 transition-all group/link"
+                                className="inline-flex items-center text-sm  text-[var(--color-text-primary)] hover:opacity-60 transition-all group/link"
                             >
-                                <FileText size={16} strokeWidth={1.5} className="mr-2" />
                                 Ver términos legales
-                                <ChevronRight size={14} className="ml-1 group-hover/link:translate-x-0.5 transition-transform" />
                             </Link>
                         </div>
                     </div>
@@ -94,8 +90,7 @@ export default function ProductExpandableSections({ producto }: Props) {
             <AccordionItem value="garantia" className="border-t border-b border-[var(--color-border-subtle)]">
                 <AccordionTrigger className="py-6 hover:no-underline group px-0">
                     <div className="flex items-center gap-4">
-                        <ShieldCheck size={20} strokeWidth={1.5} className="text-[var(--color-text-primary)]" />
-                        <span className="text-base font-semibold tracking-tight text-[var(--color-text-primary)]">
+                        <span className="text-base  tracking-tight text-[var(--color-text-primary)]">
                             Garantía Oficial
                         </span>
                     </div>
@@ -103,15 +98,10 @@ export default function ProductExpandableSections({ producto }: Props) {
                 <AccordionContent className="pb-12 pt-2 px-0">
                     <div className="max-w-3xl space-y-6">
                         <p className="text-base text-[var(--color-text-tertiary)] leading-relaxed">
-                            Todos los productos son <span className="text-[var(--color-text-primary)] font-semibold">100% originales.</span> Cuentan con respaldo oficial de hardware válido directamente de la misma marca, generalmente por un periodo de <span className="text-[var(--color-text-primary)] font-semibold">12 meses.</span>
+                            Todos los productos son <span className="text-[var(--color-text-primary)] ">100% originales.</span>
+                            Disfruta de una garantía oficial de <span className="text-[var(--color-text-primary)] ">12 meses.</span>
                         </p>
 
-                        <div className="inline-flex items-start gap-3 p-4 rounded-xl bg-[var(--color-bg-secondary)] border border-[var(--color-border-subtle)]">
-                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
-                            <p className="text-xs text-[var(--color-text-tertiary)] font-medium leading-relaxed">
-                                Conserva tu comprobante de compra digital o físico para cualquier gestión de soporte técnico o devoluciones.
-                            </p>
-                        </div>
                     </div>
                 </AccordionContent>
             </AccordionItem>

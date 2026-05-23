@@ -146,7 +146,6 @@ const diccionarioColores: Record<string, string> = {
     "salmón pálido": "bg-[#FADADD]",
     "coral pálido": "bg-[#F88379]",
 };
-
 export default function ColorCircle({
     color,
     size = 16,
@@ -158,26 +157,15 @@ export default function ColorCircle({
 
     return (
         <div
-            className="p-[1.5px] rounded-full bg-transparent flex items-center justify-center border border-gray-200/60 shadow-sm bg-gray-50/30"
+            style={{ width: size, height: size }}
+            className={cn(
+                "relative rounded-full shrink-0 transition-all duration-300",
+                "shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.1)]", // Borde interno sutil
+                "ring-1 ring-black/[0.06] dark:ring-white/[0.1]", // Borde exterior fino
+                "bg-gradient-to-br from-white/10 to-transparent", // Ligero brillo
+                bgClass
+            )}
             title={color}
-        >
-            <div
-                style={{ width: size, height: size }}
-                className={cn(
-                    "rounded-full shrink-0 relative transition-all duration-300",
-
-                    // Borde sutil y preciso fiel a Apple (0.5px real simula black/8)
-                    "border border-black/[0.08] dark:border-white/[0.15]",
-
-                    // Sombra exterior difuminada 3D limpia
-                    "shadow-[0_1px_2px_rgba(0,0,0,0.1),_inset_0_-1px_1px_rgba(0,0,0,0.05)]",
-
-                    // Reflejo superior sutil que genera volumen metálico/cerámico
-                    "after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-b after:from-white/20 after:to-transparent after:pointer-events-none",
-
-                    bgClass
-                )}
-            />
-        </div>
+        />
     );
 }

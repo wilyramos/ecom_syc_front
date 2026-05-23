@@ -56,9 +56,7 @@ export default function ColleccionesCarousel({ collections }: { collections: Col
                             <p className="text-sm font-bold text-white leading-tight" style={{ letterSpacing: "-0.01em" }}>
                                 {col.name}
                             </p>
-                            <span className="text-[11px] font-bold text-white/0 group-hover:text-white/80 transition-colors duration-200 block mt-0.5">
-                                Explorar →
-                            </span>
+                           
                         </div>
                     </div>
                 </Link>

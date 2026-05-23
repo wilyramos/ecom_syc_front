@@ -101,7 +101,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                         ]}
                     />
                     <h1 className="text-3xl md:text-4xl font-bold text-[var(--store-text)] mt-4 tracking-tight">
-                        {params.q ? `Resultados para "${params.q}"` : "Explorar Catálogo"}
+                        {params.q ? `Resultados para "${params.q}"` : "Ver Catálogo"}
                     </h1>
                     {data.totalProducts > 0 && (
                         <p className="text-sm text-[var(--store-text-muted)] mt-2 font-medium">

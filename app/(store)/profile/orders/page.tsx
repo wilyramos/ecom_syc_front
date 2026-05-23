@@ -24,7 +24,7 @@ export default async function OrdersProfilePage({ searchParams }: PageOrdersProp
                     href="/productos" 
                     className="text-sm font-medium text-[var(--color-action-primary)] hover:underline"
                 >
-                    Explorar productos
+                    Ver productos
                 </Link>
             </div>
         );

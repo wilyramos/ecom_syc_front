@@ -9,7 +9,6 @@ import ProductExpandableSections from './ProductExpandableSections';
 import ProductExpandableSectionsInfo from './ProductExpandableSectionsInfo';
 import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
-import PaymentMethods from '../PaymentMethods';
 import ColorCircle from '@/components/ui/ColorCircle';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -362,12 +361,12 @@ export default function ProductDetails({ producto }: Props) {
                         </div> */}
 
                         {/* Medios de pago */}
-                        <div className="flex items-center justify-between py-3">
+                        {/* <div className="flex items-center justify-between py-3">
                             <div className="flex items-center gap-2">
                                 <span className="text-md text-[var(--color-text-secondary)]">Medios de pago: </span>
                             </div>
                             <PaymentMethods />
-                        </div>
+                        </div> */}
 
                         {/* Consulta por WhatsApp */}
                         <a

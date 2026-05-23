@@ -2,12 +2,13 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import { Poppins } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { Toaster } from 'sonner';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import MercadoPagoProvider from "@/components/provider/MercadoPagoProvider";
 
-const poppins = Poppins({
+const roboto = Roboto({
+
     subsets: ["latin"],
     weight: ["500"],
     display: "swap",
@@ -88,7 +89,7 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body
-                className={`${poppins.className} bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
+                className={`${roboto.className} bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
             >
                 <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
                     <MercadoPagoProvider />

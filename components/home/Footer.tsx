@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { ExternalLink, MapPin } from "lucide-react";
-import PaymentMethods from "./PaymentMethods";
+// import PaymentMethods from "./PaymentMethods";
 
 const NAV = [
     { label: "Catálogo", href: "/catalogo" },
@@ -165,9 +165,9 @@ export default function Footer() {
                         <Link href="/hc/politicas-de-privacidad" className="hover:text-white transition-colors">Privacidad</Link>
                         <Link href="/terminos" className="hover:text-white transition-colors">Términos</Link>
                     </div>
-                    <div className="opacity-50 hover:opacity-80 transition-opacity duration-200">
+                    {/* <div className="opacity-50 hover:opacity-80 transition-opacity duration-200">
                         <PaymentMethods />
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

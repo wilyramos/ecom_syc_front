@@ -3,11 +3,11 @@ import Sidebarcs from "@/components/home/clientservice/Sidebarcs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Centro de Ayuda | Gophone",
+    title: "Centro de Ayuda | S&C Mobile Perú",
     description:
-        "Encuentra soporte, políticas de compra, garantías, devoluciones y ayuda en Gophone. Atención personalizada y respuestas rápidas a tus consultas.",
+        "Encuentra soporte, políticas de compra, garantías, devoluciones y ayuda en S&C Mobile. Atención personalizada y respuestas rápidas a tus consultas.",
     keywords: [
-        "Gophone",
+        "S&C Mobile Perú",
         "centro de ayuda",
         "soporte",
         "garantías",
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
         "atención al cliente"
     ],
     openGraph: {
-        title: "Centro de Ayuda | Gophone Perú",
+        title: "Centro de Ayuda | S&C Mobile Perú",
         description:
-            "Soporte y soluciones rápidas para tus compras en Gophone. Revisa garantías, devoluciones, políticas, contacto y más.",
+            "Soporte y soluciones rápidas para tus compras en S&C Mobile. Revisa garantías, devoluciones, políticas, contacto y más.",
         url: "https://sycmobile.pe/hc",
-        siteName: "Gophone Perú",
+        siteName: "S&C Mobile Perú",
         type: "website",
         images: [
             {
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
         index: true,
         follow: true,
     },
-    authors: [{ name: "Gophone Perú" }],
-    creator: "Gophone Perú",
-    publisher: "Gophone Perú",
+    authors: [{ name: "S&C Mobile Perú" }],
+    creator: "S&C Mobile Perú",
+    publisher: "S&C Mobile Perú",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
