@@ -34,7 +34,7 @@ export default function Footer() {
             {/* Línea acento top */}
             <div className="h-px w-full" style={{ background: "linear-gradient(90deg, var(--color-accent) 0%, transparent 60%)" }} />
 
-            <div className="max-w-5xl mx-auto px-6 py-10 space-y-8">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-8">
 
                 {/* ── FILA 1: logo · dirección · redes ── */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
