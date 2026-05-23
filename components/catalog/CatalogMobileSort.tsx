@@ -55,16 +55,7 @@ export default function CatalogMobileSort() {
                         Más Recientes
                     </SelectItem>
 
-                    {/* VALORACIÓN */}
-                    <SelectItem value="rating" className="rounded-lg text-[13px]">
-                        Mejor Valorados
-                    </SelectItem>
-
-                    {/* DESCUENTO */}
-                    <SelectItem value="discount" className="rounded-lg text-[13px]">
-                        Mayor Descuento
-                    </SelectItem>
-
+               
                     {/* PRECIO */}
                     <SelectItem value="price-asc" className="rounded-lg text-[13px]">
                         Menor Precio
