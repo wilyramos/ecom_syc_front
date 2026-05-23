@@ -33,7 +33,7 @@ export default function NosotrosPage() {
             src="/lista-blanca.webp"
             alt="Certificación Lista Blanca"
             fill
-            className="object-cover"
+            className="object-contain"
           />
         </section>
 
