@@ -18,43 +18,43 @@ export default function ClientCarouselCategorias({ categorias }: { categorias: C
     };
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 lg:px-0 ">
+        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 ">
             {/* Encabezado sin rellenos internos, solo margen inferior */}
             <HeaderConTituloConControles
                 viewAllHref="/categorias"
                 title={
                     <>
-                        Categorías 
+                        Categorías
                     </>
                 }
             />
 
             <Carousel
-                responsive={responsive} 
-                infinite 
+                responsive={responsive}
+                infinite
                 autoPlay
-                autoPlaySpeed={6000} 
+                autoPlaySpeed={6000}
                 arrows={false}
-                itemClass="p-8" 
+                itemClass="px-2 py-4"
                 containerClass="w-full"
                 partialVisible
                 draggable
                 swipeable
             >
                 {categorias.map(c => (
-                    <Link 
-                        key={c._id} 
+                    <Link
+                        key={c._id}
                         href={routes.catalog({ category: c.slug })}
                         className="group flex flex-col transition-all duration-500"
                     >
                         {/* Contenedor de Imagen Limpio */}
                         <div className="relative aspect-square overflow-hidden bg-[var(--color-bg-secondary)] rounded-sm">
                             {c.image ? (
-                                <Image 
-                                    src={c.image} 
-                                    alt={c.nombre} 
-                                    fill 
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                                <Image
+                                    src={c.image}
+                                    alt={c.nombre}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                                     unoptimized
                                 />
                             ) : (
@@ -65,13 +65,13 @@ export default function ClientCarouselCategorias({ categorias }: { categorias: C
                         </div>
 
                         {/* Textos con altura fija mínima para evitar saltos */}
-                        <div className="mt-4 flex items-center justify-between">
-                            <h3 className="text-sm font-semibold tracking-tight text-[var(--color-text-primary)]">
+                        <div className="mt-4 flex items-center justify-center gap-1 min-h-[2.5rem]">
+                            <h3 className="text-lg font-norma text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors duration-300">
                                 {c.nombre}
                             </h3>
-                            <ChevronRight 
-                                size={16} 
-                                className="text-[var(--color-text-tertiary)] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" 
+                            <ChevronRight
+                                size={16}
+                                className="text-[var(--color-text-tertiary)] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
                             />
                         </div>
                     </Link>

@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode, useState, useEffect } from "react";
-import { Truck } from "lucide-react";
 
 export default function NavBarClient({ children }: { children: ReactNode }) {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -27,14 +26,12 @@ export default function NavBarClient({ children }: { children: ReactNode }) {
             >
                 <div className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] border-b border-white/10">
                     <div className="flex items-center justify-center gap-2 px-4">
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
-                            <Truck size={15} strokeWidth={2} />
-                        </div>
+                       
 
                         <p className="text-[10px] md:text-xs font-medium tracking-tight">
-                            Envíos gratis en compras mayores a{" "}
+                            Equipos iphone con {" "}
                             <span className="font-bold text-white">
-                                S/. 100
+                                Garantia
                             </span>
                         </p>
                     </div>

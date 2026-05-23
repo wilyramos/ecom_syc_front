@@ -31,22 +31,13 @@ export default function HeaderConTituloConControles({ title, viewAllHref, label 
                 {viewAllHref && (
                     <Link
                         href={viewAllHref}
-                        className="hidden md:flex items-center gap-1 text-sm font-medium text-[var(--color-text-primary)] hover:opacity-60 transition-all group"
+                        className=" flex items-center gap-1 text-sm font-medium text-[var(--color-text-primary)] hover:opacity-60 transition-all group"
                     >
                         ver todo
                     </Link>
                 )}
             </div>
 
-            {/* Link para Mobile */}
-            {viewAllHref && (
-                <Link
-                    href={viewAllHref}
-                    className="md:hidden text-xs font-semibold uppercase tracking-widest text-[var(--color-text-primary)] flex items-center gap-1 pt-2"
-                >
-                    Ver todo <ChevronRight size={12} />
-                </Link>
-            )}
         </div>
     );
 }

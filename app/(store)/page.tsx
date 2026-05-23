@@ -4,7 +4,6 @@ import { Metadata } from "next";
 import { metadata as globalMetadata } from "@/app/layout";
 import ProductosDestacados from "@/components/home/ProductosDestacados";
 import CategoriasDestacadasWrapper from "@/components/home/CategoriasDestacadasWrapper";
-import FeaturesList from "@/components/home/FeaturesList";
 import BrandsList from "@/components/home/BrandsList";
 import CarruselPrincipal from "@/components/home/CarruselPrincipal";
 import ColleccionesSection from "@/components/home/Colleccionessection";
@@ -54,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
     return (
-        <div className="flex flex-col divide-y-2 divide-gray-200">
+        <div className="flex flex-col divide-y-2 divide-gray-100">
             {/* El Carrusel suele ir sin margen superior para pegar al nav */}
             <section className="">
                 <CarruselPrincipal />
@@ -73,18 +72,18 @@ export default function HomePage() {
 
 
 
-            <section className="py-10 bg-[var(--color-bg-secondary)]">
+            <section className="py-5 bg-[var(--color-bg-secondary)]">
                 <ProductosDestacados />
             </section>
 
 
-            <section className="py-10">
+            <section className="py-5">
                 <BrandsList />
             </section>
 
-            <section className="py-10 bg-[var(--color-bg-secondary)]">
+            {/* <section className="py-5 bg-[var(--color-bg-secondary)]">
                 <FeaturesList />
-            </section>
+            </section> */}
         </div>
     );
 }

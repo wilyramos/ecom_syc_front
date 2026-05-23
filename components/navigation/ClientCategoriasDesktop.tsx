@@ -53,27 +53,9 @@ export default function ClientCategoriasDesktop({
 
                             {sub.length > 0 && (
                                 <NavigationMenuContent>
-                                    <div className="grid grid-cols-[240px_1fr] w-[740px] bg-card overflow-hidden">
+                                    <div className="grid grid-cols-[240px_1fr]  bg-card overflow-hidden">
 
-                                        {/* Panel izquierdo */}
-                                        <div className="bg-background-secondary p-6 flex flex-col justify-between relative group">
-                                            <Link
-                                                href={routes.catalog({ category: cat.slug })}
-                                                className="absolute inset-0 z-10"
-                                                aria-label={`Ver todo ${cat.nombre}`}
-                                            />
-                                            <div>
-                                                <h3 className="text-xl font-bold text-[var(--color-text-secondary)] tracking-tight group-hover:text-primary transition-colors mb-2">
-                                                    {cat.nombre}
-                                                </h3>
-                                                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
-                                                    {cat.descripcion || `Explora lo último en la categoría de ${cat.nombre.toLowerCase()}.`}
-                                                </p>
-                                            </div>
-                                            <div className="text-xs font-medium text-foreground opacity-80 group-hover:opacity-100 group-hover:underline underline-offset-4 transition-all">
-                                                Ver todo
-                                            </div>
-                                        </div>
+                                    
 
                                         {/* Panel derecho: Subcategorías */}
                                         <div className="p-6 bg-card">

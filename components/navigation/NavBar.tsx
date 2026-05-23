@@ -12,47 +12,47 @@ export default function NavBar() {
     return (
         <NavBarClient>
             <header className="sticky top-0 z-50 h-20 flex flex-col justify-center text-[var(--color-text-secondary)] transition-colors duration-300">
-                {/* Añadimos 'relative' al contenedor padre para que el posicionamiento absoluto del logo móvil funcione correctamente */}
-                <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 relative">
+                <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 md:px-8 relative">
 
-                    {/* Left column */}
+                    {/* Left column: Logo + Enlaces */}
                     <div className="flex justify-start items-center gap-6">
+                        {/* Móvil: Menús */}
                         <div className="md:hidden flex items-center gap-1">
                             <ServerSheetMobile />
                             <ButtonSearchMobile />
                         </div>
-                        
-                        <Link href="/" className="relative hidden h-20 w-[140px] md:flex items-center">
+
+                        {/* Escritorio: Logo siempre visible al inicio */}
+                        <Link href="/" className="hidden md:flex h-20 w-[140px] items-center">
                             <Logo color="black" size="fill" />
                         </Link>
 
-                        {/* Botón "Nosotros y soporte tecnico" para escritorio */}
-                        <Link 
-                            href="/nosotros" 
-                            className="hidden md:block text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                        {/* Escritorio: Enlaces de navegación */}
+                        <Link
+                            href="/nosotros"
+                            className="hidden md:block text-sm font-medium hover:text-[var(--color-accent)] transition-colors duration-200"
                         >
                             Nosotros
                         </Link>
                         <Link
                             href="/soporte-tecnico"
-                            className="hidden md:block text-sm font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors duration-200"
+                            className="hidden md:block text-sm font-medium hover:text-[var(--color-accent)] transition-colors duration-200"
                         >
                             Soporte Técnico
                         </Link>
-
                     </div>
 
                     {/* Center column */}
                     <div className="flex items-center justify-center">
-                        {/* LOGO MÓVIL: Absoluto, centrado matemáticamente a la mitad de la pantalla */}
+                        {/* LOGO MÓVIL: Solo visible en pantallas pequeñas */}
                         <div className="md:hidden absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10">
-                            <Link href="/" className="relative h-19 w-[140px] flex items-center justify-center">
+                            <Link href="/" className="h-19 w-[140px] flex items-center justify-center">
                                 <Logo color="black" size="fill" />
                             </Link>
                         </div>
-                        
-                        {/* Buscador de escritorio se mantiene intacto */}
-                        <div className="hidden md:flex flex-1 w-full max-w-xl">
+
+                        {/* Buscador de escritorio */}
+                        <div className="hidden md:flex flex-1 w-full max-w-xl justify-center">
                             <ButtonSearchFormStore />
                         </div>
                     </div>
@@ -69,7 +69,6 @@ export default function NavBar() {
                                     <HiOutlineUser className="h-5 w-5" />
                                 </div>
                             </Link>
-
                             <ButtonShowCart />
                         </div>
 
@@ -77,7 +76,6 @@ export default function NavBar() {
                             <ButtonShowCart />
                         </div>
                     </div>
-
                 </div>
             </header>
 
