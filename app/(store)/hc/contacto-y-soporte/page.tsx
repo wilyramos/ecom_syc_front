@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 export default function ContactoSoportePage() {
     const methods = [
         { title: "Canal Digital", val: "+51 972 416 683", desc: "Atención comercial inmediata", href: "https://wa.me/51972416683", icon: FaWhatsapp, color: "text-green-600 dark:text-green-400" },
-        { title: "Buzón Oficial", val: "contacto@sycmobile.pe", desc: "Gestiones, garantías y soporte técnico", href: "mailto:contacto@sycmobile.pe", icon: Mail, color: "text-primary" },
+        { title: "Buzón Oficial", val: "sycmobilecanete@gmail.com", desc: "Gestiones, garantías y soporte técnico", href: "mailto:sycmobilecanete@gmail.com", icon: Mail, color: "text-primary" },
         { title: "Sede Central", val: "Av. Mariscal Benavides 713", desc: "San Vicente de Cañete, Perú", icon: MapPin, color: "text-destructive" },
         { title: "Disponibilidad", val: "Lun–Sáb 10am – 7pm", desc: "Horario de atención presencial", icon: Clock, color: "text-muted-foreground" }
     ];

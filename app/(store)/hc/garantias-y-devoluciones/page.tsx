@@ -66,8 +66,8 @@ export default function GarantiasDevolucionesPage() {
                 <Link href="https://wa.me/51972416683" className="flex items-center justify-center gap-2 flex-1 p-3 bg-secondary rounded-lg text-xs font-bold hover:bg-secondary/80">
                     <FaWhatsapp className="text-green-600" size={16} /> +51 972 416 683
                 </Link>
-                <Link href="mailto:contacto@sycmobile.pe" className="flex items-center justify-center gap-2 flex-1 p-3 bg-secondary rounded-lg text-xs font-bold hover:bg-secondary/80">
-                    <FaEnvelope size={16} /> contacto@sycmobile.pe
+                <Link href="mailto:sycmobilecanete@gmail.com" className="flex items-center justify-center gap-2 flex-1 p-3 bg-secondary rounded-lg text-xs font-bold hover:bg-secondary/80">
+                    <FaEnvelope size={16} /> sycmobilecanete@gmail.com
                 </Link>
             </div>
         </section>

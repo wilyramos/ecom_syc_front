@@ -52,7 +52,7 @@ export default function PoliticasPrivacidadPage() {
                     <p className="text-xs text-muted-foreground">Actualiza o elimina tu información aquí.</p>
                 </div>
                 <div className="flex gap-2">
-                    <Link href="mailto:contacto@sycmobile.pe" className="p-2.5 bg-secondary rounded-lg hover:bg-secondary/80">
+                    <Link href="mailto:sycmobilecanete@gmail.com" className="p-2.5 bg-secondary rounded-lg hover:bg-secondary/80">
                         <Mail size={18} />
                     </Link>
                     <Link href="/hc/contacto-y-soporte" className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-xs font-bold hover:opacity-90">
