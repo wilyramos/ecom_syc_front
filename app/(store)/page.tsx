@@ -12,7 +12,7 @@ import ColleccionesSection from "@/components/home/Colleccionessection";
 export const metadata: Metadata = {
     ...globalMetadata,
     title: {
-        default: "S&C Mobile",
+        default: "Productos Apple",
         template: "%s | S&C Mobile",
     },
     description:
