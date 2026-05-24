@@ -535,8 +535,10 @@ export default function ProductsTable({
                                                             }
                                                             alt={p.nombre}
                                                             fill
-                                                            sizes="40px"
-                                                            className="object-cover"
+                                                            sizes="20px"
+                                                            quality={2}
+                                                            className="object-contain"
+                                                            unoptimized
                                                         />
                                                     </div>
                                                 ) : (

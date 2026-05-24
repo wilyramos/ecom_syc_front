@@ -12,10 +12,10 @@ export default function NavBar() {
     return (
         <NavBarClient>
             <header className="sticky top-0 z-50 h-20 flex flex-col justify-center text-[var(--color-text-secondary)] transition-colors duration-300">
-                <div className="max-w-7xl w-full mx-auto grid grid-cols-3 items-center px-4 md:px-8 relative">
+                <div className="max-w-screen-2xl w-full mx-auto grid grid-cols-3 items-center px-4 md:px-8 relative">
 
                     {/* Left column: Logo + Enlaces */}
-                    <div className="flex justify-start items-center gap-6">
+                    <div className="flex justify-start items-center gap-3">
                         {/* Móvil: Menús */}
                         <div className="md:hidden flex items-center gap-1">
                             <ServerSheetMobile />
@@ -23,8 +23,8 @@ export default function NavBar() {
                         </div>
 
                         {/* Escritorio: Logo siempre visible al inicio */}
-                        <Link href="/" className="hidden md:flex h-20 w-[140px] items-center">
-                            <Logo color="black" size="fill" />
+                        <Link href="/" className="hidden md:flex w-48 h-20 ">
+                            <Logo color="black" />
                         </Link>
 
                         {/* Escritorio: Enlaces de navegación */}
@@ -80,7 +80,7 @@ export default function NavBar() {
             </header>
 
             <div className="hidden md:block sticky z-40 w-full border-b-2 border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] transition-colors duration-300">
-                <div className="max-w-7xl mx-auto flex items-center px-4">
+                <div className="max-w-screen-2xl mx-auto flex items-center px-4 md:px-8">
                     <ServerCategorias />
                 </div>
             </div>

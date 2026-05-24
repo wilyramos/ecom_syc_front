@@ -21,7 +21,7 @@ export default function ColleccionesCarousel({ collections }: { collections: Col
             autoPlay
             autoPlaySpeed={5000}
             arrows={false}
-            itemClass="px-2"
+            itemClass="p-4"
             containerClass="w-full"
             partialVisible
             draggable
@@ -31,7 +31,7 @@ export default function ColleccionesCarousel({ collections }: { collections: Col
                 <Link
                     key={col._id}
                     href={`/colecciones/${col.slug}`}
-                    className="group relative block aspect-[4/3] overflow-hidden rounded-lg border transition-shadow duration-200 hover:shadow-md"
+                    className="group relative block aspect-[16/9] overflow-hidden rounded-lg border transition-shadow duration-200 hover:shadow-md"
                     style={{
                         backgroundColor: col.color ?? "var(--color-bg-secondary)",
                         borderColor: "var(--color-border-subtle)",
@@ -47,7 +47,7 @@ export default function ColleccionesCarousel({ collections }: { collections: Col
                         />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-                    
+
                     <div className="absolute inset-0 z-10 flex flex-col justify-between p-4">
                         <span className="text-[9px] font-black tabular-nums text-white/40">
                             {String(i + 1).padStart(2, "0")}
@@ -56,7 +56,6 @@ export default function ColleccionesCarousel({ collections }: { collections: Col
                             <p className="text-sm font-bold text-white leading-tight" style={{ letterSpacing: "-0.01em" }}>
                                 {col.name}
                             </p>
-                           
                         </div>
                     </div>
                 </Link>

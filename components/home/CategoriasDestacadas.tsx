@@ -18,7 +18,7 @@ export default function ClientCarouselCategorias({ categorias }: { categorias: C
     };
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 ">
+        <section className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 ">
             {/* Encabezado sin rellenos internos, solo margen inferior */}
             <HeaderConTituloConControles
                 viewAllHref="/categorias"
@@ -35,7 +35,7 @@ export default function ClientCarouselCategorias({ categorias }: { categorias: C
                 autoPlay
                 autoPlaySpeed={6000}
                 arrows={false}
-                itemClass="px-2 py-4"
+                itemClass="p-6"
                 containerClass="w-full"
                 partialVisible
                 draggable

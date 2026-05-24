@@ -7,12 +7,12 @@ export default async function ColleccionesSection() {
     if (!collections || collections.length === 0) return null;
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 mt-10">
+        <section className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 my-5">
             <HeaderConTituloConControles
                 title="Colecciones"
                 viewAllHref="/colecciones"
             />
-            <div className="mt-6">
+            <div className="mt-4">
                 <ColleccionesCarousel collections={collections} />
             </div>
         </section>

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
     return (
-        <div className="flex flex-col divide-y-2 divide-gray-100">
+        <div className="flex flex-col divide-y-2 divide-gray-50">
             {/* El Carrusel suele ir sin margen superior para pegar al nav */}
             <section className="">
                 <CarruselPrincipal />
@@ -66,11 +66,9 @@ export default function HomePage() {
                 <ProductosNuevos />
             </section> */}
 
-            <section className="bg-[var(--color-bg-primary) py-5">
+            <section className="bg-[var(--color-bg-primary)] py-5">
                 <ColleccionesSection />
             </section>
-
-
 
             <section className="py-5 bg-[var(--color-bg-secondary)]">
                 <ProductosDestacados />

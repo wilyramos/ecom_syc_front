@@ -9,7 +9,7 @@ export default async function ProductosDestacados() {
     if (!productos.length) return null;
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 mt-10">
+        <section className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-10">
             {/* Encabezado Estandarizado */}
             <HeaderConTituloConControles
                 viewAllHref="/productos"
@@ -17,7 +17,7 @@ export default async function ProductosDestacados() {
             />
 
             {/* Grid de Productos Estandarizado */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 mt-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4">
                 {productos.slice(0, 8).map((product) => (
                     <div
                         key={product._id}

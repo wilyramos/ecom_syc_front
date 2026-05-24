@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { ExternalLink, MapPin } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 // import PaymentMethods from "./PaymentMethods";
 
 const NAV = [
@@ -34,7 +34,7 @@ export default function Footer() {
             {/* Línea acento top */}
             <div className="h-px w-full" style={{ background: "linear-gradient(90deg, var(--color-accent) 0%, transparent 60%)" }} />
 
-            <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 space-y-8">
+            <div className="max-w-screen-2xl mx-auto px-4 md:px-8 py-10 space-y-8">
 
                 {/* ── FILA 1: logo · dirección · redes ── */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
@@ -58,7 +58,6 @@ export default function Footer() {
 
                     {/* Dirección */}
                     <div className="flex items-center gap-1.5">
-                        <MapPin size={11} style={{ color: "var(--color-accent)" }} />
                         <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.45)" }}>
                             Av. Mariscal Benavides 713, San Vicente de Cañete
                         </span>

@@ -17,7 +17,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
     metadataBase: new URL("https://sycmobile.pe"),
     title: {
-        default: "S&C Mobile",
+        default: "Iphones, Accesorios en Cañete",
         template: "%s | S&C Mobile"
     },
     description:
