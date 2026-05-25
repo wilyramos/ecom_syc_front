@@ -31,7 +31,7 @@ export default function ProductExpandableSections({ producto }: Props) {
     if (!hasDescripcion && !hasSpecs) return null;
 
     return (
-        <Accordion type="multiple" className="w-full space-y-0 bg-[var(--color-bg-primary)] mt-8">
+        <Accordion type="multiple" className="w-full space-y-0 bg-[var(--color-bg-primary)] mt-4">
 
             {/* SECCIÓN 1: ENVÍOS */}
             <AccordionItem value="envios" className="border-t border-b-0 border-[var(--color-border-subtle)]">

@@ -1,36 +1,27 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Términos y Condiciones | S&C Mobile",
-    description: "Conoce los términos y condiciones de uso de nuestra plataforma S&C Mobile.",
+    title: "Términos | S&C Mobile",
+    description: "Términos de uso de S&C Mobile.",
 };
 
 export default function TerminosPage() {
     return (
-        <>
-            <h1 className="text-3xl md:text-4xl mb-4">Términos y Condiciones</h1>
-            <p className="text-sm mb-12">Última actualización: 1 de febrero de 2026</p>
+        <main className=" px-4 py-8 text-sm text-muted-foreground bg-background">
+            <h1 className="text-xl font-bold text-primary mb-1">Términos y Condiciones</h1>
+            <p className="text-xs mb-6">Actualizado: 1 de mayo de 2026</p>
 
-            <section className="mb-8">
-                <h2 className="text-xl mb-4">1. Generalidades</h2>
+            <div className="space-y-4 leading-snug">
                 <p>
-                    Este documento regula el acceso y uso del sitio web de S&C Mobile. Al utilizar nuestros servicios, aceptas estos términos en su totalidad.
+                    Al navegar por este sitio web, aceptas cumplir con nuestras normas de uso, políticas de compra y la legislación vigente.
                 </p>
-            </section>
-
-            <section className="mb-8">
-                <h2 className="text-xl mb-4">2. Propiedad Intelectual</h2>
                 <p>
-                    Todo el contenido presente en este sitio, incluyendo marcas, logos, textos e imágenes, es propiedad de S&C Mobile o de sus proveedores y está protegido por las leyes de propiedad intelectual.
+                    Todo el material, diseño y logotipos son propiedad exclusiva de S&C Mobile y no está permitida su copia o distribución sin autorización.
                 </p>
-            </section>
-
-            <section className="mb-8">
-                <h2 className="text-xl mb-4">3. Envíos y Entregas</h2>
                 <p>
-                    Los tiempos de envío pueden variar según la ubicación. S&C Mobile se compromete a despachar los productos en los plazos establecidos, pero no se responsabiliza por retrasos ajenos a nuestra gestión logística.
+                    Los plazos de entrega y costos de envío se calculan al finalizar la compra y quedan sujetos a disponibilidad y cobertura logística.
                 </p>
-            </section>
-        </>
+            </div>
+        </main>
     );
 }

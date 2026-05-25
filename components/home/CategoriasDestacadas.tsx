@@ -35,7 +35,7 @@ export default function ClientCarouselCategorias({ categorias }: { categorias: C
                 autoPlay
                 autoPlaySpeed={6000}
                 arrows={false}
-                itemClass="p-6"
+                itemClass="p-6 md:p-10"
                 containerClass="w-full"
                 partialVisible
                 draggable

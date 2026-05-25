@@ -13,106 +13,79 @@ export default function ProcesoCompraPage() {
     const pasos = [
         {
             icon: ShoppingCart,
-            title: "Selección de productos",
-            description: "Explora nuestras categorías y variantes. Una vez encuentres lo que buscas, agrégalo a tu bolsa de compra."
+            title: "Selección",
+            description: "Agrega tus productos y variantes favoritos a la bolsa de compra."
         },
         {
             icon: CreditCard,
             title: "Pago seguro",
-            description: "Finaliza tu pedido utilizando Visa, Mastercard, Mercado Pago o Yape. Procesamos tu pago con cifrado de nivel bancario.",
-            extra: ["Cifrado SSL de 256 bits", "Privacidad garantizada"]
+            description: "Paga con tarjeta, yape, plin , transferencia o en efectivo.",
         },
         {
             icon: CheckCircle2,
             title: "Confirmación",
-            description: "Recibirás un correo electrónico automático con el resumen detallado y número de orden. También podemos notificarte vía WhatsApp."
+            description: "Recibe el resumen detallado y tu número de orden por correo o WhatsApp."
         },
         {
             icon: Package,
             title: "Preparación",
-            description: "Cada dispositivo pasa por un estricto control de calidad y un embalaje protector antes de salir de nuestro centro de distribución."
+            description: "Pasamos cada dispositivo por control de calidad y un embalaje seguro."
         },
         {
             icon: Truck,
-            title: "Envío y Seguimiento",
-            description: "Despachamos a nivel nacional. Si estás en Cañete, disfruta de nuestra entrega prioritaria el mismo día.",
-            extra: ["Cañete: < 24h", "Provincias: 48h - 72h"]
+            title: "Envío",
+            description: "Entrega prioritaria el mismo día en Cañete y de 48h a 72h en provincias."
         }
     ];
 
     return (
-        <section className="max-w-4xl mx-auto px-4 py-12 md:py-20 animate-in fade-in duration-700">
-            
-            {/* --- CABECERA EDITORIAL --- */}
-            <header className="mb-16 text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-action-primary-light)] text-[var(--color-action-primary)] text-[10px] font-bold uppercase tracking-widest mb-6">
-                    <Package size={14} />
-                    <span>Experiencia de Compra</span>
-                </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] tracking-tight mb-4 leading-[1.1]">
-                    Comprar es tan simple <br />
-                    <span className="text-[var(--color-text-secondary)] text-2xl md:text-3xl font-medium">como debería ser.</span>
+        <section className="max-w-3xl mx-auto px-4 py-12 text-foreground bg-background">
+            <header className="mb-12">
+                <h1 className="text-3xl font-bold tracking-tight text-primary mb-2">
+                    Proceso de Compra
                 </h1>
-                <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl leading-relaxed mt-6 font-medium">
-                    Hemos diseñado un proceso fluido y transparente para que tu única preocupación sea disfrutar de tu nuevo dispositivo.
+                <p className="text-sm text-muted-foreground">
+                    Un flujo transparente y sencillo para recibir tu nuevo dispositivo de forma segura.
                 </p>
             </header>
 
-            {/* --- TIMELINE DE PASOS --- */}
-            <div className="space-y-0 relative">
+            <div className="space-y-8 relative">
                 {pasos.map((paso, index) => (
-                    <div key={index} className="relative flex gap-6 md:gap-10 group">
-                        
-                        {/* Línea conectora visual */}
+                    <div key={index} className="relative flex gap-4">
                         {index !== pasos.length - 1 && (
-                            <div className="absolute left-[23px] md:left-[27px] top-12 bottom-0 w-px bg-[var(--color-bg-tertiary)]" />
+                            <div className="absolute left-5 top-10 bottom-[-2rem] w-px bg-border" />
                         )}
 
-                        {/* Icono con contenedor */}
-                        <div className="relative z-10 flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[var(--color-bg-primary)] border border-[var(--color-bg-tertiary)] flex items-center justify-center shadow-sm group-hover:border-[var(--color-action-primary)] transition-all duration-500 group-hover:scale-105">
-                            <paso.icon className="w-5 h-5 md:w-6 md:h-6 text-[var(--color-text-primary)] group-hover:text-[var(--color-action-primary)] transition-colors" />
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-muted border border-border flex items-center justify-center">
+                            <paso.icon className="w-5 h-5 text-primary" />
                         </div>
 
-                        {/* Contenido */}
-                        <div className="pt-2 md:pt-3 flex-1 pb-16">
-                            <h2 className="text-xl font-bold text-[var(--color-text-primary)] mb-3 tracking-tight">
+                        <div className="pt-1">
+                            <h2 className="text-base font-semibold text-primary mb-1">
                                 {index + 1}. {paso.title}
                             </h2>
-                            <p className="text-[var(--color-text-secondary)] leading-relaxed text-sm md:text-base max-w-2xl mb-4 font-medium">
+                            <p className="text-sm text-muted-foreground leading-normal">
                                 {paso.description}
                             </p>
-                            
-                            {paso.extra && (
-                                <div className="flex flex-wrap gap-2">
-                                    {paso.extra.map((ex, i) => (
-                                        <span key={i} className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-tertiary)] border border-[var(--color-bg-tertiary)]">
-                                            {ex}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* --- BLOQUE DE SATISFACCIÓN (INVERSO) --- */}
-            <div className="mt-12 p-8 md:p-12 rounded-[2.5rem] bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)] relative overflow-hidden shadow-2xl">
-                <div className="absolute top-0 right-0 p-8 opacity-5">
-                    <ShieldCheck size={180} />
+            <div className="mt-12 p-6 rounded-xl bg-card border border-border relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-5 text-foreground pointer-events-none">
+                    <ShieldCheck size={120} />
                 </div>
-                <div className="relative z-10 max-w-xl">
-                    <h3 className="text-2xl font-bold mb-4 tracking-tight">Tu tranquilidad es nuestra prioridad.</h3>
-                    <p className="text-[var(--color-text-tertiary)] text-sm md:text-base leading-relaxed mb-8 font-medium">
-                        Recomendamos verificar el estado del empaque al recibirlo. Conserva siempre tu comprobante para gestionar cualquier garantía de forma inmediata.
-                    </p>
-                    <Link 
-                        href="/hc/contacto-y-soporte" 
-                        className="inline-flex items-center gap-2 text-[var(--color-action-primary)] font-bold hover:gap-3 transition-all"
-                    >
-                        Hablar con un especialista <ArrowRight size={18} />
-                    </Link>
-                </div>
+                <h3 className="text-base font-bold text-primary mb-2">Garantía y tranquilidad</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                    Verifica el estado del empaque al recibirlo y conserva tu comprobante de compra para cualquier gestión inmediata.
+                </p>
+                <Link 
+                    href="/hc/contacto-y-soporte" 
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-accent-foreground hover:underline"
+                >
+                    Soporte especializado <ArrowRight size={14} className="text-primary" />
+                </Link>
             </div>
         </section>
     );

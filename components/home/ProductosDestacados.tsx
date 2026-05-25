@@ -9,7 +9,7 @@ export default async function ProductosDestacados() {
     if (!productos.length) return null;
 
     return (
-        <section className="w-full max-w-screen-2xl mx-auto px-4 md:px-8 mt-10">
+        <section className="w-full max-w-screen-2xl mx-auto px-4 md:px-10 mt-10">
             {/* Encabezado Estandarizado */}
             <HeaderConTituloConControles
                 viewAllHref="/productos"

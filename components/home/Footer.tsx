@@ -12,7 +12,6 @@ const NAV = [
     { label: "Nosotros", href: "/nosotros" },
     { label: "Ayuda", href: "/hc/contacto-y-soporte" },
     { label: "Garantía", href: "/hc/garantias-y-devoluciones" },
-    { label: "Envíos", href: "/politicas-de-envio" },
 ];
 
 const LEGAL = [

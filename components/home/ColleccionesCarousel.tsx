@@ -21,7 +21,7 @@ export default function ColleccionesCarousel({ collections }: { collections: Col
             autoPlay
             autoPlaySpeed={5000}
             arrows={false}
-            itemClass="p-4"
+            itemClass="p-4 md:p-10"
             containerClass="w-full"
             partialVisible
             draggable
