@@ -5,17 +5,12 @@ import getToken from "../auth/token";
 import {
     SliderBanner,
     SliderBannerResponseSchema,
-    SliderContentTypeEnum,
 } from "@/src/schemas/slider.schema";
-import { z } from "zod";
-
-export type SliderContentType = z.infer<typeof SliderContentTypeEnum>;
 
 export interface AdminFilters {
     page?: number;
     limit?: number;
     isActive?: boolean;
-    contentType?: SliderContentType;
     search?: string;
 }
 
@@ -75,7 +70,6 @@ export const SliderService = {
         if (filters.page) params.append("page", filters.page.toString());
         if (filters.limit) params.append("limit", filters.limit.toString());
         if (filters.isActive !== undefined) params.append("isActive", filters.isActive.toString());
-        if (filters.contentType) params.append("contentType", filters.contentType);
         if (filters.search) params.append("search", filters.search);
 
         const res = await fetch(`${BASE_URL}?${params.toString()}`, {

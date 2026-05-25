@@ -45,13 +45,13 @@ export default function Footer() {
                             className="text-xs font-black uppercase tracking-[0.22em]"
                             style={{ color: "var(--color-accent)" }}
                         >
-                            SYC
+                            S&C
                         </span>
                         <span
                             className="w-px h-3.5 rounded-full"
                             style={{ backgroundColor: "rgba(255,255,255,0.2)" }}
                         />
-                        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white">
+                        <span className="text-xs font-semibold tracking-[0.14em] text-white">
                             Mobile Perú
                         </span>
                     </div>

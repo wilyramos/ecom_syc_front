@@ -20,7 +20,7 @@ export default function BrandsCarousel({ brands }: { brands: TBrand[] }) {
     if (!brands.length) return null;
 
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 md:px-8 mt-10">
+        <section className="w-full px-4 md:px-8 my-5">
             {/* Encabezado Estandarizado */}
             <HeaderConTituloConControles 
                 title="Marcas" 

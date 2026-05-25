@@ -5,9 +5,10 @@ import Image from "next/image";
 import SliderPrice from "../ui/SliderPrice";
 import type { SliderBanner } from "@/src/schemas/slider.schema";
 
-export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
+export default function LayoutMediaLeft({ banner }: { banner: SliderBanner }) {
     const { design, media, title, subtitle, description, terms, price, destUrl, openInNewTab } = banner;
 
+    // Lógica de colores
     const isDark = design.theme !== "light";
     const bg = design.bgColor ?? (isDark ? "#000000" : "#ffffff");
     const text = design.textColor ?? (isDark ? "#a8a8a8" : "#0f0f0f");
@@ -19,16 +20,34 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
             style={{ backgroundColor: bg }}
         >
             <div className="relative z-10 w-full max-w-6xl mx-auto h-full flex flex-row items-center px-4 sm:px-10">
-                {/* ── Texto (izquierda) ─────────────────────────────── */}
+
+                {/* ── Media (izquierda) ─────────────────────────────── */}
+                {media?.imageUrl && (
+                    <div className="w-1/2 h-full">
+                        <div className="relative w-full h-full m-2">
+                            <Image
+                                src={media.imageUrl}
+                                alt={media.altText ?? title ?? ""}
+                                fill
+                                className={media.objectFit === "contain" ? "object-contain" : "object-cover"}
+                                sizes="(max-width: 640px) 50vw, 40vw"
+                                priority
+                                unoptimized
+                            />
+                        </div>
+                    </div>
+                )}
+
+                {/* ── Texto (derecha) ───────────────────────────────── */}
                 <div
-                    className="flex flex-col justify-center items-start w-1/2 h-full pr-2 sm:pr-4 gap-2 sm:gap-4"
+                    className="flex flex-col justify-center items-center w-1/2 h-full pl-2 sm:pl-4 gap-2 sm:gap-4"
                     style={{ color: text }}
                 >
                     {subtitle && (
                         <div>
                             <span
                                 className="inline-block text-[10px] sm:text-sm md:text-base font-bold uppercase px-2.5 py-1"
-                                style={{ borderLeft: `1px solid ${accent}` }}
+                                style={{ borderLeft: `3px solid ${accent}` }}
                             >
                                 {subtitle}
                             </span>
@@ -61,18 +80,6 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                         </div>
                     )}
 
-                    <div className="mt-2">
-                        <span
-                            className="inline-block px-2 py-1 text-[10px] sm:text-xs font-semibold uppercase transition-colors rounded-2xl "
-                            style={{ 
-                                backgroundColor: accent, 
-                                color: isDark ? "#000000" : "#ffffff" 
-                            }}
-                        >
-                            Ver más
-                        </span>
-                    </div>
-
                     {terms && (
                         <div className="mt-1 sm:mt-2">
                             <p className="text-[8px] sm:text-[9px] font-medium tracking-wide uppercase" style={{ opacity: 0.45 }}>
@@ -81,23 +88,6 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                         </div>
                     )}
                 </div>
-
-                {/* ── Media (derecha) ───────────────────────────────── */}
-                {media?.imageUrl && (
-                    <div className="w-1/2 h-full">
-                        <div className="relative w-full h-full m-2">
-                            <Image
-                                src={media.imageUrl}
-                                alt={media.altText ?? title ?? ""}
-                                fill
-                                className={media.objectFit === "contain" ? "object-contain" : "object-cover"}
-                                sizes="(max-width: 640px) 50vw, 40vw"
-                                priority
-                                unoptimized
-                            />
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );

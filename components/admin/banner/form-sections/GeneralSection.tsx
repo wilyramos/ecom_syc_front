@@ -1,40 +1,32 @@
-// File: src/components/admin/banner/form-sections/GeneralSection.tsx
 "use client";
 
 import { useState } from "react";
 import { Info, ImageIcon, Link as LinkIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { LabelWithTooltip } from "@/components/utils/LabelWithTooltip";
+import { Input }    from "@/components/ui/input";
+import { Label }    from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { LabelWithTooltip } from "@/components/utils/LabelWithTooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SliderContentTypeEnum, SliderObjectFitEnum, SliderBorderStyleEnum, type SliderBanner } from "@/src/schemas/slider.schema";
-import ProductReferenceSelector from "../../shared/ProductReferenceSelector";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { SliderObjectFitEnum, type SliderBanner } from "@/src/schemas/slider.schema";
 import MediaLibraryDialog from "@/components/admin/products/MediaLibraryDialog";
-import { cn } from "@/lib/utils";
 
 interface SectionProps {
-    initialData?: SliderBanner;
-    fields?: Record<string, string>;
-    fieldErrors?: Record<string, string[]>;
+    initialData?:  SliderBanner;
+    fields?:       Record<string, string>;
+    fieldErrors?:  Record<string, string[]>;
 }
 
 export default function GeneralSection({ initialData, fields, fieldErrors }: SectionProps) {
     const [availableImages, setAvailableImages] = useState<string[]>(
-        initialData?.media.imageUrl ? [initialData.media.imageUrl] : []
+        initialData?.media?.imageUrl ? [initialData.media.imageUrl] : []
     );
     const [selectedImageUrl, setSelectedImageUrl] = useState<string>(
-        fields?.["media.imageUrl"] || initialData?.media.imageUrl || ""
+        fields?.["media.imageUrl"] || initialData?.media?.imageUrl || ""
     );
 
     const val = (name: string, fallback?: string) => fields?.[name] ?? fallback ?? "";
     const err = (name: string) => fieldErrors?.[name]?.[0];
-
-    const getRefId = (ref: SliderBanner["product"] | SliderBanner["brand"] | SliderBanner["category"]) => {
-        if (!ref) return "";
-        return typeof ref === "string" ? ref : (ref as { _id: string })._id ?? "";
-    };
-
-    const currentReferenceId = fields?.referenceId || getRefId(initialData?.product) || getRefId(initialData?.brand) || getRefId(initialData?.category);
 
     const handleUploadSuccess = (newImages: string[]) => {
         setAvailableImages(prev => [...prev, ...newImages]);
@@ -42,155 +34,203 @@ export default function GeneralSection({ initialData, fields, fieldErrors }: Sec
 
     const handleConfirmSelection = (selectedImages: string[]) => {
         if (selectedImages.length > 0) {
-            const selectedUrl = selectedImages[0];
-            setSelectedImageUrl(selectedUrl);
-            const imageInput = document.querySelector('input[name="media.imageUrl"]') as HTMLInputElement;
-            if (imageInput) {
-                imageInput.value = selectedUrl;
-                imageInput.dispatchEvent(new Event('change', { bubbles: true }));
+            const url = selectedImages[0];
+            setSelectedImageUrl(url);
+            const input = document.querySelector('input[name="media.imageUrl"]') as HTMLInputElement;
+            if (input) {
+                input.value = url;
+                input.dispatchEvent(new Event("change", { bubbles: true }));
             }
         }
     };
 
     return (
         <div className="space-y-6">
-            {/* INFORMACIÓN GENERAL */}
-            <section className="p-6 border border-[var(--color-border-default)] bg-[var(--color-bg-primary)] rounded-lg space-y-6">
-                <div className="flex items-center gap-2">
-                    <Info className="w-4 h-4 text-[var(--color-accent)]" />
-                    <h2 className="text-sm font-bold uppercase tracking-tight text-[var(--color-text-primary)]">Información General</h2>
-                </div>
+            {/* ── Información General ───────────────────────────────────── */}
+            <Card>
+                <CardHeader className="flex flex-row items-center gap-2">
+                    <Info className="w-3.5 h-3.5 text-muted-foreground/80" />
+                    <CardTitle>Información General</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-5">
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                        <LabelWithTooltip label="Tipo de Contenido" tooltip="Define qué tipo de entidad se vinculará a este banner." htmlFor="contentType" />
-                        <Select name="contentType" defaultValue={val("contentType", initialData?.contentType ?? "product")}>
-                            <SelectTrigger className={cn("h-10 text-sm", err("contentType") && "border-[var(--color-error)]")}>
+                    {/* Nombre interno */}
+                    <div className="space-y-1">
+                        <LabelWithTooltip
+                            htmlFor="name"
+                            label="Nombre interno"
+                            tooltip="Identificador del banner en el panel de administración."
+                        />
+                        <Input
+                            name="name"
+                            defaultValue={val("name", initialData?.name)}
+                            placeholder="Ej: Hero Verano 2025"
+                            className={`h-10 text-xs bg-background-secondary border ${err("name") ? "border-destructive" : "border-border/40"} rounded-sm`}
+                        />
+                        {err("name") && <p className="text-[10px] text-destructive">{err("name")}</p>}
+                    </div>
+
+                    {/* Tags */}
+                    <div className="space-y-1">
+                        <LabelWithTooltip
+                            htmlFor="tags"
+                            label="Tags"
+                            tooltip="Etiquetas separadas por coma para filtrar en el admin."
+                        />
+                        <Input
+                            name="tags"
+                            defaultValue={val("tags", initialData?.tags?.join(", "))}
+                            placeholder="verano, promo, hero"
+                            className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm"
+                        />
+                    </div>
+
+                    {/* Título / Subtítulo */}
+                    <div className="space-y-1">
+                        <LabelWithTooltip htmlFor="title" label="Título Principal" tooltip="Texto principal del banner." />
+                        <Input
+                            name="title"
+                            defaultValue={val("title", initialData?.title)}
+                            className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <LabelWithTooltip htmlFor="subtitle" label="Subtítulo" tooltip="Texto secundario opcional." />
+                            <Input
+                                name="subtitle"
+                                defaultValue={val("subtitle", initialData?.subtitle)}
+                                className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm"
+                            />
+                        </div>
+                        <div className="space-y-1">
+                            <LabelWithTooltip htmlFor="destUrl" label="URL de Destino" tooltip="Enlace al hacer clic. Opcional." />
+                            <div className="relative">
+                                <LinkIcon className="absolute left-3 top-3 w-3.5 h-3.5 text-muted-foreground" />
+                                <Input
+                                    name="destUrl"
+                                    defaultValue={val("destUrl", initialData?.destUrl)}
+                                    placeholder="/productos/slug..."
+                                    className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm pl-9"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Abrir en nueva pestaña */}
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            name="openInNewTab"
+                            value="true"
+                            defaultChecked={initialData?.openInNewTab ?? false}
+                            className="w-4 h-4 accent-blue-600"
+                        />
+                        <Label className="text-xs">Abrir enlace en nueva pestaña</Label>
+                    </div>
+
+                    {/* Descripción */}
+                    <div className="space-y-1">
+                        <LabelWithTooltip htmlFor="description" label="Descripción" tooltip="Texto descriptivo opcional." />
+                        <Textarea
+                            name="description"
+                            defaultValue={val("description", initialData?.description)}
+                            rows={2}
+                            className="text-xs bg-background-secondary border-border/40 rounded-sm"
+                        />
+                    </div>
+
+                    {/* Términos y condiciones */}
+                    <div className="space-y-1">
+                        <LabelWithTooltip htmlFor="terms" label="Términos y condiciones" tooltip="Letra pequeña / T&C." />
+                        <Textarea
+                            name="terms"
+                            defaultValue={val("terms", initialData?.terms)}
+                            rows={2}
+                            placeholder="*Oferta válida hasta agotar stock..."
+                            className="text-xs bg-background-secondary border-border/40 rounded-sm"
+                        />
+                    </div>
+                </CardContent>
+            </Card>
+
+            {/* ── Multimedia ────────────────────────────────────────────── */}
+            <Card>
+                <CardHeader className="flex flex-row items-center gap-2">
+                    <ImageIcon className="w-3.5 h-3.5 text-muted-foreground/80" />
+                    <CardTitle>Multimedia</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <input type="hidden" name="media.imageUrl" value={selectedImageUrl} />
+
+                    {/* Selector de imagen */}
+                    <div className="items-end gap-3 p-3 border border-border/40 bg-background-secondary/20 rounded-sm flex justify-between">
+                        <div className="flex-1 space-y-1">
+                            <Label className="text-xs font-bold text-foreground">URL Imagen</Label>
+                            <div className="h-10 px-3 flex items-center bg-background border border-border/40 rounded-sm text-xs text-muted-foreground truncate max-w-lg">
+                                {selectedImageUrl || "Sin imagen seleccionada"}
+                            </div>
+                        </div>
+                        <MediaLibraryDialog
+                            selectedImages={selectedImageUrl ? [selectedImageUrl] : []}
+                            globalImagesPool={availableImages}
+                            onConfirmSelection={handleConfirmSelection}
+                            onUploadSuccess={handleUploadSuccess}
+                            allowMultiple={false}
+                            triggerLabel="Seleccionar"
+                            triggerVariant="outline"
+                            size="sm"
+                        />
+                    </div>
+
+                    <div className="space-y-1">
+                        <LabelWithTooltip htmlFor="media.altText" label="Texto Alternativo (Alt)" tooltip="Descripción para accesibilidad." />
+                        <Input
+                            name="media.altText"
+                            defaultValue={val("media.altText", initialData?.media?.altText)}
+                            className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm"
+                        />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <LabelWithTooltip htmlFor="media.videoUrl" label="URL Video" tooltip="URL para video opcional." />
+                            <Input
+                                name="media.videoUrl"
+                                defaultValue={val("media.videoUrl", initialData?.media?.videoUrl)}
+                                placeholder="https://..."
+                                className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm"
+                            />
+                        </div>
+                        <div className="space-y-1">
+                            <LabelWithTooltip htmlFor="media.videoPoster" label="Poster del Video" tooltip="Miniatura para el video." />
+                            <Input
+                                name="media.videoPoster"
+                                defaultValue={val("media.videoPoster", initialData?.media?.videoPoster)}
+                                className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="space-y-1">
+                        <Label className="text-xs font-bold text-foreground">Object Fit</Label>
+                        <Select
+                            name="media.objectFit"
+                            defaultValue={val("media.objectFit", initialData?.media?.objectFit ?? "cover")}
+                        >
+                            <SelectTrigger className="h-10 text-xs bg-background-secondary border-border/40 rounded-sm">
                                 <SelectValue />
                             </SelectTrigger>
-                            <SelectContent>
-                                {SliderContentTypeEnum.options.map((opt) => (
-                                    <SelectItem key={opt} value={opt} className="text-sm">{opt.toUpperCase()}</SelectItem>
+                            <SelectContent className="bg-background border border-border rounded-sm">
+                                {SliderObjectFitEnum.options.map((opt) => (
+                                    <SelectItem key={opt} value={opt} className="text-xs uppercase">{opt}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
-
-                    <div className="space-y-1.5">
-                        <LabelWithTooltip label="Referencia Directa" tooltip="Busca y selecciona el producto, marca o categoría que abrirá el banner." htmlFor="referenceId" />
-                        <ProductReferenceSelector
-                            name="referenceId"
-                            initialId={currentReferenceId}
-                            initialProduct={
-                                initialData?.product && typeof initialData.product === "object" && "_id" in initialData.product
-                                    ? {
-                                        _id: initialData.product._id,
-                                        nombre: initialData.product.nombre,
-                                        precio: initialData.product.precio,
-                                        imagenes: initialData.product.imagenes,
-                                    }
-                                    : null
-                            }
-                        />
-                    </div>
-                </div>
-
-                <div className="space-y-1.5">
-                    <LabelWithTooltip label="Título Principal" required tooltip="El texto más grande que aparecerá sobre el banner." htmlFor="title" />
-                    <Input name="title" defaultValue={val("title", initialData?.title)} className={cn("h-10 text-sm font-semibold", err("title") && "border-[var(--color-error)]")} />
-                    {err("title") && <p className="text-[var(--color-error)] text-xs font-medium">{err("title")}</p>}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                        <LabelWithTooltip label="Subtítulo" tooltip="Texto secundario de apoyo al título." htmlFor="subtitle" />
-                        <Input name="subtitle" defaultValue={val("subtitle", initialData?.subtitle)} className="h-10 text-sm" />
-                    </div>
-                    <div className="space-y-1.5">
-                        <LabelWithTooltip label="URL de Destino" tooltip="Dirección opcional a donde redirigirá el banner al hacer clic." htmlFor="destUrl" />
-                        <div className="relative">
-                            <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-tertiary)]" />
-                            <Input name="destUrl" className={cn("pl-10 h-10 text-sm", err("destUrl") && "border-[var(--color-error)]")} defaultValue={val("destUrl", initialData?.destUrl)} placeholder="/productos/slug..." />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="space-y-1.5">
-                    <LabelWithTooltip label="Descripción Corta" tooltip="Texto descriptivo adicional (generalmente se oculta en móviles)." htmlFor="description" />
-                    <Textarea name="description" defaultValue={val("description", initialData?.description)} rows={2} className="text-sm min-h-[80px]" />
-                </div>
-            </section>
-
-            {/* MULTIMEDIA */}
-            <section className="p-6 border border-[var(--color-border-default)] bg-[var(--color-bg-primary)] rounded-lg space-y-6">
-                <div className="flex items-center gap-2">
-                    <ImageIcon className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                    <h2 className="text-sm font-bold uppercase tracking-tight text-[var(--color-text-primary)]">Multimedia</h2>
-                </div>
-
-                <input type="hidden" name="media.imageUrl" value={selectedImageUrl} />
-
-                <div className="space-y-4">
-                    <div className="space-y-2 border border-[var(--color-border-default)] rounded-lg p-4 bg-[var(--color-bg-secondary)]/30">
-                        <LabelWithTooltip label="Imagen del Banner" required tooltip="Imagen principal optimizada para el slider." htmlFor="media.imageUrl" />
-                        <div className="flex gap-3 items-center">
-                            <div className="flex-1 bg-[var(--color-bg-primary)] p-3 rounded-md border border-[var(--color-border-subtle)] min-h-[44px] flex items-center">
-                                <span className={cn("text-xs break-all font-mono", selectedImageUrl ? "text-[var(--color-text-primary)]" : "text-[var(--color-text-tertiary)] italic")}>
-                                    {selectedImageUrl || "Ninguna imagen seleccionada"}
-                                </span>
-                            </div>
-                            <MediaLibraryDialog
-                                selectedImages={selectedImageUrl ? [selectedImageUrl] : []}
-                                globalImagesPool={availableImages}
-                                onConfirmSelection={handleConfirmSelection}
-                                onUploadSuccess={handleUploadSuccess}
-                                allowMultiple={false}
-                                triggerLabel="Seleccionar"
-                                triggerVariant="outline"
-                                size="sm"
-                            />
-                        </div>
-                        {err("media.imageUrl") && <p className="text-[var(--color-error)] text-xs font-medium">{err("media.imageUrl")}</p>}
-                    </div>
-
-                    <div className="space-y-1.5">
-                        <LabelWithTooltip label="Texto Alternativo (Alt)" tooltip="Mejora el SEO y la accesibilidad describiendo la imagen." htmlFor="media.altText" />
-                        <Input name="media.altText" defaultValue={val("media.altText", initialData?.media.altText)} className={cn("h-10 text-sm", err("media.altText") && "border-[var(--color-error)]")} />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                            <LabelWithTooltip label="URL Video (Opcional)" tooltip="Si se incluye, se reproducirá de fondo automáticamente." htmlFor="media.videoUrl" />
-                            <Input name="media.videoUrl" defaultValue={val("media.videoUrl", initialData?.media.videoUrl)} placeholder="https://..." className="h-10 text-sm" />
-                        </div>
-                        <div className="space-y-1.5">
-                            <LabelWithTooltip label="Poster del Video" tooltip="Imagen de respaldo mientras carga el video." htmlFor="media.videoPoster" />
-                            <Input name="media.videoPoster" defaultValue={val("media.videoPoster", initialData?.media.videoPoster)} placeholder="URL imagen previa" className="h-10 text-sm" />
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                            <LabelWithTooltip label="Object Fit" tooltip="Ajuste de la imagen al contenedor." htmlFor="media.objectFit" />
-                            <Select name="media.objectFit" defaultValue={val("media.objectFit", initialData?.media.objectFit ?? "cover")}>
-                                <SelectTrigger className="h-10 text-sm"><SelectValue /></SelectTrigger>
-                                <SelectContent>
-                                    {SliderObjectFitEnum.options.map((opt) => <SelectItem key={opt} value={opt} className="text-sm">{opt}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="space-y-1.5">
-                            <LabelWithTooltip label="Borde de Imagen" tooltip="Estilo visual del borde." htmlFor="media.border" />
-                            <Select name="media.border" defaultValue={val("media.border", initialData?.media.border ?? "none")}>
-                                <SelectTrigger className="h-10 text-sm"><SelectValue /></SelectTrigger>
-                                <SelectContent>
-                                    {SliderBorderStyleEnum.options.map((opt) => <SelectItem key={opt} value={opt} className="text-sm">{opt}</SelectItem>)}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                </CardContent>
+            </Card>
         </div>
     );
 }
