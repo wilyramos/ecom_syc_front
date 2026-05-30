@@ -205,7 +205,7 @@ export default function ButtonSearchFormStore({ isMobile = false, onSearchComple
                     <div
                         className={`
                             h-full overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--color-border-default)] scrollbar-track-transparent 
-                            ${isMobile ? "p-4" : "p-4 max-w-7xl mx-auto"}
+                            ${isMobile ? "p-4" : "p-4 max-w-screen-2xl mx-auto"}
                         `}
                     >
                         {/* LOADING */}

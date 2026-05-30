@@ -5,7 +5,7 @@ import { Store, Home } from 'lucide-react';
 
 export default function NotFound() {
     return (
-        <main className="max-w-7xl mx-auto px-4 py-2">
+        <main className="max-w-screen-2xl mx-auto px-4 py-2">
 
             <div className="flex items-center text-sm text-gray-500 pb-2">
                 <Link href="/" className="hover:text-gray-900">Inicio</Link>
@@ -30,7 +30,7 @@ export default function NotFound() {
 
                         <header className="border-b pb-4 space-y-2">
                             <div className="flex justify-between text-xs uppercase">
-                                <span className="font-bold text-gray-600">GOPHONE</span>
+                                <span className="font-bold text-gray-600">S&C Mobile</span>
                                 <span className="text-gray-400">ERROR: 404</span>
                             </div>
 

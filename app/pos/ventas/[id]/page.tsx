@@ -43,7 +43,7 @@ export default async function PageVenta({ params }: { params: Params }) {
                 {/* Empresa + acciones */}
                 <div className="flex-1 flex justify-between items-start">
                     <div>
-                        <h1 className="text-2xl font-bold">GOPHONE</h1>
+                        <h1 className="text-2xl font-bold">S&C Mobile</h1>
                         <p className="text-sm text-gray-500">RUC: 1072516715</p>
                         <p className="text-sm text-gray-500">Jr. Comercio 123 - Lima</p>
                     </div>

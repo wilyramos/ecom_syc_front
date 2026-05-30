@@ -83,7 +83,7 @@ export default function SidebarPages() {
             </aside>
 
             {/* 📌 Mobile Bottom Nav */}
-            <aside className="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--store-surface)]/80 backdrop-blur-xl border-t border-[var(--store-border)] z-50 pb-safe">
+            <aside className="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--store-surface)]/80 backdrop-blur-xl  z-50 pb-safe">
                 <nav className="flex justify-around items-center h-16 px-4">
                     {legalNav.map((item) => {
                         const isActive = pathname === item.href;

@@ -40,7 +40,7 @@ const features: Feature[] = [
 export default function MinimalFeatures() {
     return (
         <section className="w-full ">
-            <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
+            <div className="max-w-screen-2xl mx-auto px-6 py-12 md:py-16">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
                     {features.map((feature, idx) => {
                         const Icon = feature.icon;

@@ -57,7 +57,7 @@ export default async function ProductResults({
             : "Todos los productos";
 
     return (
-        <main className="w-full max-w-7xl mx-auto px-4 lg:px-0 animate-in fade-in duration-700">
+        <main className="w-full max-w-screen-2xl mx-auto px-4 lg:px-0 animate-in fade-in duration-700">
             {/* Breadcrumbs sutiles */}
             <nav className="py-4 opacity-50 hover:opacity-100 transition-opacity">
                 <Breadcrumbs

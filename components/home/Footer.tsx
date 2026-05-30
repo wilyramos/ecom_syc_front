@@ -26,14 +26,14 @@ const SOCIAL = [
     { icon: <FaWhatsapp size={14} />, href: "https://wa.me/51972416683", label: "WhatsApp" },
 ];
 
-export default function Footer() {
+export default function Footer(){
     return (
-        <footer className="relative" style={{ backgroundColor: "#0a0a0a", color: "#fff" }}>
+        <footer className="relative" style={{ backgroundColor: "#000000", color: "#fff" }}>
 
             {/* Línea acento top */}
             <div className="h-px w-full" style={{ background: "linear-gradient(90deg, var(--color-accent) 0%, transparent 60%)" }} />
 
-            <div className="max-w-screen-2xl mx-auto px-4 md:px-8 py-10 space-y-8">
+            <div className="max-w-screen-2xl mx-auto px-4 md:px-12 py-10 space-y-8">
 
                 {/* ── FILA 1: logo · dirección · redes ── */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">

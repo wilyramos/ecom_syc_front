@@ -37,7 +37,7 @@ export default function CatalogGrid({ products, isFallback }: Props) {
                 {/* Separador de Sugerencias */}
                 <div className="relative">
                     <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div className="w-full border-t border-[var(--store-border)]"></div>
+                        <div className="w-full "></div>
                     </div>
                     <div className="relative flex justify-center">
                         <span className="bg-[var(--store-surface)] px-4 text-xs font-bold uppercase tracking-widest text-[var(--store-text-muted)]">

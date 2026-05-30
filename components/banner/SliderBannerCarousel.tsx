@@ -30,7 +30,7 @@ export default function SliderBannerCarousel({
 
     return (
         <div
-            className="relative w-full" // Quitamos max-w-7xl y mx-auto de aquí
+            className="relative w-full" // Quitamos max-w-screen-2xl y mx-auto de aquí
         style={{
             "--banner-h-mobile": height.mobile,
             "--banner-h": height.desktop,

@@ -103,7 +103,7 @@ export default function ComponentScriptCulqiCustom() {
         }
 
         Culqi.settings({
-            title: "GOPHONE",
+            title: "S&C Mobile - Pago de prueba",
             currency: "PEN",
             amount: 1000,
             description: "Pago de prueba",

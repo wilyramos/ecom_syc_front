@@ -19,7 +19,7 @@ export default function ClientCarouselProductosNuevos({ products }: Props) {
     };
 
     return (
-        <section className="w-full max-w-7xl mx-auto relative px-4 lg:px-0">
+        <section className="w-full max-w-screen-2xl mx-auto relative px-4 md:px-12">
             {/* Encabezado simple sin controles de flechas */}
             <HeaderConTituloConControles
                 title={

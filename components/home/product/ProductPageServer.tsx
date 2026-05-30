@@ -60,10 +60,10 @@ export default async function ProductPageServer({ producto }: Props) {
         <>
             {/* Título oculto para SEO (H1 debe ser único y descriptivo) */}
             <h1 className="sr-only">
-                {producto.nombre} - GOPHONE
+                {producto.nombre} - S&C Mobile, tu tienda de confianza en Cañete para celulares y accesorios
             </h1>
 
-            <section className="container mx-auto px-2 md:px-6 pt-8 md:pt-12">
+            <section className="container mx-auto px-4 md:px-12 pt-8 md:pt-12">
                 {/* Navegación de migas de pan */}
                 <Breadcrumbs
                     items={breadcrumbSegments}
@@ -79,12 +79,12 @@ export default async function ProductPageServer({ producto }: Props) {
             </section>
 
             {/* Productos Relacionados (Por Línea/Marca) */}
-            <section className="container mx-auto px-4 md:px-6 py-4 border-t border-[var(--store-border)]">
+            <section className="container mx-auto px-4 md:px-12 py-4 ">
                 <ProductosRelated slug={producto.slug} />
             </section>
 
             {/* Vistos Recientemente (Client Component) */}
-            <section className="container mx-auto px-4 md:px-6 py-4 border-t border-[var(--color-border-subtle)]">
+            <section className="container mx-auto px-4 md:px-12 py-4 border-t border-[var(--color-border-subtle)]">
                 <RecentViewed currentProduct={producto} />
             </section>
         </>

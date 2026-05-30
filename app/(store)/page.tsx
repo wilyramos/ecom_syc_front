@@ -7,6 +7,7 @@ import CategoriasDestacadasWrapper from "@/components/home/CategoriasDestacadasW
 import BrandsList from "@/components/home/BrandsList";
 import CarruselPrincipal from "@/components/home/CarruselPrincipal";
 import ColleccionesSection from "@/components/home/Colleccionessection";
+import ProductosNuevos from "@/components/home/ProductosNuevos";
 
 // Metadata for SEO and social sharing
 export const metadata: Metadata = {
@@ -61,10 +62,10 @@ export default function HomePage() {
             <section className="py-5">
                 <CategoriasDestacadasWrapper />
             </section>
-            {/* 
-            <section className="py-5 bg-[var(--color-bg-secondary)]">
+            
+            <section className="py-5">
                 <ProductosNuevos />
-            </section> */}
+            </section> 
 
             <section className="bg-[var(--color-bg-primary)] py-5">
                 <ColleccionesSection />

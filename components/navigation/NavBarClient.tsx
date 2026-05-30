@@ -26,7 +26,7 @@ export default function NavBarClient({ children }: { children: ReactNode }) {
             >
                 <div className="bg-[var(--color-accent)] text-[var(--color-text-inverse)] border-b border-white/10">
                     <div className="flex items-center justify-center gap-2 px-4">
-                       
+
 
                         <p className="text-[10px] md:text-xs font-medium tracking-wide">
                             Equipos iphone con {" "}

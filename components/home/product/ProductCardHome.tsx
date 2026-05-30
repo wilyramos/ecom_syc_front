@@ -14,10 +14,10 @@ export default function ProductCardHome({ product }: { product: ProductResponse 
     const discount = compare > price
 
     return (
-        <Link href={`/productos/${product.slug}`} className="group block p-2">
+        <Link href={`/productos/${product.slug}`} className="group block bg-white rounded-2xl">
 
             {/* Imagen */}
-            <div className="relative aspect-square overflow-hidden">
+            <div className="relative aspect-square overflow-hidden rounded-t-2xl">
                 {img1 ? (
                     <>
                         <Image
@@ -33,7 +33,7 @@ export default function ProductCardHome({ product }: { product: ProductResponse 
                                 src={img2 || img1}
                                 alt=""
                                 fill
-                                className="absolute inset-0 object-contain p-4 opacity-0 group-hover:opacity-100 transition"
+                                className="absolute inset-0 object-contain opacity-0 group-hover:opacity-100 transition"
                             />
                         )}
                     </>
@@ -45,12 +45,18 @@ export default function ProductCardHome({ product }: { product: ProductResponse 
             </div>
 
             {/* Info */}
-            <div className="mt-3 space-y-1">
+            <div className="mt-3 space-y-1 px-4 py-2">
                 <h3 className="text-xs md:text-sm line-clamp-2 group-hover:text-[var(--color-text-secondary)] transition-colors">
                     {product.nombre}
                 </h3>
 
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2 text-base">
+
+                    {discount && (
+                        <span className="line-through text-gray-400">
+                            S/ {compare.toLocaleString("es-PE")}
+                        </span>
+                    )}
                     <span>
                         S/{" "}
                         {price.toLocaleString("es-PE", {
@@ -58,11 +64,7 @@ export default function ProductCardHome({ product }: { product: ProductResponse 
                         })}
                     </span>
 
-                    {discount && (
-                        <span className="line-through text-gray-400 text-xs">
-                            S/ {compare.toLocaleString("es-PE")}
-                        </span>
-                    )}
+
                 </div>
             </div>
         </Link>

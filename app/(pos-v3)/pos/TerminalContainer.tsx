@@ -94,7 +94,7 @@ export default function TerminalContainer({ initialProducts, userId }: TerminalC
 
                 <main className="flex-1 overflow-y-auto p-4 md:p-6 custom-scrollbar">
                     {products.length > 0 ? (
-                        <div className="max-w-7xl mx-auto">
+                        <div className="max-w-screen-2xl mx-auto">
                             <ProductGrid products={products} />
                         </div>
                     ) : (

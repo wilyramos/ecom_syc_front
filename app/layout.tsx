@@ -2,17 +2,18 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import { Roboto } from "next/font/google";
+import {
+    Poppins
+} from "next/font/google";
 import { Toaster } from 'sonner';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import MercadoPagoProvider from "@/components/provider/MercadoPagoProvider";
 
-const roboto = Roboto({
-
-    subsets: ["latin"],
-    weight: ["500"],
-    display: "swap",
-});
+const poppins = Poppins
+    ({
+        subsets: ["latin"],
+        weight: ["500"],
+    });
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://sycmobile.pe"),
@@ -89,7 +90,7 @@ export default function RootLayout({
     return (
         <html lang="es">
             <body
-                className={`${roboto.className} bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
+                className={`${poppins.className} bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
             >
                 <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
                     <MercadoPagoProvider />

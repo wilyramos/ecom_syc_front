@@ -133,7 +133,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                 <ProductGrid products={data.products} />
 
                                 {/* Paginación con soporte para SEO (links reales) */}
-                                <div className="flex justify-center border-t border-[var(--store-border)] pt-8">
+                                <div className="flex justify-center  pt-8">
                                     <Pagination
                                         pathname="/search"
                                         currentPage={data.currentPage}

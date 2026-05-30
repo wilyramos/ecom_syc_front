@@ -338,7 +338,7 @@ export default function DrawerFiltersMain({ filters }: Props) {
                 </ScrollArea>
 
                 {/* Footer Fijo con Sombra */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-[var(--store-surface)] border-t border-[var(--store-border)] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] pb-safe">
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-[var(--store-surface)]  shadow-[0_-4px_20px_rgba(0,0,0,0.05)] pb-safe">
                     <button
                         onClick={() => setOpen(false)}
                         className="w-full bg-[var(--store-text)] text-[var(--store-surface)] font-bold py-4 rounded-2xl active:scale-[0.98] transition-transform text-base tracking-wide"

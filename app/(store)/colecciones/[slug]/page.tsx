@@ -32,7 +32,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
         ?? collectionDesc
         ?? `Explora ${displayName} al mejor precio en Perú. Envíos a todo el país y garantía oficial.`;
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://gophone.pe";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://sycmobile.pe";
     const canonical = `${baseUrl}/colecciones/${slug}`;
 
     return {

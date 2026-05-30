@@ -12,7 +12,7 @@ export default async function FiltrosPorCategoria({ categorySlug }: { categorySl
 
     if (!category) {
         return (
-            <main className="max-w-7xl mx-auto p-5">
+            <main className="max-w-screen-2xl mx-auto p-5">
                 <div className="text-center py-10 text-gray-500">
                     No se encontró la categoría.
                 </div>
