@@ -168,7 +168,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                 {/* Badges Minimalistas */}
                 <div className="absolute top-3 right-3 md:top-4 md:right-4 flex flex-col gap-2">
                     {discountedPrice > 0 && (
-                        <span className="px-1.5 py-1 bg-[var(--color-accent)] text-white text-xs font-bold uppercase tracking-wider min-w-[7ch] text-center">
+                        <span className="px-1.5 py-1 bg-[var(--color-accent)] text-white text-xs font-bold uppercase tracking-wider min-w-[5ch] text-center">
                             -{Math.round(discountedPrice)}%
                         </span>
                     )}

@@ -50,7 +50,7 @@ export default function ProductCardHome({ product }: { product: ProductResponse 
                     {product.nombre}
                 </h3>
 
-                <div className="flex items-center gap-2 text-base">
+                <div className="flex items-center gap-2 text-[10px] md:text-base">
 
                     {discount && (
                         <span className="line-through text-gray-400">

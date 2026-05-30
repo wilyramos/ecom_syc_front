@@ -164,7 +164,7 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
                                         alt={`Producto ${idx}`}
                                         fill
                                         className={cn(
-                                            "object-cover transition-transform duration-200 ease-out",
+                                            "object-contain transition-transform duration-200 ease-out",
                                             isCurrent && mobileZoom.active && "scale-[2.5]"
                                         )}
                                         style={{
