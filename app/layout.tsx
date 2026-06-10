@@ -18,69 +18,35 @@ const poppins = Poppins
 export const metadata: Metadata = {
     metadataBase: new URL("https://sycmobile.pe"),
     title: {
-        default: "Iphones, Accesorios en Cañete",
+        default: "S&C Mobile | iPhones y Tecnología en Cañete",
         template: "%s | S&C Mobile"
     },
-    description:
-        "iPhones, accesorios, repuestos y tecnología con envío rápido en Perú. S&C Mobile: calidad, garantía y atención personalizada desde Cañete.",
-    keywords: [
-        "S&C Mobile",
-        "iPhone Perú",
-        "Apple",
-        "Accesorios iPhone",
-        "Tecnología",
-        "Repuestos iPhone",
-        "Tienda online",
-        "Cañete",
-        "San Vicente",
-        "Imperial",
-        "Asia",
-        "Lunahuana",
-        "Electrónica",
-        "Smartphones",
-        "Gadgets",
-        "Ofertas",
-        "Promociones",
-        "Envío rápido",
-        "Garantía"
-    ],
+    description: "Tienda líder en iPhones, accesorios y repuestos. Tecnología original con garantía y envío rápido en Perú. Especialistas en Cañete.",
+    keywords: ["S&C Mobile", "iPhone Perú", "Apple", "Accesorios iPhone", "Tecnología Cañete", "Smartphones"],
     authors: [{ name: "S&C Mobile", url: "https://sycmobile.pe" }],
     creator: "S&C Mobile",
+    robots: {
+        index: true,
+        follow: true,
+    },
     openGraph: {
-        title: "S&C Mobile",
-        description:
-            "Compra iPhones, accesorios y repuestos con garantía y envío rápido. S&C Mobile: tecnología confiable desde Cañete para todo el Perú.",
+        title: "S&C Mobile - Tecnología Original",
+        description: "Compra iPhones y accesorios con garantía y envío rápido a nivel nacional.",
         url: "https://sycmobile.pe",
         siteName: "S&C Mobile",
         locale: "es_PE",
         type: "website",
-        images: [
-            {
-                url: "https://sycmobile.pe/logob.svg",
-                width: 1200,
-                height: 630,
-                alt: "S&C Mobile Perú - iPhones y Tecnología"
-            }
-        ]
     },
     twitter: {
         card: "summary_large_image",
         title: "S&C Mobile",
-        description:
-            "Tecnología con garantía, precios competitivos y atención personalizada. Compra iPhones y accesorios con envío rápido.",
-        images: ["https://sycmobile.pe/logoblanco.svg"]
+        description: "Tecnología original, garantía y envío rápido en todo el Perú.",
     },
     icons: {
         icon: "/favicon.ico",
-        apple: "/logoblanco.svg",
-        shortcut: "/favicon.ico"
+        apple: "/apple-touch-icon.png", // Asegúrate de tener este archivo
     },
-    alternates: {
-        canonical: "https://sycmobile.pe"
-    },
-    category: "technology"
 };
-
 export default function RootLayout({
     children,
 }: Readonly<{

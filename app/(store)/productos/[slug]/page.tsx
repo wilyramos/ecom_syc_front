@@ -32,28 +32,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
             : 'Descubre nuestros productos en sycmobile. Calidad y tecnología a tu alcance.');
 
     // Fusionar tags del producto con keywords base
-    const productTags = product.tags ?? [];
-    const keywords = [
-        product.nombre,
-        categoryName,
-        ...productTags,
-        'sycmobile',
-        'Cañete',
-        'Productos',
-        'Tienda Online',
-        'San Vicente de Cañete',
-        'Perú',
-        'iPhone',
-        'Celulares',
-        'Accesorios',
-        'Tecnología',
-        'Smartphones',
-    ].filter(Boolean);
-
     return {
         title,
         description,
-        keywords,
         openGraph: {
             title,
             description,

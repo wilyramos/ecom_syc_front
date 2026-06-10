@@ -1,7 +1,6 @@
 // File: frontend/app/(store)/page.tsx
 
 import { Metadata } from "next";
-import { metadata as globalMetadata } from "@/app/layout";
 import ProductosDestacados from "@/components/home/ProductosDestacados";
 import CategoriasDestacadasWrapper from "@/components/home/CategoriasDestacadasWrapper";
 import BrandsList from "@/components/home/BrandsList";
@@ -11,45 +10,20 @@ import ProductosNuevos from "@/components/home/ProductosNuevos";
 
 // Metadata for SEO and social sharing
 export const metadata: Metadata = {
-    ...globalMetadata,
-    title: {
-        default: "Productos Apple",
-        template: "%s | S&C Mobile",
+    title: "S&C Mobile | Venta de iPhones y Tecnología en Cañete",
+    description: "Tienda líder en Cañete para la compra de iPhones, accesorios y repuestos originales. Tecnología con garantía, envío rápido y atención personalizada.",
+    alternates: {
+        canonical: "https://sycmobile.pe",
     },
-    description:
-        "S&C Mobile es tu tienda de confianza en Cañete para la compra de celulares, accesorios y más. Ofrecemos productos de calidad, envío rápido y atención personalizada.",
-    keywords: [
-        "S&C Mobile",
-        "tienda iPhone Cañete",
-        "venta de celulares Cañete",
-        "accesorios para celulares",
-        "tecnología en Cañete",
-        "comprar iPhone Cañete",
-        "gadgets Cañete",
-        "tienda online Cañete",
-    ],
     openGraph: {
-        ...globalMetadata.openGraph,
-        title: "S&C Mobile",
-        description:
-            "En S&C Mobile encontrarás una amplia variedad de accesorios y productos tecnológicos en Cañete. ¡Visítanos y descubre nuestras ofertas!",
+        title: "S&C Mobile | Tecnología y iPhones en Cañete",
+        description: "Tu tienda de confianza para comprar iPhones, accesorios y gadgets con garantía y envío rápido en Perú.",
         url: "https://sycmobile.pe",
-        images: [
-            {
-                url: "https://sycmobile.pe/favicon.ico",
-                width: 1200,
-                height: 630,
-                alt: "S&C Mobile Home - Accesorios y Tecnología",
-            },
-        ],
+        siteName: "S&C Mobile",
+        type: "website",
+        // Nota: Asegúrate de usar una imagen de al menos 1200x630, no el favicon.
+        images: [{ url: "https://sycmobile.pe/favicon.ico", width: 1200, height: 630, alt: "S&C Mobile" }],
     },
-    twitter: {
-        ...globalMetadata.twitter,
-        title: "S&C Mobile - Venta de accesorios y tecnología en Cañete",
-        description:
-            "Compra iPhones, accesorios y más en S&C Mobile, tu tienda online de confianza en Cañete.",
-        images: ["https://sycmobile.pe/favicon.ico"],
-    }
 };
 
 export default function HomePage() {
@@ -62,10 +36,10 @@ export default function HomePage() {
             <section className="py-5">
                 <CategoriasDestacadasWrapper />
             </section>
-            
+
             <section className="py-5">
                 <ProductosNuevos />
-            </section> 
+            </section>
 
             <section className="bg-[var(--color-bg-primary)] py-5">
                 <ColleccionesSection />
