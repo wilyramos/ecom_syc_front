@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getCatalogDataOffers } from "@/src/services/catalog";
 import CatalogLayout from "@/components/catalog/CatalogLayout";
 import type { Metadata } from "next";
-import CatalogPageWrapper from "@/components/catalog/CatalogPageWrapper";
 
 
 // Props para Next.js 15
@@ -45,13 +44,7 @@ export default async function OffersPage({ searchParams }: Props) {
     };
 
     return (
-        <CatalogPageWrapper
-            badge="Liquidación"
-            title={
-                <>Oportunidades <span className="text-[var(--color-accent-warm)] font-light italic">únicas.</span></>
-            }
-            description="Aprovecha descuentos exclusivos y stock limitado en productos seleccionados."
-        >
+       
             <CatalogLayout
                 products={data.products}
                 filters={data.filters}
@@ -59,6 +52,5 @@ export default async function OffersPage({ searchParams }: Props) {
                 context={offersContext}
                 isFallback={data.isFallback}
             />
-        </CatalogPageWrapper>
     );
 }

@@ -224,7 +224,7 @@ export default function ProductDetails({ producto }: Props) {
 
                             return (
                                 <fieldset key={key} className="space-y-2 mt-4">
-                                    <legend className="text-sm font-semibold text-muted-foreground mb-3">Selección de <span className="capitalize">{key}</span>:</legend>
+                                    <legend className="text-sm font-semibold text-muted-foreground mb-3"> <span className="capitalize">{key}</span>:</legend>
 
                                     {isColor ? (
                                         <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">

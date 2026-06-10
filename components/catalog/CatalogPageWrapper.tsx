@@ -3,14 +3,12 @@ import React from "react";
 interface CatalogPageWrapperProps {
     badge: string;
     title: React.ReactNode; // Permite pasar JSX para el estilo italic/light
-    description: string;
     children: React.ReactNode;
 }
 
 export default function CatalogPageWrapper({
     badge,
     title,
-    description,
     children,
 }: CatalogPageWrapperProps) {
     return (
@@ -31,10 +29,6 @@ export default function CatalogPageWrapper({
                         {title}
                     </h1>
 
-                    {/* Descripción */}
-                    <p className="text-sm md:text-base text-[var(--color-text-secondary)] max-w-2xl font-medium">
-                        {description}
-                    </p>
                 </div>
             </header>
 
