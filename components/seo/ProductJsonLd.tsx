@@ -3,7 +3,7 @@ import type { ProductWithCategoryResponse } from "@/src/schemas"
 export default function ProductJsonLd({ producto }: { producto: ProductWithCategoryResponse }) {
     if (!producto) return null
 
-    const firstImage = producto.imagenes?.[0] || 'https://www.sycmobile.pe/logoblanco.svg'
+    const firstImage = producto.imagenes?.[0] || 'https://www.sycmobile.pe/favicon.ico'
     const url = `https://www.sycmobile.pe/productos/${producto.slug}`
     const brand = producto.atributos?.Marca || 'S&C Mobile'
 

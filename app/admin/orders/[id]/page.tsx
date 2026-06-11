@@ -119,7 +119,7 @@ export default async function OrderDetailsPage({ params }: { params: Params }) {
                                     <td className="py-2 px-3 flex flex-col gap-1">
                                         <div className="flex items-center gap-2">
                                             <Image
-                                                src={imagenurl || "/logoblanco.svg"}
+                                                src={imagenurl || "/favicon.ico"}
                                                 alt={item.nombre || "Producto sin imagen"}
                                                 className="w-10 h-10 object-cover rounded"
                                                 width={40}

@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         },
         icons: {
             icon: "/favicon.ico",
-            apple: "/logoblanco.svg",
+            apple: "/favicon.ico",
         },
         alternates: {
             canonical: url,
