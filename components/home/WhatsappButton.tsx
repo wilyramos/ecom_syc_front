@@ -11,20 +11,19 @@ export default function WhatsappButton() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
-                    flex items-center gap-3 p-3
-                    bg-white dark:bg-neutral-900 
-                    rounded-full border border-neutral-200/80 dark:border-neutral-800/80
-                    shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)]
-                    backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90
-                    hover:shadow-[0_4px_24px_rgba(37,211,102,0.15)]
-                    hover:border-neutral-300 dark:hover:border-neutral-700
+                    flex items-center justify-center p-3.5
+                    bg-[#25D366] 
+                    rounded-full 
+                    shadow-[0_4px_14px_rgba(37,211,102,0.4)]
+                    hover:shadow-[0_6px_20px_rgba(37,211,102,0.6)]
+                    hover:bg-[#20ba59]
                     transition-all duration-300 ease-out
                     hover:-translate-y-0.5
                 "
                 aria-label="Chat en WhatsApp"
             >
-                <div className="relative flex items-center justify-center w-5 h-5 text-[#25D366] dark:text-[#4ff388] shrink-0">
-                    <FaWhatsapp className="w-5 h-5 transition-transform duration-300 group-hover:scale-105" />
+                <div className="flex items-center justify-center w-7 h-7 text-white shrink-0">
+                    <FaWhatsapp className="w-7 h-7 transition-transform duration-300 group-hover:scale-105" />
                 </div>
             </Link>
         </div>
