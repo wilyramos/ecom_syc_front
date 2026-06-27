@@ -12,7 +12,7 @@ import { PiCaretRightBold } from "react-icons/pi";
 import { RiMenu2Line } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
-import type { CategoryListResponse, CategoryResponse } from "@/src/schemas";
+import type { CategoryListResponse, CategoryResponse } from "@/src/schemas/category.schema";
 import Logo from "../ui/Logo";
 
 export default function ClientCategorias({ categories }: { categories: CategoryResponse[] }) {

@@ -17,10 +17,7 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
     }, [images]);
 
     const [selectedIndex, setSelectedIndex] = useState(0);
-    
-    // Control de zoom independiente por índice (Desktop) y uno global para Móvil
-    const [zoomStates, setZoomStates] = useState<Record<number, ZoomState>>({});
-    const [mobileZoom, setMobileZoom] = useState<ZoomState>({ x: 0, y: 0, active: false });
+    const [zoomState, setZoomState] = useState<ZoomState>({ x: 0, y: 0, active: false });
 
     if (uniqueImages.length === 0) {
         return (
@@ -32,186 +29,118 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
     }
 
     const nextImage = () => {
-        setMobileZoom({ x: 0, y: 0, active: false });
+        setZoomState({ x: 0, y: 0, active: false });
         setSelectedIndex((prev) => (prev + 1) % uniqueImages.length);
     };
 
     const prevImage = () => {
-        setMobileZoom({ x: 0, y: 0, active: false });
+        setZoomState({ x: 0, y: 0, active: false });
         setSelectedIndex((prev) => (prev - 1 + uniqueImages.length) % uniqueImages.length);
     };
 
-    // Manejador del efecto Zoom estilo Shopify (Click para activar/desactivar y mover según coordenadas)
-    const handleZoomClick = (e: MouseEvent<HTMLDivElement>, idx: number, isMobile = false) => {
+    const handleZoomClick = (e: MouseEvent<HTMLDivElement>) => {
         const rect = e.currentTarget.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        if (isMobile) {
-            setMobileZoom((prev) => ({
-                x,
-                y,
-                active: !prev.active
-            }));
-        } else {
-            setZoomStates((prev) => ({
-                ...prev,
-                [idx]: {
-                    x,
-                    y,
-                    active: !prev[idx]?.active
-                }
-            }));
-        }
+        setZoomState((prev) => ({
+            x,
+            y,
+            active: !prev.active
+        }));
     };
 
-    const handleZoomMouseMove = (e: MouseEvent<HTMLDivElement>, idx: number, isMobile = false) => {
-        if (isMobile && !mobileZoom.active) return;
-        if (!isMobile && !zoomStates[idx]?.active) return;
-
+    const handleZoomMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+        if (!zoomState.active) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-        if (isMobile) {
-            setMobileZoom((prev) => ({ ...prev, x, y }));
-        } else {
-            setZoomStates((prev) => ({
-                ...prev,
-                [idx]: { ...prev[idx], x, y }
-            }));
-        }
+        setZoomState((prev) => ({ ...prev, x, y }));
     };
 
-    const handleZoomMouseLeave = (idx: number, isMobile = false) => {
-        if (isMobile) {
-            setMobileZoom({ x: 0, y: 0, active: false });
-        } else {
-            setZoomStates((prev) => ({
-                ...prev,
-                [idx]: { x: 0, y: 0, active: false }
-            }));
-        }
+    const handleZoomMouseLeave = () => {
+        setZoomState({ x: 0, y: 0, active: false });
     };
 
     return (
-        <div className="w-full">
-            {/* VISTA DESKTOP */}
-            <div className="hidden md:grid grid-cols-2 gap-4">
-                {uniqueImages.map((img, idx) => {
-                    const isFirst = idx === 0;
-                    const zoom = zoomStates[idx] || { x: 0, y: 0, active: false };
+        <div className="w-full space-y-3">
+            {/* Contenedor de la Imagen Principal */}
+            <div className="relative aspect-square w-full overflow-hidden rounded-xl group select-none">
+                <div
+                    onClick={handleZoomClick}
+                    onMouseMove={handleZoomMouseMove}
+                    onMouseLeave={handleZoomMouseLeave}
+                    className={cn(
+                        "w-full h-full relative overflow-hidden",
+                        zoomState.active ? "cursor-zoom-out" : "cursor-zoom-in"
+                    )}
+                >
+                    <Image
+                        src={uniqueImages[selectedIndex]}
+                        alt={`Producto vista principal`}
+                        fill
+                        className={cn(
+                            "object-contain transition-transform duration-200 ease-out",
+                            zoomState.active && "scale-[2.5]"
+                        )}
+                        style={{
+                            transformOrigin: zoomState.active ? `${zoomState.x}% ${zoomState.y}%` : "center"
+                        }}
+                        priority
+                        unoptimized
+                    />
+                </div>
 
-                    return (
-                        <div
-                            key={`${img}-${idx}`}
-                            onClick={(e) => handleZoomClick(e, idx)}
-                            onMouseMove={(e) => handleZoomMouseMove(e, idx)}
-                            onMouseLeave={() => handleZoomMouseLeave(idx)}
+                {/* Flechas de Navegación */}
+                {uniqueImages.length > 1 && !zoomState.active && (
+                    <>
+                        <button
+                            type="button"
+                            onClick={prevImage}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background border border-border p-2 rounded-full shadow transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                        >
+                            <ChevronLeft size={20} className="text-foreground" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={nextImage}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background border border-border p-2 rounded-full shadow transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                        >
+                            <ChevronRight size={20} className="text-foreground" />
+                        </button>
+                    </>
+                )}
+            </div>
+
+            {/* Tira de Miniaturas Inferior */}
+            {uniqueImages.length > 1 && (
+                <div className="flex flex-row gap-2 overflow-x-auto pb-1 pt-0.5 scrollbar-none justify-start w-full snap-x snap-mandatory">
+                    {uniqueImages.map((img, idx) => (
+                        <button
+                            key={`thumb-${idx}`}
+                            type="button"
+                            onClick={() => {
+                                setSelectedIndex(idx);
+                                setZoomState({ x: 0, y: 0, active: false });
+                            }}
                             className={cn(
-                                "relative bg-[var(--color-bg-secondary)] overflow-hidden rounded-lg group select-none",
-                                isFirst ? "col-span-2 aspect-[4/5] lg:aspect-square" : "aspect-square",
-                                zoom.active ? "cursor-zoom-out" : "cursor-zoom-in"
+                                "relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-md overflow-hidden bg-card border-2 transition-all snap-start",
+                                selectedIndex === idx ? "border-primary" : "border-border hover:border-muted-foreground"
                             )}
                         >
                             <Image
                                 src={img}
-                                alt={`Producto ${idx + 1}`}
+                                alt={`Miniatura ${idx + 1}`}
                                 fill
-                                className={cn(
-                                    "object-contain transition-transform duration-200 ease-out",
-                                    zoom.active && "scale-[2.5]"
-                                )}
-                                style={{
-                                    transformOrigin: zoom.active ? `${zoom.x}% ${zoom.y}%` : "center"
-                                }}
-                                sizes={isFirst ? "100vw" : "50vw"}
-                                priority={isFirst}
+                                className="object-cover"
+                                sizes="(max-width: 640px) 64px, 80px"
                                 unoptimized
                             />
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* VISTA MÓVIL */}
-            <div className="md:hidden relative">
-                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[var(--color-bg-secondary)]">
-                    <div
-                        className="flex h-full transition-transform duration-500 ease-in-out"
-                        style={{ 
-                            transform: mobileZoom.active ? "none" : `translateX(-${selectedIndex * 100}%)` 
-                        }}
-                    >
-                        {uniqueImages.map((img, idx) => {
-                            // En móvil solo aplicamos la lógica al elemento activo visible
-                            const isCurrent = idx === selectedIndex;
-                            
-                            return (
-                                <div 
-                                    key={idx} 
-                                    onClick={(e) => isCurrent && handleZoomClick(e, idx, true)}
-                                    onMouseMove={(e) => isCurrent && handleZoomMouseMove(e, idx, true)}
-                                    onMouseLeave={() => isCurrent && handleZoomMouseLeave(idx, true)}
-                                    className={cn(
-                                        "relative min-w-full h-full select-none",
-                                        mobileZoom.active ? "cursor-zoom-out" : "cursor-zoom-in",
-                                        !isCurrent && mobileZoom.active && "hidden"
-                                    )}
-                                >
-                                    <Image
-                                        src={img}
-                                        alt={`Producto ${idx}`}
-                                        fill
-                                        className={cn(
-                                            "object-contain transition-transform duration-200 ease-out",
-                                            isCurrent && mobileZoom.active && "scale-[2.5]"
-                                        )}
-                                        style={{
-                                            transformOrigin: isCurrent && mobileZoom.active ? `${mobileZoom.x}% ${mobileZoom.y}%` : "center"
-                                        }}
-                                        unoptimized
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
+                        </button>
+                    ))}
                 </div>
-
-                {/* Flechas Navegación */}
-                {uniqueImages.length > 1 && !mobileZoom.active && (
-                    <>
-                        <button
-                            onClick={prevImage}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow-lg z-10"
-                        >
-                            <ChevronLeft size={24} className="text-gray-900" />
-                        </button>
-                        <button
-                            onClick={nextImage}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow-lg z-10"
-                        >
-                            <ChevronRight size={24} className="text-gray-900" />
-                        </button>
-                    </>
-                )}
-
-                {/* Dots */}
-                {uniqueImages.length > 1 && !mobileZoom.active && (
-                    <div className="flex justify-center gap-2 mt-6">
-                        {uniqueImages.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setSelectedIndex(idx)}
-                                className={cn(
-                                    "h-1.5 transition-all duration-300 rounded-full",
-                                    selectedIndex === idx ? "w-10 bg-gray-900" : "w-2 bg-gray-300"
-                                )}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
+            )}
         </div>
     );
 }

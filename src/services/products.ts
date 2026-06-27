@@ -322,12 +322,13 @@ type GetProductsByAdminParams = {
     sku?: string;
     precioSort?: "asc" | "desc";
     stockSort?: "asc" | "desc";
-    isActive?: string;
+    isActive?: boolean;
     esNuevo?: string;
     esDestacado?: string;
     query?: string;
     category?: string;
     brand?: string;
+    barcode?: string;
 };
 
 export const getProductsByAdmin = async (filters: GetProductsByAdminParams = {}) => {

@@ -49,10 +49,6 @@ export default async function ProductDetailsPage({ params }: { params: Params })
     return (
         <AdminPageWrapper
             title={`Editar: ${product.nombre}`}
-            breadcrumbItems={[
-                { label: "Productos", href: "/admin/products" }
-            ]}
-            breadcrumbCurrent={product.nombre}
             showBackButton={true}
             actions={
                 <div className="flex items-center gap-2">

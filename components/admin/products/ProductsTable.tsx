@@ -1,19 +1,12 @@
+//File: frontend/components/admin/products/ProductsTable.tsx
+
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Check, X } from "lucide-react";
 
 import ProductMenuAction from "./ProductMenuActionts";
-import { useColumnFilter } from "@/hooks/useColumnFilter";
-
-import type {
-    ProductsAPIResponse,
-    CategoryListResponse,
-} from "@/src/schemas";
-
-import { Brand } from "@/src/services/brands";
+import type { TApiProduct } from "@/src/schemas";
 
 import {
     Table,
@@ -23,729 +16,240 @@ import {
     TableHead,
     TableCell,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
-import { Input } from "@/components/ui/input";
+/**
+ * Props para ProductsTable
+ * 
+ * El componente solo recibe lo que necesita:
+ * - products: array de productos a mostrar
+ * 
+ * No recibe categorías ni marcas porque esos datos
+ * ya vienen en cada producto (brand, category)
+ */
+interface ProductsTableProps {
+    products: TApiProduct[];
+}
 
-import {
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectItem,
-} from "@/components/ui/select";
-
-export default function ProductsTable({
-    products,
-    categories,
-    brands,
-}: {
-    products: ProductsAPIResponse | null;
-    categories: CategoryListResponse;
-    brands: Brand[];
-}) {
-    const router = useRouter();
-
-    const nameFilter = useColumnFilter("nombre");
-    const skuFilter = useColumnFilter("sku");
-    const priceSort = useColumnFilter("precioSort");
-    const stockSort = useColumnFilter("stockSort");
-    const brandFilter = useColumnFilter("brand");
-    const activeFilter = useColumnFilter("isActive");
-    const nuevoFilter = useColumnFilter("esNuevo");
-    const destacadoFilter = useColumnFilter("esDestacado");
-    const categoryFilter = useColumnFilter("category");
-
-    const MIN_ROWS = 10;
-
-    const tableRows = products?.products ?? [];
-    const emptyRows = Math.max(0, MIN_ROWS - tableRows.length);
-    const noProducts = tableRows.length === 0;
-
-    const clearFilters = () => {
-        [
-            nameFilter,
-            skuFilter,
-            priceSort,
-            stockSort,
-            brandFilter,
-            activeFilter,
-            nuevoFilter,
-            destacadoFilter,
-            categoryFilter,
-        ].forEach((f) => f.reset());
-
-        router.replace(window.location.pathname);
-    };
+/**
+ * ProductsTable
+ * 
+ * Tabla de administración de productos.
+ * Muestra toda la información relevante de cada producto.
+ * 
+ * Características:
+ * - Imagen del producto
+ * - Nombre (clickeable, abre detalles)
+ * - SKU
+ * - Precio
+ * - Stock (con colores según cantidad)
+ * - Marca
+ * - Categoría
+ * - Estado (Activo/Inactivo)
+ * - Menú de acciones (editar, duplicar, eliminar)
+ * 
+ * La tabla es responsiva:
+ * - En mobile: muestra menos columnas
+ * - En tablet: muestra más
+ * - En desktop: muestra todo
+ */
+export default function ProductsTable({ products }: ProductsTableProps) {
+    const noProducts = !products || products.length === 0;
 
     return (
-        <div className="flex h-full w-full flex-col bg-[var(--color-bg-primary)]">
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-[var(--color-border-default)] bg-[var(--color-bg-secondary)] px-4 py-3">
-                <button
-                    onClick={clearFilters}
-                    className="
-                        text-xs font-semibold
-                        text-[var(--color-text-secondary)]
-                        transition-colors
-                        hover:text-[var(--color-text-primary)]
-                    "
-                >
-                    Limpiar filtros
-                </button>
-            </div>
-
-            {/* Table */}
-            <div className="w-full overflow-x-auto">
-                <Table
-                    className="
-                        min-w-[1200px]
-                        w-full
-                        table-auto
-                        border-separate
-                        border-spacing-0
-                        text-sm
-                        text-[var(--color-text-secondary)]
-                    "
-                >
-                    <TableHeader
-                        className="
-                            sticky top-0 z-10
-                            border-b
-                            border-[var(--color-border-default)]
-                            bg-[var(--color-bg-secondary)]
-                            shadow-sm
-                        "
-                    >
-                        <TableRow>
-                            {[
-                                nameFilter,
-                                skuFilter,
-                                priceSort,
-                                stockSort,
-                                brandFilter,
-                                categoryFilter,
-                                activeFilter,
-                                nuevoFilter,
-                                destacadoFilter,
-                            ].map((filter, i) => (
-                                <TableHead
-                                    key={i}
-                                    className="
-                                        border-b
-                                        border-[var(--color-border-default)]
-                                        bg-[var(--color-bg-secondary)]
-                                        p-2
-                                        text-center
-                                    "
-                                >
-                                    {i === 0 && (
-                                        <Input
-                                            placeholder="Nombre"
-                                            value={nameFilter.value}
-                                            onChange={(e) =>
-                                                nameFilter.setValue(
-                                                    e.target.value
-                                                )
-                                            }
-                                            className="
-                                                h-9 rounded-md border-[var(--color-border-default)]
-                                                bg-[var(--color-bg-primary)]
-                                                text-sm text-[var(--color-text-primary)]
-                                            "
-                                        />
-                                    )}
-
-                                    {i === 1 && (
-                                        <Input
-                                            placeholder="SKU"
-                                            value={skuFilter.value}
-                                            onChange={(e) =>
-                                                skuFilter.setValue(
-                                                    e.target.value
-                                                )
-                                            }
-                                            className="
-                                                h-9 rounded-md border-[var(--color-border-default)]
-                                                bg-[var(--color-bg-primary)]
-                                                text-sm text-[var(--color-text-primary)]
-                                            "
-                                        />
-                                    )}
-
-                                    {i === 2 && (
-                                        <Select
-                                            value={
-                                                priceSort.value || undefined
-                                            }
-                                            onValueChange={
-                                                priceSort.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Precio" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectItem value="asc">
-                                                    Asc
-                                                </SelectItem>
-
-                                                <SelectItem value="desc">
-                                                    Desc
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-
-                                    {i === 3 && (
-                                        <Select
-                                            value={
-                                                stockSort.value || undefined
-                                            }
-                                            onValueChange={
-                                                stockSort.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Stock" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectItem value="asc">
-                                                    Asc
-                                                </SelectItem>
-
-                                                <SelectItem value="desc">
-                                                    Desc
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-
-                                    {i === 4 && (
-                                        <Select
-                                            value={
-                                                brandFilter.value || undefined
-                                            }
-                                            onValueChange={
-                                                brandFilter.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Marca" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    max-h-60 overflow-auto
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                {brands.map((b) => (
-                                                    <SelectItem
-                                                        key={b._id}
-                                                        value={b._id}
-                                                    >
-                                                        {b.nombre}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-
-                                    {i === 5 && (
-                                        <Select
-                                            value={
-                                                categoryFilter.value ||
-                                                undefined
-                                            }
-                                            onValueChange={
-                                                categoryFilter.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Categoría" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    max-h-60 overflow-auto
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                {categories.map((c) => (
-                                                    <SelectItem
-                                                        key={c._id}
-                                                        value={c._id}
-                                                    >
-                                                        {c.nombre}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-
-                                    {i === 6 && (
-                                        <Select
-                                            value={
-                                                activeFilter.value ||
-                                                undefined
-                                            }
-                                            onValueChange={
-                                                activeFilter.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Estado" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectItem value="true">
-                                                    Activos
-                                                </SelectItem>
-
-                                                <SelectItem value="false">
-                                                    Inactivos
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-
-                                    {i === 7 && (
-                                        <Select
-                                            value={
-                                                nuevoFilter.value || undefined
-                                            }
-                                            onValueChange={
-                                                nuevoFilter.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Nuevo" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectItem value="true">
-                                                    Sí
-                                                </SelectItem>
-
-                                                <SelectItem value="false">
-                                                    No
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-
-                                    {i === 8 && (
-                                        <Select
-                                            value={
-                                                destacadoFilter.value ||
-                                                undefined
-                                            }
-                                            onValueChange={
-                                                destacadoFilter.setValue
-                                            }
-                                        >
-                                            <SelectTrigger
-                                                className="
-                                                    h-9 border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-sm text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectValue placeholder="Destacado" />
-                                            </SelectTrigger>
-
-                                            <SelectContent
-                                                className="
-                                                    border-[var(--color-border-default)]
-                                                    bg-[var(--color-bg-primary)]
-                                                    text-[var(--color-text-primary)]
-                                                "
-                                            >
-                                                <SelectItem value="true">
-                                                    Sí
-                                                </SelectItem>
-
-                                                <SelectItem value="false">
-                                                    No
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-                                </TableHead>
-                            ))}
-
-                            <TableHead
-                                className="
-                                    w-[80px]
-                                    border-b
-                                    border-[var(--color-border-default)]
-                                    bg-[var(--color-bg-secondary)]
-                                    p-2 text-center text-sm font-semibold
-                                    text-[var(--color-text-primary)]
-                                "
-                            >
-                                Acciones
+        <div className="w-full h-full flex flex-col text-foreground border border-border/40 rounded-lg overflow-hidden bg-background">
+            {/* Contenedor scrolleable para la tabla */}
+            <div className="flex-1 min-h-0 overflow-auto">
+                <Table>
+                    {/* ═════════════════════════════════════════════════════════ */}
+                    {/* ENCABEZADOS */}
+                    {/* ═════════════════════════════════════════════════════════ */}
+                    <TableHeader>
+                        <TableRow className="hover:bg-transparent bg-muted/50 sticky top-0">
+                            {/* Columna: Producto (Imagen + Nombre) */}
+                            <TableHead className="w-[44%] min-w-[220px] text-[11px] ">
+                                Producto
                             </TableHead>
+
+                            {/* Columna: SKU (oculta en móvil) */}
+                            <TableHead className="hidden sm:table-cell w-[13%] text-[11px] ">
+                                SKU
+                            </TableHead>
+
+                            {/* Columna: Precio */}
+                            <TableHead className="w-[9%] text-[11px] ">
+                                Precio
+                            </TableHead>
+
+                            {/* Columna: Stock */}
+                            <TableHead className="w-[8%] text-[11px] ">
+                                Stock
+                            </TableHead>
+
+                            {/* Columna: Marca (oculta en tablet y abajo) */}
+                            <TableHead className="hidden md:table-cell w-[10%] text-[11px] ">
+                                Marca
+                            </TableHead>
+
+                            {/* Columna: Categoría (oculta en pantallas pequeñas) */}
+                            <TableHead className="hidden lg:table-cell w-[11%] text-[11px] ">
+                                Categoría
+                            </TableHead>
+
+                            {/* Columna: Estado */}
+                            <TableHead className="w-[9%] text-[11px]  text-center">
+                                Estado
+                            </TableHead>
+
+                            {/* Columna: Acciones */}
+                            <TableHead className="w-[6%] text-center font-semibold" />
                         </TableRow>
                     </TableHeader>
 
+                    {/* ═════════════════════════════════════════════════════════ */}
+                    {/* CUERPO DE LA TABLA */}
+                    {/* ═════════════════════════════════════════════════════════ */}
                     <TableBody>
                         {noProducts ? (
-                            <>
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={10}
-                                        className="
-                                            h-[62px]
-                                            bg-[var(--color-bg-primary)]
-                                            text-center text-sm
-                                            text-[var(--color-text-secondary)]
-                                        "
-                                    >
-                                        No se encontraron productos.
+                            // Mensaje cuando no hay productos
+                            <TableRow>
+                                <TableCell
+                                    colSpan={8}
+                                    className="text-center py-14 text-muted-foreground text-[13px]"
+                                >
+                                    No se encontraron productos.
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            // Renderizar cada producto
+                            products.map((product) => (
+                                <TableRow
+                                    key={product._id}
+                                    className="group hover:bg-muted/30 transition-colors"
+                                >
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Producto (Imagen + Nombre) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="py-2.5">
+                                        <Link
+                                            href={`/admin/products/${product._id}`}
+                                            className="flex gap-2.5 items-center focus-visible:outline-none group-hover:opacity-80 transition-opacity"
+                                        >
+                                            {/* Imagen del Producto */}
+                                            {product.imagenes?.[0] ? (
+                                                <div className="h-9 w-9 relative shrink-0 rounded-[var(--radius-sm)] border border-border bg-background-secondary overflow-hidden flex items-center justify-center p-0.5">
+                                                    <Image
+                                                        src={product.imagenes[0]}
+                                                        alt={product.nombre}
+                                                        width={36}
+                                                        height={36}
+                                                        className="object-contain mix-blend-multiply"
+                                                        quality={20}
+                                                        unoptimized
+                                                    />
+                                                </div>
+                                            ) : (
+                                                // Placeholder si no hay imagen
+                                                <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[var(--radius-sm)] border border-border bg-background-secondary text-muted-foreground text-[9px] font-bold uppercase tracking-wider">
+                                                    No img
+                                                </div>
+                                            )}
+
+                                            {/* Nombre del Producto */}
+                                            <div className="flex flex-col gap-0.5">
+
+
+                                                {/* Nombre del producto */}
+                                                <span className="line-clamp-2 leading-snug text-[13px] font-medium group-hover:text-action-cta transition-colors">
+                                                    {product.nombre}
+                                                </span>
+                                            </div>
+                                        </Link>
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: SKU (oculta en móvil) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="hidden sm:table-cell py-2.5">
+                                        <code className="text-[12px] text-muted-foreground bg-muted/40 px-1.5 py-0.5 rounded ">
+                                            {product.sku || "—"}
+                                        </code>
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Precio */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="py-2.5 tabular-nums text-[13px] font-medium ">
+                                        S/ {product.precio?.toFixed(2)}
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Stock (con colores según cantidad) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="py-2.5">
+                                        <span
+                                            className={cn(
+                                                "inline-flex items-center justify-center w-10 h-6 text-[11px] ",
+                                                product.stock === undefined
+                                                    ? "bg-muted/15 text-muted-foreground"
+                                                    : product.stock === 0
+                                                        ? "bg-destructive/15 text-destructive "
+                                                        : product.stock <= 5
+                                                            ? "bg-warning/15 text-warning "
+                                                            : "bg-success/15 text-success "
+                                            )}
+                                        >
+                                            {product.stock !== undefined ? product.stock : "—"}
+                                        </span>
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Marca (oculta en tablet y abajo) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="hidden md:table-cell py-2.5 text-[13px] text-muted-foreground max-w-[110px] truncate">
+                                        {product.brand?.nombre || "—"}
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Categoría (oculta en pantallas pequeñas) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="hidden lg:table-cell py-2.5 text-[13px] text-muted-foreground max-w-[120px] truncate">
+                                        {"—"}
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Estado (Activo/Inactivo) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="py-2.5">
+                                        <div className="flex justify-center">
+                                            <span
+                                                className={cn(
+                                                    "inline-flex items-center gap-1.5 text-[10px] px-1 rounded-full ",
+                                                    product.isActive
+                                                        ? "bg-success/15 text-success border border-success/30"
+                                                        : "bg-destructive/15 text-destructive border border-destructive/30"
+                                                )}
+                                            >
+
+                                                {/* Texto de estado */}
+                                                {product.isActive ? "Activo" : "Inactivo"}
+                                            </span>
+                                        </div>
+                                    </TableCell>
+
+                                    {/* ───────────────────────────────────────── */}
+                                    {/* CELDA: Acciones (Menú) */}
+                                    {/* ───────────────────────────────────────── */}
+                                    <TableCell className="py-2.5">
+                                        <div className="flex justify-center">
+                                            <ProductMenuAction
+                                                productId={product._id}
+                                                productSlug={product.slug}
+                                            />
+                                        </div>
                                     </TableCell>
                                 </TableRow>
-
-                                {Array.from({
-                                    length: MIN_ROWS - 1,
-                                }).map((_, index) => (
-                                    <TableRow
-                                        key={`empty-no-products-${index}`}
-                                        className="
-                                            border-b
-                                            border-[var(--color-border-subtle)]
-                                        "
-                                    >
-                                        {Array.from({
-                                            length: 10,
-                                        }).map((_, cellIndex) => (
-                                            <TableCell
-                                                key={cellIndex}
-                                                className="h-[62px]"
-                                            />
-                                        ))}
-                                    </TableRow>
-                                ))}
-                            </>
-                        ) : (
-                            <>
-                                {tableRows.map((p) => (
-                                    <TableRow
-                                        key={p._id}
-                                        className="
-                                            border-b
-                                            border-[var(--color-border-subtle)]
-                                            text-sm
-                                            transition-colors
-                                            hover:bg-[var(--color-bg-secondary)]
-                                        "
-                                    >
-                                        <TableCell
-                                            className="
-                                                w-[260px]
-                                                p-3 font-medium
-                                                text-[var(--color-text-primary)]
-                                            "
-                                        >
-                                            <Link
-                                                href={`/admin/products/${p._id}`}
-                                                className="
-                                                    group flex items-center gap-3
-                                                "
-                                            >
-                                                {p.imagenes?.[0] ? (
-                                                    <div
-                                                        className="
-                                                            relative h-10 w-10
-                                                            flex-shrink-0 overflow-hidden
-                                                            rounded border
-                                                            border-[var(--color-border-default)]
-                                                            bg-[var(--color-bg-tertiary)]
-                                                        "
-                                                    >
-                                                        <Image
-                                                            src={
-                                                                p.imagenes[0]
-                                                            }
-                                                            alt={p.nombre}
-                                                            fill
-                                                            sizes="20px"
-                                                            quality={2}
-                                                            className="object-contain"
-                                                            unoptimized
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div
-                                                        className="
-                                                            flex h-10 w-10
-                                                            flex-shrink-0 items-center
-                                                            justify-center rounded
-                                                            border border-[var(--color-border-default)]
-                                                            bg-[var(--color-bg-tertiary)]
-                                                            text-[10px] font-medium
-                                                            uppercase
-                                                            text-[var(--color-text-tertiary)]
-                                                        "
-                                                    >
-                                                        S/I
-                                                    </div>
-                                                )}
-
-                                                <div className="min-w-0 flex flex-col">
-                                                    <span
-                                                        className="
-                                                            max-w-[180px]
-                                                            truncate
-                                                            transition-colors
-                                                            group-hover:text-[var(--color-accent-hover)]
-                                                        "
-                                                    >
-                                                        {p.isFrontPage && (
-                                                            <span
-                                                                className="
-                                                                    mr-1 text-xs font-bold
-                                                                    text-[var(--color-warning)]
-                                                                "
-                                                            >
-                                                                [Inicio]
-                                                            </span>
-                                                        )}
-
-                                                        {p.nombre}
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[120px]
-                                                p-3 text-center
-                                                font-mono text-xs
-                                                text-[var(--color-text-secondary)]
-                                            "
-                                        >
-                                            {p.sku}
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[100px]
-                                                p-3 text-center
-                                                font-semibold
-                                                text-[var(--color-text-primary)]
-                                            "
-                                        >
-                                            S/{p.precio?.toFixed(2)}
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[90px]
-                                                p-3 text-center
-                                                text-[var(--color-text-primary)]
-                                            "
-                                        >
-                                            {p.stock}
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                max-w-[130px]
-                                                w-[130px]
-                                                truncate p-3 text-center
-                                                text-[var(--color-text-secondary)]
-                                            "
-                                        >
-                                            {p.brand?.nombre || "-"}
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[130px]
-                                                p-3 text-center
-                                                text-[var(--color-text-tertiary)]
-                                            "
-                                        >
-                                            -
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[70px]
-                                                p-3 text-center
-                                            "
-                                        >
-                                            <div className="flex justify-center">
-                                                {p.isActive ? (
-                                                    <Check
-                                                        className="
-                                                            h-5 w-5
-                                                            text-[var(--color-success)]
-                                                        "
-                                                    />
-                                                ) : (
-                                                    <X
-                                                        className="
-                                                            h-5 w-5
-                                                            text-[var(--color-error)]
-                                                        "
-                                                    />
-                                                )}
-                                            </div>
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[70px]
-                                                p-3 text-center
-                                            "
-                                        >
-                                            <div className="flex justify-center">
-                                                {p.esNuevo ? (
-                                                    <Check
-                                                        className="
-                                                            h-5 w-5
-                                                            text-[var(--color-success)]
-                                                        "
-                                                    />
-                                                ) : (
-                                                    <X
-                                                        className="
-                                                            h-5 w-5
-                                                            text-[var(--color-error)]
-                                                        "
-                                                    />
-                                                )}
-                                            </div>
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[70px]
-                                                p-3 text-center
-                                            "
-                                        >
-                                            <div className="flex justify-center">
-                                                {p.esDestacado ? (
-                                                    <Check
-                                                        className="
-                                                            h-5 w-5
-                                                            text-[var(--color-success)]
-                                                        "
-                                                    />
-                                                ) : (
-                                                    <X
-                                                        className="
-                                                            h-5 w-5
-                                                            text-[var(--color-error)]
-                                                        "
-                                                    />
-                                                )}
-                                            </div>
-                                        </TableCell>
-
-                                        <TableCell
-                                            className="
-                                                w-[80px]
-                                                p-3 text-center
-                                            "
-                                        >
-                                            <ProductMenuAction
-                                                productId={p._id}
-                                            />
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-
-                                {Array.from({
-                                    length: emptyRows,
-                                }).map((_, index) => (
-                                    <TableRow
-                                        key={`empty-row-${index}`}
-                                        className="
-                                            border-b
-                                            border-[var(--color-border-subtle)]
-                                        "
-                                    >
-                                        {Array.from({
-                                            length: 10,
-                                        }).map((_, cellIndex) => (
-                                            <TableCell
-                                                key={cellIndex}
-                                                className="h-[62px]"
-                                            />
-                                        ))}
-                                    </TableRow>
-                                ))}
-                            </>
+                            ))
                         )}
                     </TableBody>
                 </Table>

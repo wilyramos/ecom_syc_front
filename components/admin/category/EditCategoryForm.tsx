@@ -1,5 +1,5 @@
 "use client"
-import type { CategoryResponse } from "@/src/schemas"
+import type { CategoryResponse } from "@/src/schemas/category.schema"
 import CategoryForm from "./CategoryForm"
 import { EditCategory } from "@/actions/category/edit-category-action"
 import { useActionState, useEffect } from "react"
@@ -31,7 +31,7 @@ export default function EditCategoryForm({ category, categories }: { category: C
 
     return (
         <form
-            className="flex flex-col gap-4 w-full max-w-2xl mx-auto mt-10"
+            className="flex flex-col gap-4 w-full max-w-7xl mx-auto mt-10"
             noValidate
             action={dispatch}
         >

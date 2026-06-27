@@ -7,6 +7,7 @@ import BrandsList from "@/components/home/BrandsList";
 import CarruselPrincipal from "@/components/home/CarruselPrincipal";
 import ColleccionesSection from "@/components/home/Colleccionessection";
 import ProductosNuevos from "@/components/home/ProductosNuevos";
+import VideosSection from "@/components/home/VideosSection";
 
 // Metadata for SEO and social sharing
 export const metadata: Metadata = {
@@ -26,6 +27,8 @@ export const metadata: Metadata = {
     },
 };
 
+
+
 export default function HomePage() {
     return (
         <div className="flex flex-col divide-y-2 divide-gray-50">
@@ -33,6 +36,12 @@ export default function HomePage() {
             <section className="">
                 <CarruselPrincipal />
             </section>
+
+            {/* Videos como segundo elemento importante */}
+            <section className="py-5">
+                <VideosSection />
+            </section>
+
             <section className="py-5">
                 <CategoriasDestacadasWrapper />
             </section>
@@ -49,14 +58,9 @@ export default function HomePage() {
                 <ProductosDestacados />
             </section>
 
-
             <section className="py-5">
                 <BrandsList />
             </section>
-
-            {/* <section className="py-5 bg-[var(--color-bg-secondary)]">
-                <FeaturesList />
-            </section> */}
         </div>
     );
 }

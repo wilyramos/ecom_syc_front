@@ -1,12 +1,13 @@
+// File: components/admin/category/CategoryForm.tsx
+
 "use client";
 
-import * as React from "react";
-import type { CategoryResponse } from "@/src/schemas";
+import type { CategoryResponse } from "@/src/schemas/category.schema";
 import AttributeFields from "./AttributeFileds";
-import { ImageUploadDialog } from "./ImageUploadDialog";
 import CategorySwitches from "./CategorySwitches";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
     Select,
     SelectContent,
@@ -14,6 +15,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { ImageUploadDialog } from "./ImageUploadDialog";
+import React from "react";
+
 
 type Props = {
     category?: CategoryResponse;
@@ -21,67 +25,83 @@ type Props = {
 };
 
 export default function CategoryForm({ category, categories }: Props) {
+    // Excluir la categoría actual de los posibles padres (evita auto-referencia)
+    const availableParents = categories.filter((c) => c._id !== category?._id);
     const imageInputRef = React.useRef<HTMLInputElement>(null);
 
+
+    const currentParentId =
+        category?.parent && typeof category.parent === "object"
+            ? category.parent._id
+            : typeof category?.parent === "string"
+                ? category.parent
+                : "null";
+
     return (
-        <div className="space-y-6 text-sm text-gray-700">
-            {/* Nombre */}
-            <div className="space-y-1">
-                <Label htmlFor="name">Nombre de la categoría</Label>
-                <Input
-                    id="name"
-                    name="name"
-                    defaultValue={category?.nombre}
-                    placeholder="Ej. Electrónica"
-                />
+        <div className="space-y-6">
+            {/* Información básica */}
+            <div className="space-y-4">
+                <div className="space-y-1.5">
+                    <Label htmlFor="nombre">Nombre de la categoría</Label>
+                    <Input
+                        id="nombre"
+                        name="nombre"
+                        defaultValue={category?.nombre}
+                        placeholder="Ej. Electrónica"
+                        required
+                    />
+                </div>
+
+                <div className="space-y-1.5">
+                    <Label htmlFor="descripcion">Descripción</Label>
+                    <Textarea
+                        id="descripcion"
+                        name="descripcion"
+                        defaultValue={category?.descripcion}
+                        placeholder="Describe la categoría..."
+                        className="min-h-[90px] resize-none"
+                    />
+                </div>
             </div>
 
-            {/* Descripción */}
-            <div className="space-y-1">
-                <Label htmlFor="description">Descripción</Label>
-                <Input
-                    id="description"
-                    name="description"
-                    defaultValue={category?.descripcion}
-                    placeholder="Describe la categoría"
-                    className="min-h-[100px]"
-                />
+
+            {/* Jerarquía y orden */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                    <Label htmlFor="parent">Categoría padre</Label>
+                    <Select defaultValue={currentParentId} name="parent">
+                        <SelectTrigger id="parent">
+                            <SelectValue placeholder="Sin categoría padre" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="null">Sin categoría padre</SelectItem>
+                            {availableParents.map((cat) => (
+                                <SelectItem key={cat._id} value={cat._id}>
+                                    {cat.nombre}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="space-y-1.5">
+                    <Label htmlFor="order">
+                        Orden de prioridad
+                        <span className="ml-1 text-xs text-muted-foreground font-normal">
+                            (menor = mayor prioridad)
+                        </span>
+                    </Label>
+                    <Input
+                        id="order"
+                        name="order"
+                        type="number"
+                        min={0}
+                        defaultValue={category?.order ?? 0}
+                        placeholder="0"
+                    />
+                </div>
             </div>
 
-            {/* Categoría padre */}
-            <div className="space-y-1 ">
-                <Label htmlFor="parent">Categoría padre</Label>
-                <Select
-                    defaultValue={category?.parent && typeof category.parent === "object"
-                        ? category.parent._id
-                        : typeof category?.parent === "string"
-                            ? category.parent
-                            : "null"
-                    }
-                    name="parent"
-                >
-                    <SelectTrigger id="parent" className="min-w-xs">
-                        <SelectValue placeholder="Sin categoría padre" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="null">Sin categoría padre</SelectItem>
-                        {categories.map((cat) => (
-                            <SelectItem key={cat._id} value={cat._id}>
-                                {cat.nombre}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-
-                {category?._id && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                        No puedes seleccionar la misma categoría como padre.
-                    </p>
-                )}
-            </div>
-
-            {/* Atributos */}
-            <AttributeFields defaultAttributes={category?.attributes} />
 
             {/* Imagen */}
             <div className="space-y-1">
@@ -94,7 +114,14 @@ export default function CategoryForm({ category, categories }: Props) {
                     defaultValue={category?.image || ""}
                 />
             </div>
-            <CategorySwitches isActive={category?.isActive} />
+
+
+            {/* Atributos */}
+            <AttributeFields defaultAttributes={category?.attributes} />
+
+
+            {/* Estado */}
+            <CategorySwitches isActive={category?.isActive ?? true} />
         </div>
     );
 }

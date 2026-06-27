@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import type { CategoryResponse, CategoryListResponse } from "@/src/schemas";
+import type { CategoryListResponse, CategoryResponse } from "@/src/schemas/category.schema";
 import type { Collection } from "@/src/schemas/collection.schema";
 import { routes } from "@/lib/routes";
 

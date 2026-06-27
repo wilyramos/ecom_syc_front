@@ -5,7 +5,8 @@ import Image from "next/image";
 import { X, ImageIcon, LayoutGrid, Info } from "lucide-react";
 
 // Types
-import type { ProductWithCategoryResponse, CategoryListResponse } from "@/src/schemas";
+import type { ProductWithCategoryResponse } from "@/src/schemas";
+import type { CategoryListResponse } from "@/src/schemas/category.schema";
 import type { TBrand } from "@/src/schemas/brands";
 import type { ProductLine } from "@/src/schemas/line.schema";
 

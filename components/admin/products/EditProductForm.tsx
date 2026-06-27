@@ -9,7 +9,8 @@ import ProductForm from "./ProductForm";
 import { Button } from "@/components/ui/button";
 
 // Tipos
-import type { ProductWithCategoryResponse, CategoryListResponse } from "@/src/schemas";
+import type { ProductWithCategoryResponse } from "@/src/schemas";
+import type { CategoryListResponse } from "@/src/schemas/category.schema";
 import type { TBrand } from "@/src/schemas/brands";
 import type { ProductLine } from "@/src/schemas/line.schema"; 
 
@@ -56,7 +57,7 @@ export default function EditProductForm({ product, categorias, brands, lines }: 
 
     return (
         <form
-            className="flex flex-col w-full"
+            className="flex flex-col w-full pb-24"
             noValidate
             action={dispatch}
             onSubmit={handleSubmit}
@@ -69,14 +70,13 @@ export default function EditProductForm({ product, categorias, brands, lines }: 
                 lines={lines}
             />
             
-            <div className="mt-8 pt-6 border-t border-[var(--color-border-default)] flex justify-end">
-                <Button 
-                    type="submit" 
-                    variant="default"
-                    className="w-full sm:w-auto min-w-[200px]"
-                >
-                    Actualizar Producto
-                </Button>
+            {/* Contenedor flotante fijo en la parte inferior de la pantalla */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-end p-4 border-t bg-background/80 backdrop-blur-md shadow-lg md:left-64">
+                <div className="w-full max-w-5xl mx-auto flex justify-end">
+                    <Button type="submit" className="w-full sm:w-auto px-6 font-semibold shadow-sm">
+                        {state.success ? "Actualizado" : "Actualizar producto"}
+                    </Button>
+                </div>
             </div>
         </form>
     );

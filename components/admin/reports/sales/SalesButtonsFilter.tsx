@@ -2,7 +2,7 @@
 
 import DateRangeDropdown from "@/components/admin/reports/FiltersReportsSales";
 import { HeadingH2 } from "@/components/ui/Heading";
-import { ArrowLeft, LayoutDashboard, Package, Users } from "lucide-react";
+import { LayoutDashboard, Package, Users } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,14 +18,7 @@ export default function SalesButtonsFilter() {
 
     return (
         <aside className="p-2">
-            {/* Back Button */}
-            <Link
-                href="/admin/reports"
-                className="inline-flex items-center gap-2 text-xs text-gray-600 hover:text-blue-600 transition-colors mb-4"
-            >
-                <ArrowLeft size={16} />
-                Volver a Reportes
-            </Link>
+          
 
             {/* Header */}
             <div className="py-2">
@@ -55,7 +48,7 @@ export default function SalesButtonsFilter() {
             </div>
 
             {/* Filters */}
-            <div>
+            <div className="flex items-center justify-end mb-4">
                 <DateRangeDropdown />
             </div>
         </aside>

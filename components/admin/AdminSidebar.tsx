@@ -42,7 +42,7 @@ const links: NavLink[] = [
             { href: "/admin/collections", label: "Colecciones" },
         ],
     },
-    { href: "/admin/reports", icon: BarChart3, label: "Reportes" },
+    { href: "/admin/reports/sales", icon: BarChart3, label: "Reportes" },
     { href: "/pos", icon: Store, label: "POS" },
 ];
 
@@ -106,7 +106,7 @@ export default function AdminSidebar({ user }: { user: User }) {
                                                     className={cn(
                                                         "block rounded-md px-3 py-2 text-sm transition-colors",
                                                         isActive
-                                                            ? "bg-[var(--color-accent)] text-[var(--color-bg-inverse)] font-medium"
+                                                            ? " text-[var(--color-accent)] font-medium"
                                                             : "text-[var(--color-text-tertiary)] hover:text-[var(--color-text-inverse)] hover:bg-[var(--sl-surface)]"
                                                     )}
                                                 >
