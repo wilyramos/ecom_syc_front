@@ -1,19 +1,34 @@
 "use client"
 import type { CategoryResponse } from "@/src/schemas/category.schema"
 import CategoryForm from "./CategoryForm"
-import { EditCategory } from "@/actions/category/edit-category-action"
+import { editCategoryAction, type ActionStateType } from "@/actions/category/category-action";
 import { useActionState, useEffect } from "react"
 import { toast } from "react-toastify"
+import { useRouter } from "next/navigation";
 
 
 export default function EditCategoryForm({ category, categories }: { category: CategoryResponse, categories: CategoryResponse[] }) {
 
-    const editCategoryWithId = EditCategory.bind(null, category._id);
-    const [state, dispatch] = useActionState(editCategoryWithId, {
-        errors: [],
-        success: ""
-    })
+    const router = useRouter();
 
+
+    const [state, dispatch] = useActionState(
+        async (prevState: ActionStateType, formData: FormData) => {
+            return editCategoryAction(category._id, prevState, formData);
+        },
+        {
+            errors: [],
+            success: "",
+        }
+    );
+
+    useEffect(() => {
+        state.errors.forEach((e) => toast.error(e));
+        if (state.success) {
+            toast.success(state.success);
+            router.push("/admin/products/category");
+        }
+    }, [state, router]);
 
     useEffect(() => {
         if (state.errors) {
@@ -23,7 +38,7 @@ export default function EditCategoryForm({ category, categories }: { category: C
         }
         if (state.success) {
             toast.success(state.success)
-            
+
         }
 
     }, [state])
