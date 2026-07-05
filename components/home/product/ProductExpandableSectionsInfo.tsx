@@ -7,7 +7,6 @@ import {
     AccordionContent,
 } from "@/components/ui/accordion";
 import type { ProductWithCategoryResponse } from "@/src/schemas";
-import { cn } from '@/lib/utils';
 import Link from "next/link";
 
 type Props = {
@@ -29,102 +28,87 @@ export default function ProductExpandableSections({ producto }: Props) {
     const hasDescripcion = Boolean(descripcionRaw.trim().length > 0);
     const hasSpecs = Boolean(specsArray.length > 0 || hasPhysicalData);
 
+    // Si absolutamente ninguna sección tiene contenido, no renderizamos nada
     if (!hasDescripcion && !hasSpecs) return null;
-
-    const descWeight = descripcionRaw.length;
-    const specsWeight = specsArray.length * 100;
-    const showDescFirst = descWeight >= specsWeight;
-
-    const DescripcionComponent = (
-        <div className={cn("space-y-4", hasSpecs ? "lg:col-span-7" : "lg:col-span-12")}>
-            <div
-                className="prose prose-sm max-w-none text-[var(--color-text-secondary)] text-sm md:text-base leading-relaxed prose-headings:text-[var(--color-text-primary)] prose-strong:text-[var(--color-text-primary)]"
-                dangerouslySetInnerHTML={{ __html: descripcionRaw }}
-            />
-        </div>
-    );
-
-    const SpecsComponent = (
-        <div className="lg:col-span-5 space-y-4">
-            {specsArray.length > 0 && (
-                <div className="overflow-hidden border border-[var(--color-border-subtle)] rounded-xl bg-[var(--color-bg-primary)]">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr>
-                                <th colSpan={2} className="px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)] border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]">
-                                    Especificaciones técnicas
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-[var(--color-border-subtle)]">
-                            {specsArray.map((spec) => (
-                                <tr key={spec.key} className="hover:bg-[var(--color-bg-secondary)] transition-colors">
-                                    <td className="px-5 py-3.5 text-xs font-medium text-[var(--color-text-secondary)] w-[40%]">
-                                        {spec.key}
-                                    </td>
-                                    <td className="px-5 py-3.5 text-sm font-semibold text-[var(--color-text-primary)] w-[60%]">
-                                        {spec.value}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-
-            {hasPhysicalData && (
-                <div className="overflow-hidden border border-[var(--color-border-subtle)] rounded-xl bg-[var(--color-bg-primary)]">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr>
-                                <th colSpan={2} className="px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)] border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]">
-                                    Físico y embalaje
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-[var(--color-border-subtle)]">
-                            {hasWeight && (
-                                <tr className="hover:bg-[var(--color-bg-secondary)] transition-colors">
-                                    <td className="px-5 py-3.5 text-xs font-medium text-[var(--color-text-secondary)] w-[40%]">
-                                        Peso
-                                    </td>
-                                    <td className="px-5 py-3.5 text-sm font-semibold text-[var(--color-text-primary)] w-[60%]">
-                                        {producto.weight} kg
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            )}
-        </div>
-    );
 
     return (
         <Accordion type="multiple" className="w-full border-t border-[var(--color-border-subtle)]">
-            {/* Sección 1: Detalles Técnicos e Información */}
-            <AccordionItem value="info" className="border-b border-[var(--color-border-subtle)]">
-                <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
-                    Información del producto
-                </AccordionTrigger>
-                <AccordionContent className="pb-8 pt-2">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-                        {showDescFirst ? (
-                            <>
-                                {hasDescripcion && DescripcionComponent}
-                                {hasSpecs && SpecsComponent}
-                            </>
-                        ) : (
-                            <>
-                                {hasSpecs && SpecsComponent}
-                                {hasDescripcion && DescripcionComponent}
-                            </>
-                        )}
-                    </div>
-                </AccordionContent>
-            </AccordionItem>
+            
+            {/* SECCIÓN 1: DESCRIPCIÓN (Solo si no está vacía) */}
+            {hasDescripcion && (
+                <AccordionItem value="descripcion" className="border-b border-[var(--color-border-subtle)]">
+                    <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
+                        Descripción
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-8 pt-2">
+                        <div 
+                            className="prose prose-sm max-w-none text-[var(--color-text-secondary)] text-sm md:text-base leading-relaxed prose-headings:text-[var(--color-text-primary)] prose-strong:text-[var(--color-text-primary)]"
+                            dangerouslySetInnerHTML={{ __html: descripcionRaw }}
+                        />
+                    </AccordionContent>
+                </AccordionItem>
+            )}
 
-            {/* Sección 2: Envíos */}
+            {/* SECCIÓN 2: ESPECIFICACIONES TÉCNICAS (Solo si no está vacía) */}
+            {hasSpecs && (
+                <AccordionItem value="especificaciones" className="border-b border-[var(--color-border-subtle)]">
+                    <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
+                        Especificaciones
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-8 pt-2">
+                        <div className="grid  gap-6 items-start">
+                            {/* Tabla de especificaciones dinámicas */}
+                            {specsArray.length > 0 && (
+                                <div className="overflow-hidden border border-[var(--color-border-subtle)] rounded-xl bg-[var(--color-bg-primary)]">
+                                    <table className="w-full text-left border-collapse">
+                                        <tbody className="divide-y divide-[var(--color-border-subtle)]">
+                                            {specsArray.map((spec) => (
+                                                <tr key={spec.key} className="hover:bg-[var(--color-bg-secondary)] transition-colors">
+                                                    <td className="px-5 py-3.5 text-xs font-medium text-[var(--color-text-secondary)] w-[40%]">
+                                                        {spec.key}
+                                                    </td>
+                                                    <td className="px-5 py-3.5 text-sm font-semibold text-[var(--color-text-primary)] w-[60%]">
+                                                        {spec.value}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+
+                            {/* Tabla de peso y empaque físico */}
+                            {hasPhysicalData && (
+                                <div className="overflow-hidden border border-[var(--color-border-subtle)] rounded-xl bg-[var(--color-bg-primary)]">
+                                    <table className="w-full text-left border-collapse">
+                                        <thead>
+                                            <tr>
+                                                <th colSpan={2} className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)] border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]">
+                                                    Dimensiones y Peso
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-[var(--color-border-subtle)]">
+                                            {hasWeight && (
+                                                <tr className="hover:bg-[var(--color-bg-secondary)] transition-colors">
+                                                    <td className="px-5 py-3.5 text-xs font-medium text-[var(--color-text-secondary)] w-[40%]">
+                                                        Peso
+                                                    </td>
+                                                    <td className="px-5 py-3.5 text-sm font-semibold text-[var(--color-text-primary)] w-[60%]">
+                                                        {producto.weight} kg
+                                                    </td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+            )}
+
+            {/* SECCIÓN 3: ENVÍOS */}
             <AccordionItem value="envios" className="border-b border-[var(--color-border-subtle)]">
                 <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
                     Entrega y Devoluciones
@@ -157,7 +141,7 @@ export default function ProductExpandableSections({ producto }: Props) {
                 </AccordionContent>
             </AccordionItem>
 
-            {/* Sección 3: Garantía Oficial */}
+            {/* SECCIÓN 4: GARANTÍA */}
             <AccordionItem value="garantia" className="border-b border-[var(--color-border-subtle)]">
                 <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
                     Garantía Oficial
