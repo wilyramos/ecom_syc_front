@@ -7,6 +7,7 @@ import {
     AccordionContent,
 } from "@/components/ui/accordion";
 import type { ProductWithCategoryResponse } from "@/src/schemas";
+import { cn } from '@/lib/utils';
 import Link from "next/link";
 
 type Props = {
@@ -30,82 +31,143 @@ export default function ProductExpandableSections({ producto }: Props) {
 
     if (!hasDescripcion && !hasSpecs) return null;
 
-    return (
-        <Accordion type="multiple" className="w-full space-y-0 bg-[var(--color-bg-primary)] mt-4">
+    const descWeight = descripcionRaw.length;
+    const specsWeight = specsArray.length * 100;
+    const showDescFirst = descWeight >= specsWeight;
 
-            {/* SECCIÓN 1: ENVÍOS */}
-            <AccordionItem value="envios" className="border-t border-b-0 border-[var(--color-border-subtle)]">
-                <AccordionTrigger className="py-6 hover:no-underline group px-0">
-                    <div className="flex items-center gap-4">
-                        <span className="text-base  tracking-tight text-[var(--color-text-primary)]">
-                            Entrega y Devoluciones
-                        </span>
-                    </div>
-                </AccordionTrigger>
-                <AccordionContent className="pb-12 pt-2 px-0">
-                    <div className="flex">
-                        {/* Información de Entrega */}
-                        <div className="space-y-4">
-                            {/* <div className="space-y-1">
-                                <h4 className="text-[11px] font-bold text-[var(--color-text-tertiary)] uppercase tracking-[0.1em]">
-                                    Fecha estimada de entrega
-                                </h4>
-                                <p className="text-3xl font-bold text-[var(--color-text-primary)] tracking-tight">
-                                    {getDeliveryRange(producto.diasEnvio || 1)}
-                                </p>
-                            </div> */}
-                            {/* <p className="text-sm text-[var(--color-text-tertiary)] leading-relaxed max-w-xs">
-                                Recibe tu pedido directamente en tu domicilio con nuestra red de logística prioritaria.
-                            </p> */}
+    const DescripcionComponent = (
+        <div className={cn("space-y-4", hasSpecs ? "lg:col-span-7" : "lg:col-span-12")}>
+            <div
+                className="prose prose-sm max-w-none text-[var(--color-text-secondary)] text-sm md:text-base leading-relaxed prose-headings:text-[var(--color-text-primary)] prose-strong:text-[var(--color-text-primary)]"
+                dangerouslySetInnerHTML={{ __html: descripcionRaw }}
+            />
+        </div>
+    );
+
+    const SpecsComponent = (
+        <div className="lg:col-span-5 space-y-4">
+            {specsArray.length > 0 && (
+                <div className="overflow-hidden border border-[var(--color-border-subtle)] rounded-xl bg-[var(--color-bg-primary)]">
+                    <table className="w-full text-left border-collapse">
+                        <thead>
+                            <tr>
+                                <th colSpan={2} className="px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)] border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]">
+                                    Especificaciones técnicas
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[var(--color-border-subtle)]">
+                            {specsArray.map((spec) => (
+                                <tr key={spec.key} className="hover:bg-[var(--color-bg-secondary)] transition-colors">
+                                    <td className="px-5 py-3.5 text-xs font-medium text-[var(--color-text-secondary)] w-[40%]">
+                                        {spec.key}
+                                    </td>
+                                    <td className="px-5 py-3.5 text-sm font-semibold text-[var(--color-text-primary)] w-[60%]">
+                                        {spec.value}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+
+            {hasPhysicalData && (
+                <div className="overflow-hidden border border-[var(--color-border-subtle)] rounded-xl bg-[var(--color-bg-primary)]">
+                    <table className="w-full text-left border-collapse">
+                        <thead>
+                            <tr>
+                                <th colSpan={2} className="px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-[var(--color-text-primary)] border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-secondary)]">
+                                    Físico y embalaje
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[var(--color-border-subtle)]">
                             {hasWeight && (
-                                <div className="pt-2 flex items-center gap-2 text-xs text-[var(--color-text-tertiary)]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-default)]" />
-                                    Peso del envío: <span className="text-[var(--color-text-primary)] font-medium">{producto.weight} kg</span>
-                                </div>
+                                <tr className="hover:bg-[var(--color-bg-secondary)] transition-colors">
+                                    <td className="px-5 py-3.5 text-xs font-medium text-[var(--color-text-secondary)] w-[40%]">
+                                        Peso
+                                    </td>
+                                    <td className="px-5 py-3.5 text-sm font-semibold text-[var(--color-text-primary)] w-[60%]">
+                                        {producto.weight} kg
+                                    </td>
+                                </tr>
                             )}
-                        </div>
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </div>
+    );
 
-                        {/* Política Devoluciones */}
-                        <div className="space-y-4 bg-[var(--color-bg-secondary)] p-6 rounded-2xl border border-[var(--color-border-subtle)]/50">
-                            <div className="space-y-2">
-                                <h4 className="text-sm font-bold text-[var(--color-text-primary)]">
-                                    Cambios sin complicaciones
-                                </h4>
-                                <p className="text-sm text-[var(--color-text-tertiary)] leading-relaxed font-medium">
-                                    Periodo de <span className="text-[var(--color-text-primary)]">7 días</span> para gestionar cambios por fallas de origen. Diseñado para tu tranquilidad.
+    return (
+        <Accordion type="multiple" className="w-full border-t border-[var(--color-border-subtle)]">
+            {/* Sección 1: Detalles Técnicos e Información */}
+            <AccordionItem value="info" className="border-b border-[var(--color-border-subtle)]">
+                <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
+                    Información del producto
+                </AccordionTrigger>
+                <AccordionContent className="pb-8 pt-2">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                        {showDescFirst ? (
+                            <>
+                                {hasDescripcion && DescripcionComponent}
+                                {hasSpecs && SpecsComponent}
+                            </>
+                        ) : (
+                            <>
+                                {hasSpecs && SpecsComponent}
+                                {hasDescripcion && DescripcionComponent}
+                            </>
+                        )}
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
+
+            {/* Sección 2: Envíos */}
+            <AccordionItem value="envios" className="border-b border-[var(--color-border-subtle)]">
+                <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
+                    Entrega y Devoluciones
+                </AccordionTrigger>
+                <AccordionContent className="pb-8 pt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
+                            {hasWeight && (
+                                <p className="flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" />
+                                    Peso estimado del paquete: <span className="text-[var(--color-text-primary)] font-semibold">{producto.weight} kg</span>
                                 </p>
-                            </div>
-                            <Link
-                                href="/hc/garantias-y-devoluciones"
-                                className="inline-flex items-center text-sm  text-[var(--color-text-primary)] hover:opacity-60 transition-all group/link"
-                            >
-                                Ver términos legales
+                            )}
+                            <p className="leading-relaxed">
+                                Ofrecemos despachos coordinados rápidos en Cañete y envíos protegidos a nivel nacional.
+                            </p>
+                        </div>
+                        <div className="space-y-3 bg-[var(--color-bg-secondary)] p-5 rounded-2xl border border-[var(--color-border-subtle)]">
+                            <h4 className="text-sm font-bold text-[var(--color-text-primary)]">
+                                Cambios sin complicaciones
+                            </h4>
+                            <p className="text-xs md:text-sm text-[var(--color-text-secondary)] leading-relaxed font-medium">
+                                Cuentas con un periodo de <span className="text-[var(--color-text-primary)] font-bold">7 días</span> para gestionar cambios por fallas de origen.
+                            </p>
+                            <Link href="/hc/garantias-y-devoluciones" className="inline-flex items-center text-xs font-bold text-[var(--color-accent)] hover:opacity-80 transition-all">
+                                Ver políticas de garantía
                             </Link>
                         </div>
                     </div>
                 </AccordionContent>
             </AccordionItem>
 
-            {/* SECCIÓN 2: GARANTÍA */}
-            <AccordionItem value="garantia" className="border-t border-b border-[var(--color-border-subtle)]">
-                <AccordionTrigger className="py-6 hover:no-underline group px-0">
-                    <div className="flex items-center gap-4">
-                        <span className="text-base  tracking-tight text-[var(--color-text-primary)]">
-                            Garantía Oficial
-                        </span>
-                    </div>
+            {/* Sección 3: Garantía Oficial */}
+            <AccordionItem value="garantia" className="border-b border-[var(--color-border-subtle)]">
+                <AccordionTrigger className="py-5 hover:no-underline font-semibold text-base tracking-tight text-[var(--color-text-primary)]">
+                    Garantía Oficial
                 </AccordionTrigger>
-                <AccordionContent className="pb-12 pt-2 px-0">
-                    <div className="max-w-3xl space-y-6">
-                        <p className="text-base text-[var(--color-text-tertiary)] leading-relaxed">
-                            Todos los productos son <span className="text-[var(--color-text-primary)] ">100% originales.</span>
-                            Disfruta de una garantía oficial de <span className="text-[var(--color-text-primary)] ">12 meses.</span>
-                        </p>
-
-                    </div>
+                <AccordionContent className="pb-8 pt-2">
+                    <p className="text-sm md:text-base text-[var(--color-text-secondary)] leading-relaxed">
+                        Todos los equipos y dispositivos distribuidos por S&C Mobile son <span className="text-[var(--color-text-primary)] font-semibold">100% originales</span> con procedencia de marca oficial. Este producto cuenta con cobertura extendida de <span className="text-[var(--color-text-primary)] font-semibold">12 meses</span> contra defectos técnicos estructurales de fábrica.
+                    </p>
                 </AccordionContent>
             </AccordionItem>
-
         </Accordion>
     );
 }

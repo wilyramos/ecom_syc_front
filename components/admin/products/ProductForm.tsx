@@ -2,7 +2,26 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, ImageIcon, LayoutGrid, Info } from "lucide-react";
+import { X, ImageIcon, LayoutGrid, Info, GripVertical } from "lucide-react";
+
+// Dnd Kit Imports
+import {
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+    type DragEndEvent
+} from "@dnd-kit/core";
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    rectSortingStrategy,
+    useSortable
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 // Types
 import type { ProductWithCategoryResponse } from "@/src/schemas";
@@ -26,6 +45,53 @@ import MediaLibraryDialog from "./MediaLibraryDialog";
 import ComplementaryProductsSection from "./ComplementaryProductsSection";
 import SEOProduct from "./SEOproduct";
 
+// Componente de Ítem Ordenable
+function SortableImageItem({ img, onRemove }: { img: string; onRemove: () => void }) {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging
+    } = useSortable({ id: img });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        zIndex: isDragging ? 40 : "auto",
+        opacity: isDragging ? 0.4 : 1,
+    };
+
+    return (
+        <div
+            ref={setNodeRef}
+            style={style}
+            className="relative aspect-square border border-[var(--color-border-default)] group bg-[var(--color-bg-secondary)] overflow-hidden rounded-sm touch-none"
+        >
+            <Image src={img} alt="Product" fill className="object-cover" unoptimized />
+
+            {/* Control visual de arrastre */}
+            <div
+                {...attributes}
+                {...listeners}
+                className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-grab active:cursor-grabbing"
+            >
+                <GripVertical className="text-white w-6 h-6 drop-shadow-md" />
+            </div>
+
+            <button
+                type="button"
+                onClick={onRemove}
+                className="absolute top-1 right-1 bg-[var(--color-bg-inverse)]/70 text-[var(--color-text-inverse)] p-1 opacity-0 group-hover:opacity-100 transition-opacity rounded-sm cursor-pointer z-10"
+            >
+                <X size={12} />
+            </button>
+            <input type="hidden" name="imagenes[]" value={img} />
+        </div>
+    );
+}
+
 export default function ProductForm({
     product,
     categorias,
@@ -44,8 +110,32 @@ export default function ProductForm({
     const [selectedBrandId, setSelectedBrandId] = useState<string | undefined>(initialBrandId);
     const [masterImages, setMasterImages] = useState<string[]>(() => Array.from(new Set(product?.imagenes || [])));
 
+    // Sensores para Dnd-kit
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 5, // Evita activaciones accidentales al hacer clic
+            },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+
     const handleAddImagesToPool = (newImages: string[]) => {
         setMasterImages(prev => Array.from(new Set([...prev, ...newImages])));
+    };
+
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+
+        if (over && active.id !== over.id) {
+            setMasterImages((items) => {
+                const oldIndex = items.indexOf(active.id as string);
+                const newIndex = items.indexOf(over.id as string);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
     };
 
     const filteredLines = lines.filter(line => {
@@ -107,12 +197,20 @@ export default function ProductForm({
                     </div>
                 </section>
 
-                {/* 2. CONTENIDO VISUAL (GALERÍA) */}
+                {/* 2. CONTENIDO VISUAL (GALERÍA CON DRAG AND DROP) */}
                 <section className="p-6 border border-[var(--color-border-default)] bg-[var(--color-bg-primary)] space-y-4 rounded-lg">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <ImageIcon className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                            <h2 className="text-sm font-bold tracking-tight text-[var(--color-text-primary)]">Galería Multimedia</h2>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--color-border-subtle)] pb-3">
+                        <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                                <ImageIcon className="w-4 h-4 text-[var(--color-text-secondary)]" />
+                                <h2 className="text-sm font-bold tracking-tight text-[var(--color-text-primary)]">Galería Multimedia</h2>
+                            </div>
+                            {masterImages.length > 1 && (
+                                <p className="text-[11px] text-[var(--color-text-tertiary)] flex items-center gap-1.5 bg-[var(--color-bg-secondary)] px-2 py-0.5 rounded border border-[var(--color-border-subtle)] w-fit">
+                                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+                                    Tip: Arrastra las imágenes para cambiar el orden de visualización. La primera será la principal.
+                                </p>
+                            )}
                         </div>
                         <MediaLibraryDialog
                             selectedImages={masterImages}
@@ -123,30 +221,35 @@ export default function ProductForm({
                         />
                     </div>
 
-                    <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3 p-4 border-2 border-dashed border-[var(--color-border-strong)] rounded-md">
-                        {masterImages.map((img) => (
-                            <div key={img} className="relative aspect-square border border-[var(--color-border-default)] group bg-[var(--color-bg-secondary)] overflow-hidden rounded-sm">
-                                <Image src={img} alt="Product" fill className="object-cover" unoptimized />
-                                <button
-                                    type="button"
-                                    onClick={() => setMasterImages(prev => prev.filter(i => i !== img))}
-                                    className="absolute top-1 right-1 bg-[var(--color-bg-inverse)]/70 text-[var(--color-text-inverse)] p-1 opacity-0 group-hover:opacity-100 transition-opacity rounded-sm cursor-pointer"
-                                >
-                                    <X size={12} />
-                                </button>
-                                <input type="hidden" name="imagenes[]" value={img} />
+                    <DndContext
+                        sensors={sensors}
+                        collisionDetection={closestCenter}
+                        onDragEnd={handleDragEnd}
+                    >
+                        <SortableContext items={masterImages} strategy={rectSortingStrategy}>
+                            <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3 p-4 border-2 border-dashed border-[var(--color-border-strong)] rounded-md bg-[var(--color-bg-secondary)]/10">
+                                {masterImages.map((img, index) => (
+                                    <div key={img} className="relative group">
+                                        {index === 0 && (
+                                            <span className="absolute top-1 left-1 bg-blue-600 text-white font-bold text-[9px] uppercase px-1.5 py-0.5 rounded shadow-sm z-20 pointer-events-none tracking-wider">
+                                                Principal
+                                            </span>
+                                        )}
+                                        <SortableImageItem
+                                            img={img}
+                                            onRemove={() => setMasterImages(prev => prev.filter(i => i !== img))}
+                                        />
+                                    </div>
+                                ))}
+                                {masterImages.length === 0 && (
+                                    <div className="col-span-full py-8 text-center text-sm text-[var(--color-text-tertiary)] italic">
+                                        No hay imágenes seleccionadas
+                                    </div>
+                                )}
                             </div>
-                        ))}
-                        {masterImages.length === 0 && (
-                            <div className="col-span-full py-8 text-center text-sm text-[var(--color-text-tertiary)] italic">
-                                No hay imágenes seleccionadas
-                            </div>
-                        )}
-                    </div>
+                        </SortableContext>
+                    </DndContext>
                 </section>
-
-
-
                 {/* 4. PRECIOS, INVENTARIO E IDENTIFICACIÓN */}
                 <section className="p-6 border border-[var(--color-border-default)] bg-[var(--color-bg-primary)] rounded-lg">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -213,23 +316,12 @@ export default function ProductForm({
 
             <aside className="space-y-6">
                 <div className="sticky top-6 space-y-6">
-
                     {/* Estatus y Visibilidad */}
                     <div className="p-4 border border-[var(--color-border-default)] bg-[var(--color-bg-primary)] rounded-lg">
                         <ProductSwitches product={product} />
                     </div>
-
-                    {/* Organización 
-                    <div className="p-4 border border-[var(--color-border-default)] bg-[var(--color-bg-primary)] rounded-lg">
-                        <TagsInput initial={product?.tags || []} />
-                    </div>
-
-                    {/* Logística 
-                    <ShippingDimensions product={product} />*/}
-
                     {/* SEO Metadata */}
                     <SEOProduct product={product} />
-
                 </div>
             </aside>
         </div>

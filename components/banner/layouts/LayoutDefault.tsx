@@ -63,7 +63,7 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
 
                     <div className="mt-2">
                         <span
-                            className="inline-block px-2 py-1 text-[10px] sm:text-xs font-semibold uppercase transition-colors rounded-2xl "
+                            className="hidden md:inline-block px-2 py-1 text-[10px] sm:text-xs font-semibold uppercase transition-colors rounded-2xl "
                             style={{ 
                                 backgroundColor: accent, 
                                 color: isDark ? "#000000" : "#ffffff" 

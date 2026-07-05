@@ -30,11 +30,11 @@ export default function SliderBannerCarousel({
 
     return (
         <div
-            className="relative w-full" // Quitamos max-w-screen-2xl y mx-auto de aquí
-        style={{
-            "--banner-h-mobile": height.mobile,
-            "--banner-h": height.desktop,
-        } as React.CSSProperties}
+            className="relative w-full"
+            style={{
+                "--banner-h-mobile": height.mobile,
+                "--banner-h": height.desktop,
+            } as React.CSSProperties}
         >
             <Carousel
                 responsive={responsive}
@@ -44,7 +44,7 @@ export default function SliderBannerCarousel({
                 arrows={banners.length > 1}
                 showDots={banners.length > 1}
                 containerClass="w-full"
-                dotListClass="!bottom-4 md:!bottom-6"
+                dotListClass="!hidden sm:!flex !bottom-4 md:!bottom-6"
                 customDot={<CarouselDot autoPlaySpeed={autoPlaySpeed} />}
                 customLeftArrow={<CarouselArrow direction="left" />}
                 customRightArrow={<CarouselArrow direction="right" />}

@@ -66,7 +66,7 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
     return (
         <div className="w-full space-y-3">
             {/* Contenedor de la Imagen Principal */}
-            <div className="relative aspect-square w-full overflow-hidden rounded-xl group select-none">
+            <div className="relative aspect-square w-full overflow-hidden rounded-xl group select-none border border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)]">
                 <div
                     onClick={handleZoomClick}
                     onMouseMove={handleZoomMouseMove}
@@ -78,7 +78,7 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
                 >
                     <Image
                         src={uniqueImages[selectedIndex]}
-                        alt={`Producto vista principal`}
+                        alt="Producto vista principal"
                         fill
                         className={cn(
                             "object-contain transition-transform duration-200 ease-out",
@@ -98,24 +98,24 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
                         <button
                             type="button"
                             onClick={prevImage}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background border border-border p-2 rounded-full shadow transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)] border border-[var(--color-border-default)] p-2 rounded-full shadow transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10 text-[var(--color-text-primary)]"
                         >
-                            <ChevronLeft size={20} className="text-foreground" />
+                            <ChevronLeft size={20} />
                         </button>
                         <button
                             type="button"
                             onClick={nextImage}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background border border-border p-2 rounded-full shadow transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)] border border-[var(--color-border-default)] p-2 rounded-full shadow transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10 text-[var(--color-text-primary)]"
                         >
-                            <ChevronRight size={20} className="text-foreground" />
+                            <ChevronRight size={20} />
                         </button>
                     </>
                 )}
             </div>
 
-            {/* Tira de Miniaturas Inferior */}
+            {/* Tira de Miniaturas Inferior Responsiva */}
             {uniqueImages.length > 1 && (
-                <div className="flex flex-row gap-2 overflow-x-auto pb-1 pt-0.5 scrollbar-none justify-start w-full snap-x snap-mandatory">
+                <div className="flex flex-row gap-2 overflow-x-auto pb-1 pt-0.5 scrollbar-none justify-start sm:justify-center md:justify-start w-full snap-x snap-mandatory">
                     {uniqueImages.map((img, idx) => (
                         <button
                             key={`thumb-${idx}`}
@@ -125,16 +125,18 @@ export default function ImagenesProductoCarousel({ images }: { images: string[] 
                                 setZoomState({ x: 0, y: 0, active: false });
                             }}
                             className={cn(
-                                "relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-md overflow-hidden bg-card border-2 transition-all snap-start",
-                                selectedIndex === idx ? "border-primary" : "border-border hover:border-muted-foreground"
+                                "relative w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex-shrink-0 rounded-xl overflow-hidden bg-[var(--color-bg-secondary)] border-2 transition-all snap-start",
+                                selectedIndex === idx 
+                                    ? "border-[var(--color-accent)] ring-1 ring-[var(--color-accent)]" 
+                                    : "border-[var(--color-border-subtle)] hover:border-[var(--color-border-strong)]"
                             )}
                         >
                             <Image
                                 src={img}
                                 alt={`Miniatura ${idx + 1}`}
                                 fill
-                                className="object-cover"
-                                sizes="(max-width: 640px) 64px, 80px"
+                                className="object-cover p-1"
+                                sizes="(max-width: 480px) 48px, (max-width: 640px) 56px, (max-width: 768px) 64px, 80px"
                                 unoptimized
                             />
                         </button>

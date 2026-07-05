@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { ExternalLink } from "lucide-react";
-// import PaymentMethods from "./PaymentMethods";
 
 const NAV = [
     { label: "Catálogo", href: "/catalogo" },
@@ -26,38 +25,32 @@ const SOCIAL = [
     { icon: <FaWhatsapp size={14} />, href: "https://wa.me/51972416683", label: "WhatsApp" },
 ];
 
-export default function Footer(){
+export default function Footer() {
     return (
-        <footer className="relative" style={{ backgroundColor: "#000000", color: "#fff" }}>
+        <footer className="relative bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] border-t border-[var(--color-border-subtle)]">
+            
+            {/* Línea de acento sutil en la parte superior */}
+            <div className="h-px w-full bg-gradient-to-r from-[var(--color-accent)] to-transparent opacity-60" />
 
-            {/* Línea acento top */}
-            <div className="h-px w-full" style={{ background: "linear-gradient(90deg, var(--color-accent) 0%, transparent 60%)" }} />
-
-            <div className="max-w-screen-2xl mx-auto px-4 md:px-12 py-10 space-y-8">
+            <div className="max-w-screen-2xl mx-auto px-4 md:px-12 py-12 space-y-8">
 
                 {/* ── FILA 1: logo · dirección · redes ── */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
 
                     {/* Wordmark compacto */}
                     <div className="flex items-center gap-2 select-none">
-                        <span
-                            className="text-xs font-black uppercase tracking-[0.22em]"
-                            style={{ color: "var(--color-accent)" }}
-                        >
+                        <span className="text-xs font-black uppercase tracking-[0.22em] text-[var(--color-accent)]">
                             S&C
                         </span>
-                        <span
-                            className="w-px h-3.5 rounded-full"
-                            style={{ backgroundColor: "rgba(255,255,255,0.2)" }}
-                        />
-                        <span className="text-xs font-semibold tracking-[0.14em] text-white">
+                        <span className="w-px h-3.5 rounded-full bg-[var(--color-border-strong)]" />
+                        <span className="text-xs font-semibold tracking-[0.14em] text-[var(--color-text-primary)]">
                             Mobile Perú
                         </span>
                     </div>
 
                     {/* Dirección */}
                     <div className="flex items-center gap-1.5">
-                        <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                        <span className="text-[11px] text-[var(--color-text-secondary)]">
                             Av. Mariscal Benavides 713, San Vicente de Cañete
                         </span>
                     </div>
@@ -71,23 +64,7 @@ export default function Footer(){
                                 target="_blank"
                                 rel="noreferrer"
                                 aria-label={s.label}
-                                className="w-7 h-7 rounded flex items-center justify-center transition-all duration-150"
-                                style={{
-                                    border: "1px solid rgba(255,255,255,0.1)",
-                                    color: "rgba(255,255,255,0.5)",
-                                }}
-                                onMouseEnter={(e) => {
-                                    const el = e.currentTarget as HTMLAnchorElement;
-                                    el.style.backgroundColor = "var(--color-accent)";
-                                    el.style.borderColor = "var(--color-accent)";
-                                    el.style.color = "#fff";
-                                }}
-                                onMouseLeave={(e) => {
-                                    const el = e.currentTarget as HTMLAnchorElement;
-                                    el.style.backgroundColor = "transparent";
-                                    el.style.borderColor = "rgba(255,255,255,0.1)";
-                                    el.style.color = "rgba(255,255,255,0.5)";
-                                }}
+                                className="w-7 h-7 rounded flex items-center justify-center border border-[var(--color-border-default)] text-[var(--color-text-secondary)] transition-all duration-200 hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:text-[var(--color-text-inverse)]"
                             >
                                 {s.icon}
                             </a>
@@ -96,14 +73,14 @@ export default function Footer(){
                 </div>
 
                 {/* ── DIVISOR ── */}
-                <div className="h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+                <div className="h-px bg-[var(--color-border-subtle)]" />
 
                 {/* ── FILA 2: nav · seguridad ── */}
                 <div className="flex flex-col sm:flex-row gap-8 sm:items-start justify-between">
 
                     {/* Links de navegación en línea */}
-                    <div className="space-y-2">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.22em]" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    <div className="space-y-2.5">
+                        <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[var(--color-text-tertiary)]">
                             Navegación
                         </p>
                         <div className="flex flex-wrap gap-x-5 gap-y-1.5">
@@ -111,8 +88,7 @@ export default function Footer(){
                                 <Link
                                     key={l.label}
                                     href={l.href}
-                                    className="text-[11px] transition-colors hover:text-white"
-                                    style={{ color: "rgba(255,255,255,0.5)" }}
+                                    className="text-[11px] font-medium text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
                                 >
                                     {l.label}
                                 </Link>
@@ -121,8 +97,8 @@ export default function Footer(){
                     </div>
 
                     {/* Links de seguridad */}
-                    <div className="space-y-2 shrink-0">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.22em] flex items-center gap-1" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    <div className="space-y-2.5 shrink-0">
+                        <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[var(--color-text-tertiary)]">
                             Seguridad OSIPTEL
                         </p>
                         <div className="flex flex-wrap gap-x-5 gap-y-1.5">
@@ -133,8 +109,7 @@ export default function Footer(){
                                         href={l.href}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="text-[11px] inline-flex items-center gap-0.5 transition-colors hover:text-white"
-                                        style={{ color: "rgba(255,255,255,0.5)" }}
+                                        className="text-[11px] font-medium inline-flex items-center gap-0.5 text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
                                     >
                                         {l.label} <ExternalLink size={9} />
                                     </a>
@@ -142,8 +117,7 @@ export default function Footer(){
                                     <Link
                                         key={l.label}
                                         href={l.href}
-                                        className="text-[11px] transition-colors hover:text-white"
-                                        style={{ color: "rgba(255,255,255,0.5)" }}
+                                        className="text-[11px] font-medium text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
                                     >
                                         {l.label}
                                     </Link>
@@ -154,18 +128,15 @@ export default function Footer(){
                 </div>
 
                 {/* ── DIVISOR ── */}
-                <div className="h-px" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+                <div className="h-px bg-[var(--color-border-subtle)]" />
 
-                {/* ── FILA 3: copyright · métodos de pago ── */}
+                {/* ── FILA 3: copyright ── */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.25)" }}>
-                        <span>© {new Date().getFullYear()} SYC Mobile Perú</span>
-                        <Link href="/hc/politicas-de-privacidad" className="hover:text-white transition-colors">Privacidad</Link>
-                        <Link href="/terminos" className="hover:text-white transition-colors">Términos</Link>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] uppercase tracking-wider text-[var(--color-text-tertiary)]">
+                        <span className="font-medium">© {new Date().getFullYear()} SYC Mobile Perú</span>
+                        <Link href="/hc/politicas-de-privacidad" className="hover:text-[var(--color-text-primary)] transition-colors">Privacidad</Link>
+                        <Link href="/terminos" className="hover:text-[var(--color-text-primary)] transition-colors">Términos</Link>
                     </div>
-                    {/* <div className="opacity-50 hover:opacity-80 transition-opacity duration-200">
-                        <PaymentMethods />
-                    </div> */}
                 </div>
 
             </div>
