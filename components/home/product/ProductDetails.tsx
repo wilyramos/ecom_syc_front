@@ -130,7 +130,7 @@ export default function ProductDetails({ producto }: Props) {
         <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-12 py-6 md:py-10 bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]">
             {/* El contenedor principal de las columnas */}
             <article className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16 items-start relative">
-                
+
                 {/* Columna Izquierda: Galería Sticky */}
                 <div className="md:col-span-6 w-full md:sticky md:top-32">
                     <ImagenesProductoCarousel images={variantImages} />
@@ -334,12 +334,12 @@ export default function ProductDetails({ producto }: Props) {
                     {/* Enlaces de soporte */}
                     <div className="pt-2">
                         <a
-                            href={`https://wa.me/51972416683?text=Consulta%20${encodeURIComponent(producto.nombre)}`}
+                            href={`https://wa.me/51972416683?text=Hola%2C%20consulto%20desde%20la%20web%20por%3A%20${encodeURIComponent(producto.nombre)}`}
                             target="_blank"
                             rel="noreferrer"
                             className="flex items-center justify-between py-3.5 border-t border-[var(--color-border-subtle)] hover:opacity-80 transition-all group text-sm font-medium"
                         >
-                            <span className="text-[var(--color-text-primary)]">¿Tienes dudas sobre este modelo?</span>
+                            <span className="text-[var(--color-text-primary)]">¿Tienes dudas?</span>
                             <span className="text-xs font-bold text-[var(--color-accent)] flex items-center gap-0.5">
                                 Consúltanos por WhatsApp
                                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
