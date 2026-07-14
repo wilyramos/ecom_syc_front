@@ -3,7 +3,7 @@
 import getToken from "@/src/auth/token";
 import { createBrandSchema } from "@/src/schemas/brands";
 import { ErrorResponse } from "@/src/schemas";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export type ActionStateType = { errors: string[]; success: string };
 
@@ -18,11 +18,9 @@ export async function createBrandAction(
         descripcion: formData.get("descripcion") as string,
         logo: formData.get("logo") ? (formData.get("logo") as string) : undefined
     };
-    console.log("brandData", brandData);
 
     const parsed = createBrandSchema.safeParse(brandData);
 
-    console.log("Parsed brandData:", parsed);
     if (!parsed.success) {
         return {
             errors: parsed.error.errors.map(e => e.message),
@@ -46,7 +44,17 @@ export async function createBrandAction(
             return { errors: [err.message || "Error al crear"], success: "" };
         }
 
+        // 1. Revalidar la interfaz administrativa
         revalidatePath("/admin/brands");
+
+        // 2. Revalidar las consultas públicas en caché estática
+        revalidateTag("brands-active"); // Carrusel de marcas activas
+        revalidateTag("brands-list");   // Listados generales
+        revalidateTag("brands-all");    // Limpieza global de seguridad
+
+        if (json.slug) {
+            revalidateTag(`brand-${json.slug}`);
+        }
 
         return { errors: [], success: "Marca creada correctamente" };
     } catch (error) {

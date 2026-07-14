@@ -129,7 +129,12 @@ export const collectionService = {
     async getBySlug(slug: string, page = 1, limit = 20): Promise<CollectionDetailResponse> {
         const res = await fetch(
             `${API_URL}/collections/public/${slug}?page=${page}&limit=${limit}`,
-            { next: { tags: [`collection-${slug}`] } }
+            { 
+                cache: "force-cache", // Almacenamiento persistente infinito en el CDN/Servidor
+                next: { 
+                    tags: [`collection-${slug}`, "collections-all"] 
+                } 
+            }
         );
         if (!res.ok) throw new Error("Colección no encontrada");
         return collectionDetailResponseSchema.parse(await res.json());
@@ -138,7 +143,12 @@ export const collectionService = {
     async getActivePromotions(): Promise<Collection[]> {
         const res = await fetch(
             `${API_URL}/collections/public/promotions`,
-            { next: { tags: ["promotions-active"] } }
+            { 
+                cache: "force-cache",
+                next: { 
+                    tags: ["promotions-active", "collections-all"] 
+                } 
+            }
         );
         if (!res.ok) throw new Error("Error al obtener las promociones activas");
         return promotionsArraySchema.parse(await res.json());
@@ -151,7 +161,12 @@ export async function getActiveCollections(): Promise<Collection[]> {
     try {
         const res = await fetch(
             `${API_URL}/collections/public/active`,
-            { next: { tags: ["collections-list"] } }
+            { 
+                cache: "force-cache",
+                next: { 
+                    tags: ["collections-list", "collections-all"] 
+                } 
+            }
         );
         if (!res.ok) return [];
         return collectionsArraySchema.parse(await res.json());

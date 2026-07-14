@@ -49,15 +49,27 @@ function parseList(data: unknown[]): SliderBanner[] {
 }
 
 export const SliderService = {
+    /**
+     * Obtiene los banners activos para la página de inicio.
+     * Optimizado con caché estática persistente (force-cache) e invalidación bajo demanda.
+     * Reduce el CPU Duration a prácticamente 0ms en visitas recurrentes.
+     */
     getActive: async (): Promise<SliderBanner[]> => {
         try {
             const res = await fetch(`${BASE_URL}/active`, {
-                next: { tags: ["banners-active"] },
+                // Forzamos a Next.js a almacenar el HTML resultante y los datos en caché estática.
+                cache: "force-cache", 
+                next: { 
+                    // Se vincula al tag para ser revalidado al crear, actualizar o reordenar desde las Server Actions
+                    tags: ["banners-active"] 
+                },
             });
 
             if (!res.ok) return [];
 
             const body = await res.json() as { data: unknown[] };
+            
+            // Este parseo secuencial con Zod ahora solo consume CPU cuando limpias la caché.
             return Array.isArray(body.data) ? parseList(body.data) : [];
         } catch (error) {
             console.error("[SliderService] getActive error:", error);
@@ -74,7 +86,8 @@ export const SliderService = {
 
         const res = await fetch(`${BASE_URL}?${params.toString()}`, {
             headers: await authHeaders(),
-            cache: "no-store",
+            // En el panel de administración requerimos siempre datos en tiempo real (No Cache)
+            cache: "no-store", 
         });
 
         const body = await res.json() as {
@@ -97,6 +110,7 @@ export const SliderService = {
     getById: async (id: string): Promise<SliderBanner | null> => {
         const res = await fetch(`${BASE_URL}/${id}`, {
             headers: await authHeaders(),
+            // Opcional: También almacena en caché consultas individuales del panel si fuese necesario
             next: { tags: [`banner-${id}`] },
         });
 

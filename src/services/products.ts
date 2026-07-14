@@ -248,53 +248,74 @@ export const getAllProductsSlug = async ({ q }: GetProductListParams) => {
 export const getNewProducts = async () => {
     const url = `${process.env.API_URL}/products/new?limit=4`;
 
-    const req = await fetch(url, {
-        method: 'GET',
-        // next: { revalidate: 86400 } // Revalida cada dia
-    });
+    try {
+        const req = await fetch(url, {
+            method: 'GET',
+            next: {
+                // Se almacena en caché y se refresca automáticamente cada 24 horas (en segundos)
+                revalidate: 86400,
+                tags: ["products-new"] // Mantenemos el tag opcional por si alguna vez necesitas un refresh forzado
+            }
+        });
 
-    if (!req.ok) {
+        if (!req.ok) {
+            return null;
+        }
+
+        const json = await req.json();
+        return productsAPIResponse.parse(json);
+    } catch (error) {
+        console.error("Error en servicio getNewProducts:", error);
         return null;
     }
-
-    const json = await req.json();
-
-    const products = productsAPIResponse.parse(json);
-
-    return products;
 };
 
 export const getDestacadosProducts = async () => {
     const url = `${process.env.API_URL}/products/destacados/all?limit=4`;
 
-    const req = await fetch(url, {
-        method: 'GET',
-        // next: { revalidate: 86400 }
-    });
+    try {
+        const req = await fetch(url, {
+            method: 'GET',
+            next: {
+                revalidate: 86400,
+                tags: ["products-destacados"]
+            }
+        });
 
-    if (!req.ok) {
+        if (!req.ok) {
+            return null;
+        }
+
+        const json = await req.json();
+        return productsAPIResponse.parse(json);
+    } catch (error) {
+        console.error("Error en servicio getDestacadosProducts:", error);
         return null;
     }
-
-    const json = await req.json();
-    const products = productsAPIResponse.parse(json);
-    return products;
 };
 
 export const getFrontPageProducts = async () => {
     const url = `${process.env.API_URL}/products/frontpage/all`;
-    const req = await fetch(url, {
-        method: 'GET',
-        // next: { revalidate: 86400 }
-    });
 
-    if (!req.ok) {
+    try {
+        const req = await fetch(url, {
+            method: 'GET',
+            next: {
+                revalidate: 86400,
+                tags: ["products-frontpage"]
+            }
+        });
+
+        if (!req.ok) {
+            return null;
+        }
+
+        const json = await req.json();
+        return productsAPIResponse.parse(json);
+    } catch (error) {
+        console.error("Error en servicio getFrontPageProducts:", error);
         return null;
     }
-
-    const json = await req.json();
-    const products = productsAPIResponse.parse(json);
-    return products;
 };
 
 export const getProductsRelated = async (slug: string) => {

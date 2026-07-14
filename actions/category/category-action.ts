@@ -1,25 +1,16 @@
 // File: frontend/actions/category/category-action.ts
-
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache"; // <-- Importamos revalidateTag
 import { redirect } from "next/navigation";
 import getToken from "@/src/auth/token";
 import { categoryPayloadSchema } from "@/src/schemas/category.schema";
 import { SuccessResponse, ErrorResponse } from "@/src/schemas";
 
-// ─────────────────────────────────────────────────────────────
-// Tipos compartidos
-// ─────────────────────────────────────────────────────────────
-
 export type ActionStateType = {
     errors: string[];
     success: string;
 };
-
-// ─────────────────────────────────────────────────────────────
-// Helper: parsear attributes desde FormData
-// ─────────────────────────────────────────────────────────────
 
 function parseAttributes(formData: FormData): { ok: true; data: unknown[] } | { ok: false; errors: string[] } {
     const raw = formData.get("attributes");
@@ -42,10 +33,6 @@ function parseAttributes(formData: FormData): { ok: true; data: unknown[] } | { 
     }
 }
 
-// ─────────────────────────────────────────────────────────────
-// Helper: construir y validar el payload del formulario
-// ─────────────────────────────────────────────────────────────
-
 function buildPayload(formData: FormData, attributes: unknown[]) {
     return categoryPayloadSchema.safeParse({
         nombre: formData.get("nombre"),
@@ -59,10 +46,6 @@ function buildPayload(formData: FormData, attributes: unknown[]) {
         attributes,
     });
 }
-
-// ─────────────────────────────────────────────────────────────
-// Helper: manejar respuesta HTTP del backend
-// ─────────────────────────────────────────────────────────────
 
 async function handleResponse(
     res: Response,
@@ -85,7 +68,6 @@ async function handleResponse(
 // ─────────────────────────────────────────────────────────────
 // Action: Crear categoría
 // ─────────────────────────────────────────────────────────────
-
 export async function createCategoryAction(
     prevState: ActionStateType,
     formData: FormData
@@ -113,7 +95,12 @@ export async function createCategoryAction(
         });
 
         const result = await handleResponse(res, "Error interno en el servidor remoto.");
-        if (!result.errors.length) revalidatePath("/admin/category");
+        
+        if (!result.errors.length) {
+            // Purgamos la caché global de datos para categorías (incluye el carrusel)
+            revalidateTag("categories"); 
+            revalidatePath("/admin/category");
+        }
         return result;
     } catch (error) {
         return {
@@ -129,7 +116,6 @@ export async function createCategoryAction(
 // ─────────────────────────────────────────────────────────────
 // Action: Editar categoría
 // ─────────────────────────────────────────────────────────────
-
 export async function editCategoryAction(
     id: string,
     prevState: ActionStateType,
@@ -158,7 +144,12 @@ export async function editCategoryAction(
         });
 
         const result = await handleResponse(res, "Error al intentar actualizar la categoría.");
+        
         if (!result.errors.length) {
+            // Limpia la lista global, las subcategorías y la ficha individual por id
+            revalidateTag("categories");
+            revalidateTag(`category-${id}`);
+            
             revalidatePath("/admin/category");
             revalidatePath(`/admin/category/edit/${id}`);
         }
@@ -177,7 +168,6 @@ export async function editCategoryAction(
 // ─────────────────────────────────────────────────────────────
 // Action: Eliminar categoría (soft delete)
 // ─────────────────────────────────────────────────────────────
-
 export async function deleteCategoryAction(
     categoryId: string,
     prevState: ActionStateType
@@ -198,6 +188,10 @@ export async function deleteCategoryAction(
         const result = await handleResponse(res, "Conflicto al intentar remover la categoría.");
         
         if (!result.errors.length) {
+            // Purgamos datos viejos para forzar regeneración estática completa
+            revalidateTag("categories");
+            revalidateTag(`category-${categoryId}`);
+            
             revalidatePath("/admin/category");
             isSuccessful = true;
         } else {
@@ -213,16 +207,13 @@ export async function deleteCategoryAction(
         };
     }
 
-    // 1. Si hubo errores, se retorna el estado para que lo pinte el componente
     if (errorResult) {
         return errorResult;
     }
 
-    // 2. Si fue exitoso, Next.js ejecuta la redirección de forma nativa sin bloqueos
     if (isSuccessful) {
         redirect("/admin/products/category");
     }
 
-    // Fallback por requerimiento de tipo de firma
     return { errors: [], success: "" };
 }

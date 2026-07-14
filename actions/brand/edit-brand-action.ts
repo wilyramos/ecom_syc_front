@@ -1,10 +1,9 @@
-// File: frontend/actions/brand/create-brand-action.ts
 "use server";
 
 import getToken from "@/src/auth/token";
 import { ErrorResponse } from "@/src/schemas";
 import { updateBrandSchema } from "@/src/schemas/brands";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export type ActionStateType = { errors: string[]; success: string };
 
@@ -20,8 +19,8 @@ export async function editBrandAction(
             nombre: formData.get("nombre"),
             descripcion: formData.get("descripcion"),
             logo: formData.get("logo") ? (formData.get("logo") as string) : undefined
-
         });
+        
         if (!parsed.success) {
             return { errors: parsed.error.errors.map(e => e.message), success: "" };
         }
@@ -35,14 +34,29 @@ export async function editBrandAction(
             body: JSON.stringify(parsed.data),
         });
 
+        const json = await res.json();
+
         if (!res.ok) {
-            const { message } = ErrorResponse.parse(await res.json());
+            const { message } = ErrorResponse.parse(json);
             return { errors: [message || "Error al editar"], success: "" };
         }
+
+        // 1. Revalidar la interfaz administrativa
         revalidatePath("/admin/brands");
 
+        // 2. Revalidar las consultas públicas
+        revalidateTag("brands-active");
+        revalidateTag("brands-list");
+        revalidateTag("brands-all");
+
+        // Si el backend nos retorna el objeto actualizado con su slug
+        if (json.slug) {
+            revalidateTag(`brand-${json.slug}`);
+        }
+
         return { errors: [], success: "Marca actualizada correctamente" };
-    } catch {
+    } catch (error) {
+        console.error("Error al editar marca:", error);
         return { errors: ["Error interno al actualizar la marca"], success: "" };
     }
 }
