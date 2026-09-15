@@ -123,7 +123,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
 
     return (
         <div
-            className="group relative flex flex-col transition-all duration-500 border rounded-lg overflow-hidden bg-white  h-full w-full"
+            className="group relative flex flex-col transition-all duration-500 border rounded-lg overflow-hidden bg-white h-full w-full hover:shadow-md"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onMouseDown={handleMouseDown}
@@ -131,7 +131,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
         >
             {/* Enlace superpuesto absoluto de fondo que abarca toda la tarjeta de forma segura */}
             <Link
-                href={`/productos/${product.slug}`}
+                href={`/productos/${product.slug}${selectedColor ? `?Color=${selectedColor}` : ''}`}
                 className="absolute inset-0 z-0"
                 aria-label={`Ver detalles de ${product.nombre}`}
             />
@@ -168,7 +168,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                 {/* Badges Minimalistas */}
                 <div className="absolute top-3 right-3 md:top-4 md:right-4 flex flex-col gap-2">
                     {discountedPrice > 0 && (
-                        <span className="px-1.5 py-1 bg-[var(--color-accent)] text-white text-xs font-bold uppercase tracking-wider min-w-[5ch] text-center">
+                        <span className="px-1.5 py-1 bg-[var(--color-accent)] text-white text-xs font-bold uppercase tracking-wider min-w-[5ch] text-center rounded">
                             -{Math.round(discountedPrice)}%
                         </span>
                     )}
@@ -237,13 +237,13 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                             </div>
                         )}
 
-                        <h3 className="text-xs md:text-sm font-medium text-[var(--color-text-primary)] leading-snug line-clamp-2 md:line-clamp-3 mb-3 group-hover:text-black transition-colors">
+                        <h3 className="text-xs md:text-sm font-medium text-[var(--color-text-primary)] leading-snug line-clamp-2 md:line-clamp-3 mb-3 group-hover:text-[var(--color-accent)] transition-colors">
                             {product.nombre}
                         </h3>
                     </div>
 
                     {/* Bloque de Precios */}
-                    <div className="h-9 flex items-center mt-auto">
+                    <div className="h-9 flex items-center mt-auto mb-2">
                         <div className="flex items-baseline flex-wrap gap-2">
                             <span className="text-base md:text-[19px] font-bold text-[var(--color-text-primary)] tracking-tight">
                                 S/ {precio.toFixed(2)}
@@ -255,9 +255,9 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                             )}
                         </div>
                     </div>
-
+dasd
                     {/* Botón de Compra / Interactivo */}
-                    <div className="mt-3 pointer-events-auto relative z-30">
+                    <div className="mt-auto pointer-events-auto relative z-30">
                         <AddToCartButton product={product} />
                     </div>
                 </div>

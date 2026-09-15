@@ -1,3 +1,4 @@
+// File: frontend/components/banner/layouts/LayoutDefault.tsx
 "use client";
 
 import Link from "next/link";
@@ -18,16 +19,16 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
             className="banner-slot relative w-full overflow-hidden flex items-center border border-border"
             style={{ backgroundColor: bg }}
         >
-            <div className="relative z-10 w-full max-w-6xl mx-auto h-full flex flex-row items-center px-3 sm:px-10">
+            <div className="relative z-10 w-full max-w-6xl mx-auto h-full flex flex-row items-center px-2 sm:px-6 lg:px-10">
                 {/* ── Texto (izquierda) ─────────────────────────────── */}
                 <div
-                    className="flex flex-col justify-center items-start w-1/2 h-full pr-2 sm:pr-4 gap-1 md:gap-3"
+                    className="flex flex-col justify-center items-start w-1/2 h-full py-1 pr-2 sm:pr-4 gap-0.5 sm:gap-2 lg:gap-3"
                     style={{ color: text }}
                 >
                     {subtitle && (
                         <div>
                             <span
-                                className="inline-block text-[9px] sm:text-xs md:text-sm font-bold uppercase px-2 py-0.5 sm:py-1 leading-none"
+                                className="inline-block text-[8px] sm:text-xs md:text-sm font-bold uppercase px-1.5 sm:px-2 py-0.5 leading-none"
                                 style={{ borderLeft: `2px solid ${accent}` }}
                             >
                                 {subtitle}
@@ -36,14 +37,14 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                     )}
 
                     {title && (
-                        <h2 className="font-bold leading-[1.1] tracking-[-0.03em] text-[clamp(13px,3vw,2.5rem)] line-clamp-2 md:line-clamp-3">
+                        <h2 className="font-bold leading-[1.05] tracking-[-0.03em] text-[clamp(12px,2.8vw,2.5rem)] line-clamp-2 lg:line-clamp-3">
                             {title}
                         </h2>
                     )}
 
                     {description && (
                         <p
-                            className="text-[9px] sm:text-xs md:text-sm leading-tight sm:leading-relaxed line-clamp-2 md:line-clamp-3 max-w-[32ch]"
+                            className="text-[9px] sm:text-[11px] md:text-sm leading-tight sm:leading-relaxed line-clamp-2 md:line-clamp-3 max-w-[32ch]"
                             style={{ opacity: 0.75 }}
                         >
                             {description}
@@ -51,7 +52,7 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                     )}
 
                     {price?.current !== undefined && price.current !== null && (
-                        <div className="mt-0.5 scale-90 sm:scale-100 origin-left">
+                        <div className="mt-0.5 scale-75 sm:scale-90 md:scale-100 origin-left">
                             <SliderPrice
                                 price={price}
                                 textColor={text}
@@ -62,7 +63,7 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                     )}
                     {terms && (
                         <div className="mt-0.5">
-                            <p className="text-[7px] sm:text-[9px] font-medium tracking-wide uppercase line-clamp-1" style={{ opacity: 0.45 }}>
+                            <p className="text-[6px] sm:text-[8px] md:text-[9px] font-medium tracking-wide uppercase line-clamp-1" style={{ opacity: 0.45 }}>
                                 {terms}
                             </p>
                         </div>
@@ -71,7 +72,7 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
 
                 {/* ── Media (derecha) ───────────────────────────────── */}
                 {media?.imageUrl && (
-                    <div className="w-1/2 h-full py-2">
+                    <div className="w-1/2 h-full py-1 sm:py-2">
                         <div className="relative w-full h-full">
                             <Image
                                 src={media.imageUrl}

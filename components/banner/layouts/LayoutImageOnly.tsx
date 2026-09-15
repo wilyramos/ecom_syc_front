@@ -1,3 +1,4 @@
+// File: frontend/components/banner/layouts/LayoutImageOnly.tsx
 "use client";
 
 import Link from "next/link";

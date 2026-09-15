@@ -7,7 +7,7 @@ import { ShoppingCart, Loader2 } from "lucide-react";
 import type { TApiProduct } from "@/src/schemas";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-
+import { useRouter } from "next/navigation";
 
 interface Props {
     product: TApiProduct;
@@ -17,9 +17,11 @@ export default function AddToCartButton({ product }: Props) {
     const [isAdding, setIsAdding] = useState(false);
     const addToCart = useCartStore((state) => state.addToCart);
     const setCartOpen = useCartStore((state) => state.setCartOpen);
+    const router = useRouter();
 
     const stock = product.stock ?? 0;
     const isOutOfStock = stock <= 0;
+    const hasVariants = product.variants && product.variants.length > 0;
 
     const handleClick = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -27,6 +29,12 @@ export default function AddToCartButton({ product }: Props) {
 
         if (isOutOfStock) {
             toast.error("Producto agotado");
+            return;
+        }
+
+        if (hasVariants) {
+            toast.info("Por favor, selecciona las variantes antes de añadir al carrito.");
+            router.push(`/productos/${product.slug}`);
             return;
         }
 
@@ -61,12 +69,12 @@ export default function AddToCartButton({ product }: Props) {
                 "Agotado"
             ) : (
                 <>
-
-                    <div className="flex items-center justify-center">
-
-                        <ShoppingCart className="md:hidden" />
-                        <FaPlus />
-                        <span className="hidden md:inline">Agregar al Carrito</span>
+                    <div className="flex items-center justify-center gap-1.5">
+                        <ShoppingCart className="md:hidden w-4 h-4" />
+                        {!hasVariants && <FaPlus className="hidden md:block" />}
+                        <span className="hidden md:inline">
+                            {hasVariants ? "Ver opciones" : "Agregar al Carrito"}
+                        </span>
                     </div>
                 </>
             )}

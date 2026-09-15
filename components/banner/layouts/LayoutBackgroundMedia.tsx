@@ -1,3 +1,4 @@
+// File: frontend/components/banner/layouts/LayoutBackgroundMedia.tsx
 "use client";
 
 import Link from "next/link";
@@ -55,15 +56,15 @@ export default function LayoutBackgroundMedia({ banner }: { banner: SliderBanner
             />
 
             {/* ── Contenido ─────────────────────────────────────────── */}
-            <div className="relative z-20 w-full max-w-6xl mx-auto px-4 pb-2 sm:pb-6 md:pb-12 flex flex-col items-center">
+            <div className="relative z-20 w-full max-w-6xl mx-auto px-2 pb-1 sm:pb-4 md:pb-8 flex flex-col items-center">
                 <div
-                    className="flex flex-col items-center w-full max-w-[90%] sm:max-w-xl md:max-w-2xl"
+                    className="flex flex-col items-center justify-end w-full h-full max-w-[95%] sm:max-w-xl md:max-w-2xl gap-0.5 sm:gap-2"
                     style={{ color: text }}
                 >
                     {subtitle && (
-                        <div className="mb-1 md:mb-3">
+                        <div>
                             <span
-                                className="inline-block text-[8px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.32em] uppercase px-3 py-[3px] rounded-full"
+                                className="inline-block text-[7px] sm:text-[9px] md:text-[11px] font-bold tracking-[0.2em] sm:tracking-[0.32em] uppercase px-2 py-[2px] sm:px-3 sm:py-[3px] rounded-full"
                                 style={{
                                     color: accent,
                                     background: `${accent}22`,
@@ -77,19 +78,19 @@ export default function LayoutBackgroundMedia({ banner }: { banner: SliderBanner
                     )}
 
                     {title && (
-                        <h2 className="font-black leading-[1.05] tracking-[-0.04em] text-[clamp(16px,4vw,3.5rem)] line-clamp-2">
+                        <h2 className="font-black leading-[1.05] tracking-[-0.04em] text-[clamp(13px,3.2vw,3.5rem)] line-clamp-2">
                             {title}
                         </h2>
                     )}
 
                     {description && (
-                        <p className="mt-1 md:mt-3 text-[10px] sm:text-xs md:text-sm leading-tight sm:leading-relaxed max-w-[50ch] line-clamp-1 sm:line-clamp-2" style={{ opacity: 0.85 }}>
+                        <p className="hidden sm:-webkit-box text-[9px] sm:text-xs md:text-sm leading-tight sm:leading-relaxed max-w-[50ch] line-clamp-1 sm:line-clamp-2" style={{ opacity: 0.85 }}>
                             {description}
                         </p>
                     )}
 
                     {price?.current !== undefined && price.current !== null && (
-                        <div className="mt-1 md:mt-3 scale-90 sm:scale-100">
+                        <div className="scale-75 sm:scale-90 md:scale-100 origin-bottom">
                             <SliderPrice
                                 price={price}
                                 textColor={text}
@@ -100,7 +101,7 @@ export default function LayoutBackgroundMedia({ banner }: { banner: SliderBanner
                     )}
 
                     {terms && (
-                        <div className="mt-1 md:mt-3 hidden sm:block">
+                        <div className="hidden md:block">
                             <p className="text-[8px] sm:text-[9px] font-medium tracking-wide uppercase" style={{ opacity: 0.55 }}>
                                 {terms}
                             </p>
