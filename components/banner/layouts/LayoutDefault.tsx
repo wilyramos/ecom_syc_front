@@ -60,16 +60,6 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                             />
                         </div>
                     )}
-
-                    <div className="hidden md:block mt-1">
-                        <span
-                            className="inline-block px-3 py-1.5 text-xs font-bold uppercase rounded-full"
-                            style={{ backgroundColor: accent, color: isDark ? "#000000" : "#ffffff" }}
-                        >
-                            Ver más
-                        </span>
-                    </div>
-
                     {terms && (
                         <div className="mt-0.5">
                             <p className="text-[7px] sm:text-[9px] font-medium tracking-wide uppercase line-clamp-1" style={{ opacity: 0.45 }}>

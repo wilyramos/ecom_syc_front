@@ -18,10 +18,10 @@ export default function LayoutMediaLeft({ banner }: { banner: SliderBanner }) {
             className="banner-slot relative w-full overflow-hidden flex items-center border border-border"
             style={{ backgroundColor: bg }}
         >
-            <div className="relative z-10 w-full max-w-6xl mx-auto h-full flex flex-row items-center px-3 sm:px-10">
+            <div className="relative z-10 w-full max-w-6xl mx-auto h-full flex flex-row items-center ">
                 {/* ── Media (izquierda) ─────────────────────────────── */}
                 {media?.imageUrl && (
-                    <div className="w-1/2 h-full py-2">
+                    <div className="w-1/2 h-full ">
                         <div className="relative w-full h-full">
                             <Image
                                 src={media.imageUrl}
