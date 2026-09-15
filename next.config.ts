@@ -1,8 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Configuración estable
   serverActions: {
-    bodySizeLimit: "20mb",
+    bodySizeLimit: "4mb", 
+  },
+  // Fallback para entornos donde la configuración estable es ignorada
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "4mb",
+    },
   },
   
   // 1. Configuración de Imágenes (Cloudinary)
@@ -19,17 +26,14 @@ const nextConfig: NextConfig = {
     ]
   },
 
-  // 2. Redirecciones SEO (Vitales para no perder tráfico)
+  // 2. Redirecciones SEO
   async redirects() {
     return [
-      // A) Migración de listado general antiguo
-      // Si alguien entra a sycmobile.pe/productos -> lo manda a /catalogo
       {
         source: '/productos',
         destination: '/catalogo',
         permanent: true,
       },
-      
     ];
   },
 };
