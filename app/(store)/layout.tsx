@@ -4,6 +4,7 @@ import NavBar from "@/components/navigation/NavBar";
 import { metadata as globalMetadata } from "@/app/layout";
 import type { Metadata } from "next";
 import WhatsappButton from "@/components/home/WhatsappButton";
+import TikTokPixel from "@/components/tiktok/TikTokPixel";
 
 export const metadata: Metadata = {
     ...globalMetadata,
@@ -20,13 +21,13 @@ export const metadata: Metadata = {
 };
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
-    return (
+   return (
         <div className="flex flex-col min-h-screen">
+            <TikTokPixel />
             <header className="fixed w-full top-0 z-50">
                 <NavBar />
             </header>
 
-            {/* Main content con espaciado consistente */}
             <main className="flex-1 pt-20 md:pt-28">
                 {children}
             </main>

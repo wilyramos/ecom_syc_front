@@ -5,6 +5,22 @@ import { FaWhatsapp } from "react-icons/fa";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
+// Definición estricta de la API del Pixel de TikTok
+interface TikTokPixel {
+    track: (
+        event: 'Contact' | 'AddToCart' | 'ViewContent' | 'CompletePayment' | string,
+        payload?: Record<string, unknown>
+    ) => void;
+    page: () => void;
+    load: (pixelId: string) => void;
+}
+
+declare global {
+    interface Window {
+        ttq?: TikTokPixel;
+    }
+}
+
 interface Props {
     product: ProductWithCategoryResponse;
     variant?: VariantCart;
@@ -15,7 +31,7 @@ export default function ShopNowButton({ product, variant, disabled }: Props) {
     const stock = variant?.stock ?? product.stock ?? 0;
 
     // Validaciones de estado
-    const hasVariants = product.variants && product.variants.length > 0;
+    const hasVariants = (product.variants ?? []).length > 0;
     const isSelectionIncomplete = hasVariants && !variant;
     const isVisuallyDisabled = disabled || stock <= 0 || isSelectionIncomplete;
 
@@ -31,22 +47,28 @@ export default function ShopNowButton({ product, variant, disabled }: Props) {
             return;
         }
 
-        // 2. Construcción del mensaje
         const precioFinal = variant?.precio ?? product.precio ?? 0;
 
-        // Formatear detalles de la variante (ej: "Color: Negro, Almacenamiento: 128GB")
+        // 2. Disparar evento de TikTok Ads con metadata para mejor optimización del algoritmo
+        if (typeof window !== 'undefined' && window.ttq) {
+            window.ttq.track('Contact', {
+                content_id: variant?._id ?? product._id,
+                content_name: product.nombre,
+                value: precioFinal,
+                currency: 'PEN'
+            });
+        }
+
+        // 3. Construcción del mensaje
         const detallesVariante = variant?.atributos
             ? Object.entries(variant.atributos)
                 .map(([key, val]) => `*${key}:* ${val}`)
                 .join("\n")
             : "";
 
-        const mensaje = `Hola S&C Mobile! Me interesa comprar este producto:
-\n*Producto:* ${product.nombre}
-${detallesVariante ? detallesVariante + "\n" : ""}*Precio:* S/ ${precioFinal.toFixed(2)}
-\n¿Podrían confirmarme la disponibilidad para concretar el pedido?`;
+        const mensaje = `Hola S&C Mobile! Me interesa comprar este producto:\n\n*Producto:* ${product.nombre}\n${detallesVariante ? detallesVariante + "\n" : ""}*Precio:* S/ ${precioFinal.toFixed(2)}\n\n¿Podrían confirmarme la disponibilidad para concretar el pedido?`;
 
-        // 3. Generar URL y redireccionar
+        // 4. Generar URL y redireccionar
         const whatsappUrl = `https://wa.me/51972416683?text=${encodeURIComponent(mensaje)}`;
 
         toast.success("Redirigiendo a WhatsApp...");
@@ -57,7 +79,6 @@ ${detallesVariante ? detallesVariante + "\n" : ""}*Precio:* S/ ${precioFinal.toF
         <Button
             onClick={handleWhatsAppRedirect}
             disabled={isVisuallyDisabled}
-            // Usamos un estilo verde esmeralda para evocar WhatsApp pero respetando tu sistema
             className={`w-full gap-2 transition-transform active:scale-95 ${stock <= 0
                 ? "bg-[var(--color-error-light)] text-[var(--color-error)]"
                 : "bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-lg shadow-green-500/20"

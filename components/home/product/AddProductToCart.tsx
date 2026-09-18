@@ -7,6 +7,22 @@ import { FaPlus } from "react-icons/fa";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 
+// Definición estricta de la API del Pixel de TikTok
+interface TikTokPixel {
+    track: (
+        event: 'Contact' | 'AddToCart' | 'ViewContent' | 'CompletePayment' | string,
+        payload?: Record<string, unknown>
+    ) => void;
+    page: () => void;
+    load: (pixelId: string) => void;
+}
+
+declare global {
+    interface Window {
+        ttq?: TikTokPixel;
+    }
+}
+
 interface Props {
     product: ProductWithCategoryResponse;
     variant?: VariantCart;
@@ -27,7 +43,7 @@ export default function AddProductToCart({ product, variant }: Props) {
     const stock = selectedVariant?.stock ?? product.stock ?? 0;
 
     // Verificar si visualmente debería parecer deshabilitado
-    const hasVariants = product.variants && product.variants.length > 0;
+    const hasVariants = (product.variants ?? []).length > 0;
     const isSelectionIncomplete = hasVariants && !selectedVariant;
     const isOutOfStock = stock <= 0;
 
@@ -47,7 +63,7 @@ export default function AddProductToCart({ product, variant }: Props) {
             return;
         }
 
-        // 3. Lógica normal de añadir al carrito
+        // 3. Validar límite de stock en el carrito
         const activeVariant = selectedVariant ?? undefined;
 
         const productInCart = cart.find((item) => {
@@ -60,8 +76,20 @@ export default function AddProductToCart({ product, variant }: Props) {
             return;
         }
 
-        console.log("Añadiendo al carrito:", product, activeVariant);
+        const precioFinal = activeVariant?.precio ?? product.precio ?? 0;
 
+        // 4. Disparar evento de TikTok Ads con metadata para mejor optimización
+        if (typeof window !== 'undefined' && window.ttq) {
+            window.ttq.track('AddToCart', {
+                content_id: activeVariant?._id ?? product._id,
+                content_name: product.nombre,
+                value: precioFinal,
+                currency: 'PEN',
+                quantity: 1
+            });
+        }
+
+        // 5. Lógica normal de añadir al carrito
         addToCart(product, activeVariant);
         toast.success("Producto añadido al carrito");
         setCartOpen(true);
@@ -74,7 +102,7 @@ export default function AddProductToCart({ product, variant }: Props) {
                 disabled={isVisuallyDisabled}
                 variant={isOutOfStock ? "destructive" : "accent"}
                 size="default"
-                className="w-full  "
+                className="w-full"
             >
                 <FaPlus size={14} />
                 {isOutOfStock ? "Sin stock" : "Añadir al carrito"}

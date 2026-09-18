@@ -255,6 +255,7 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                             )}
                         </div>
                     </div>
+
                     {/* Botón de Compra / Interactivo */}
                     <div className="mt-auto pointer-events-auto relative z-30">
                         <AddToCartButton product={product} />
