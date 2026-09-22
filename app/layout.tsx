@@ -1,19 +1,17 @@
-//File: frontend/app/layout.tsx
+// File: frontend/app/layout.tsx
 
 import type { Metadata } from "next";
 import "./globals.css";
-import {
-    Poppins
-} from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Toaster } from 'sonner';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import MercadoPagoProvider from "@/components/provider/MercadoPagoProvider";
+import { Analytics } from "@vercel/analytics/next";
 
-const poppins = Poppins
-    ({
-        subsets: ["latin"],
-        weight: ["500"],
-    });
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["500"],
+});
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://sycmobile.pe"),
@@ -44,15 +42,15 @@ export const metadata: Metadata = {
     },
     icons: {
         icon: "/favicon.ico",
-        apple: "/apple-touch-icon.png", // Asegúrate de tener este archivo
+        apple: "/apple-touch-icon.png",
     },
 };
+
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-
     return (
         <html lang="es">
             <body
@@ -68,6 +66,7 @@ export default function RootLayout({
                         duration={5000}
                     />
                 </GoogleOAuthProvider>
+                <Analytics />
             </body>
         </html>
     );
