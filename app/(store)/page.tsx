@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import ProductosDestacados from "@/components/home/ProductosDestacados";
 import CategoriasDestacadasWrapper from "@/components/home/CategoriasDestacadasWrapper";
-import BrandsList from "@/components/home/BrandsList";
 import CarruselPrincipal from "@/components/home/CarruselPrincipal";
 import ColleccionesSection from "@/components/home/Colleccionessection";
 import ProductosNuevos from "@/components/home/ProductosNuevos";
@@ -32,13 +31,13 @@ export default function HomePage() {
             </section>
 
             {/* Secciones de Contenido con Espaciado Consistente */}
-            <div className="space-y-12 md:space-y-20 py-12 md:py-20">
+            <div className="space-y-6 md:space-y-10 py-6 md:py-10">
                 <CategoriasDestacadasWrapper />
 
                 <VideosSection />
                 <ProductosNuevos />
 
-                <section className="bg-[var(--color-bg-secondary)] py-12 md:py-16">
+                <section className="bg-[var(--color-bg-secondary)] py-6 md:py-8">
                     <ColleccionesSection />
                 </section>
 
@@ -46,7 +45,7 @@ export default function HomePage() {
                     <ProductosDestacados />
                 </section>
 
-                <BrandsList />
+                {/* <BrandsList /> */}
             </div>
         </div>
     );

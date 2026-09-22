@@ -20,7 +20,6 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
 
     const precio = product.precio ?? 0;
 
-    // --- LÓGICA DE COLORES OPTIMIZADA ---
     const uniqueColors = useMemo(() => {
         const colors = new Set<string>();
         const mainColor = product.atributos?.Color || product.atributos?.color;
@@ -36,7 +35,6 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
         return Array.from(colors);
     }, [product.atributos, product.variants]);
 
-    // --- SINCRONIZACIÓN DE COLOR SELECCIONADO ---
     useEffect(() => {
         const filterColor = searchParams.get("Color") || searchParams.get("color");
         const mainColor = product.atributos?.Color || product.atributos?.color;
@@ -96,7 +94,6 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
         ? ((product.precioComparativo - precio) / product.precioComparativo) * 100
         : 0;
 
-    // --- MANEJADORES GESTUALES (SOPORTE MÓVIL Y ESCRITORIO) ---
     const handleTouchStart = (e: React.TouchEvent) => {
         setStartX(e.touches[0].clientX);
     };
@@ -123,21 +120,19 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
 
     return (
         <div
-            className="group relative flex flex-col transition-all duration-500 border rounded-lg overflow-hidden bg-white h-full w-full hover:shadow-md"
+            className="group relative flex flex-col transition-all duration-500 border rounded-lg overflow-hidden bg-white h-full w-full "
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
         >
-            {/* Enlace superpuesto absoluto de fondo que abarca toda la tarjeta de forma segura */}
             <Link
                 href={`/productos/${product.slug}${selectedColor ? `?Color=${selectedColor}` : ''}`}
                 className="absolute inset-0 z-0"
                 aria-label={`Ver detalles de ${product.nombre}`}
             />
 
-            {/* --- CONTENEDOR IMAGEN --- */}
-            <div className="relative w-full aspect-square overflow-hidden mb-3 md:mb-5 z-10 pointer-events-none select-none bg-neutral-50/50">
+            <div className="relative w-full aspect-square overflow-hidden mb-3 z-10 pointer-events-none select-none bg-neutral-50/50 shrink-0">
                 {previewImages.length > 0 ? (
                     <div className="relative w-full h-full">
                         <div
@@ -164,18 +159,8 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                         <MdOutlineImageNotSupported size={40} strokeWidth={1} />
                     </div>
                 )}
-
-                {/* Badges Minimalistas */}
-                <div className="absolute top-3 right-3 md:top-4 md:right-4 flex flex-col gap-2">
-                    {discountedPrice > 0 && (
-                        <span className="px-1.5 py-1 bg-[var(--color-accent)] text-white text-xs font-bold uppercase tracking-wider min-w-[5ch] text-center rounded">
-                            -{Math.round(discountedPrice)}%
-                        </span>
-                    )}
-                </div>
             </div>
 
-            {/* Controles de Flechas fuera de la capa del Link */}
             {previewImages.length > 1 && (
                 <div className="absolute top-0 left-0 w-full aspect-square z-20 pointer-events-none hidden md:block">
                     <button
@@ -197,10 +182,8 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                 </div>
             )}
 
-            {/* --- INFO PRODUCTO --- */}
-            <div className="flex flex-col px-3 md:px-5 pb-4 flex-grow relative z-10 pointer-events-none">
-                {/* Selector de Colores */}
-                <div className="flex items-center justify-center gap-2.5 mb-2.5 min-h-[20px] pointer-events-auto">
+            <div className="flex flex-col px-3 md:px-4 pb-4 flex-grow relative z-10 pointer-events-none">
+                <div className="h-6 flex items-center justify-center gap-2 mb-2 pointer-events-auto">
                     {uniqueColors.length > 0 && (
                         <div className="flex -space-x-1 hover:space-x-1.5 transition-all duration-300">
                             {uniqueColors.slice(0, 4).map((c, index) => (
@@ -226,38 +209,34 @@ export default function ProductCard({ product }: { product: TApiProduct }) {
                     )}
                 </div>
 
-                {/* Metadatos y Textos */}
                 <div className="flex flex-col flex-grow justify-between">
                     <div>
-                        {product.brand?.nombre && (
-                            <div className="flex items-start justify-between gap-2 mb-1">
-                                <span className="text-[10px] md:text-[11px] font-bold tracking-[0.08em] text-[var(--color-text-tertiary)] uppercase truncate max-w-full">
-                                    {product.brand.nombre}
-                                </span>
-                            </div>
-                        )}
-
-                        <h3 className="text-xs md:text-sm font-medium text-[var(--color-text-primary)] leading-snug line-clamp-2 md:line-clamp-3 mb-3 group-hover:text-[var(--color-accent)] transition-colors">
+                        <h3 className="text-md md:text-base font-medium text-[var(--color-text-primary)] capitalize leading-snug line-clamp-2 h-[34px] md:h-[40px] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                             {product.nombre}
                         </h3>
                     </div>
 
-                    {/* Bloque de Precios */}
-                    <div className="h-9 flex items-center mt-auto mb-2">
-                        <div className="flex items-baseline flex-wrap gap-2">
-                            <span className="text-base md:text-[19px] font-bold text-[var(--color-text-primary)] tracking-tight">
-                                S/ {precio.toFixed(2)}
-                            </span>
-                            {product.precioComparativo && product.precioComparativo > precio && (
-                                <span className="text-xs md:text-[14px] text-[var(--color-text-tertiary)] line-through font-light">
-                                    S/ {product.precioComparativo.toFixed(2)}
-                                </span>
-                            )}
-                        </div>
-                    </div>
+                    <div className="h-[44px] md:h-[48px] flex flex-col justify-end mb-3 mt-auto">
+    <div className="flex items-center flex-wrap gap-x-2 gap-y-1">
+        <span className="text-base md:text-[19px] font-bold text-[var(--color-text-primary)] leading-none">
+            S/ {precio.toFixed(2)}
+        </span>
+        
+        {product.precioComparativo && product.precioComparativo > precio && (
+            <span className="text-xs md:text-[14px] text-[var(--color-text-tertiary)] line-through font-medium leading-none">
+                S/ {product.precioComparativo.toFixed(2)}
+            </span>
+        )}
+        
+        {discountedPrice > 0 && (
+            <span className="px-1.5 py-0.5 bg-[var(--color-light)] text-[var(--color-primary)] rounded-sm text-[12px] md:text-[14px] font-semibold uppercase ">
+                -{Math.round(discountedPrice)}% Dcto
+            </span>
+        )}
+    </div>
+</div>
 
-                    {/* Botón de Compra / Interactivo */}
-                    <div className="mt-auto pointer-events-auto relative z-30">
+                    <div className="mt-auto pointer-events-auto relative z-30 shrink-0">
                         <AddToCartButton product={product} />
                     </div>
                 </div>

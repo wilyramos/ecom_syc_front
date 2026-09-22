@@ -16,20 +16,20 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
 
     const content = (
         <div
-            className="banner-slot relative w-full overflow-hidden flex items-center border border-border"
+            className="banner-slot relative w-full h-full overflow-hidden flex items-center border border-border"
             style={{ backgroundColor: bg }}
         >
-            <div className="relative z-10 w-full max-w-6xl mx-auto h-full flex flex-row items-center px-2 sm:px-6 lg:px-10">
+            <div className="relative z-10 w-full h-full max-w-[1920px] mx-auto flex flex-row items-center px-4 sm:px-8 md:px-12 lg:px-20">
                 {/* ── Texto (izquierda) ─────────────────────────────── */}
                 <div
-                    className="flex flex-col justify-center items-start w-1/2 h-full py-1 pr-2 sm:pr-4 gap-0.5 sm:gap-2 lg:gap-3"
+                    className="flex flex-col justify-center items-start w-[55%] h-full py-2 sm:py-4 lg:py-6 pr-4 sm:pr-6 lg:pr-10 gap-1 sm:gap-3 lg:gap-4"
                     style={{ color: text }}
                 >
                     {subtitle && (
                         <div>
                             <span
-                                className="inline-block text-[8px] sm:text-xs md:text-sm font-bold uppercase px-1.5 sm:px-2 py-0.5 leading-none"
-                                style={{ borderLeft: `2px solid ${accent}` }}
+                                className="inline-block text-[clamp(0.5rem,1vw,1rem)] font-bold uppercase px-2 py-0.5 sm:py-1 leading-none bg-black/5 dark:bg-white/5"
+                                style={{ borderLeft: `3px solid ${accent}` }}
                             >
                                 {subtitle}
                             </span>
@@ -37,22 +37,22 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                     )}
 
                     {title && (
-                        <h2 className="font-bold leading-[1.05] tracking-[-0.03em] text-[clamp(12px,2.8vw,2.5rem)] line-clamp-2 lg:line-clamp-3">
+                        <h2 className="font-extrabold leading-tight tracking-tight text-[clamp(1rem,3.5vw,3.5rem)] line-clamp-2 md:line-clamp-3">
                             {title}
                         </h2>
                     )}
 
                     {description && (
                         <p
-                            className="text-[9px] sm:text-[11px] md:text-sm leading-tight sm:leading-relaxed line-clamp-2 md:line-clamp-3 max-w-[32ch]"
-                            style={{ opacity: 0.75 }}
+                            className="text-[clamp(0.6rem,1.2vw,1.125rem)] leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-3 max-w-[45ch]"
+                            style={{ opacity: 0.8 }}
                         >
                             {description}
                         </p>
                     )}
 
                     {price?.current !== undefined && price.current !== null && (
-                        <div className="mt-0.5 scale-75 sm:scale-90 md:scale-100 origin-left">
+                        <div className="mt-auto sm:mt-2 w-full">
                             <SliderPrice
                                 price={price}
                                 textColor={text}
@@ -61,9 +61,10 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
                             />
                         </div>
                     )}
+
                     {terms && (
-                        <div className="mt-0.5">
-                            <p className="text-[6px] sm:text-[8px] md:text-[9px] font-medium tracking-wide uppercase line-clamp-1" style={{ opacity: 0.45 }}>
+                        <div className="mt-1 sm:mt-2">
+                            <p className="text-[clamp(0.45rem,0.7vw,0.75rem)] font-medium tracking-wider uppercase line-clamp-1 opacity-50">
                                 {terms}
                             </p>
                         </div>
@@ -72,14 +73,14 @@ export default function LayoutDefault({ banner }: { banner: SliderBanner }) {
 
                 {/* ── Media (derecha) ───────────────────────────────── */}
                 {media?.imageUrl && (
-                    <div className="w-1/2 h-full py-1 sm:py-2">
+                    <div className="w-[45%] h-full relative flex items-center justify-center p-2 sm:p-4 lg:p-6">
                         <div className="relative w-full h-full">
                             <Image
                                 src={media.imageUrl}
-                                alt={media.altText ?? title ?? ""}
+                                alt={media.altText ?? title ?? "Banner image"}
                                 fill
-                                className={media.objectFit === "contain" ? "object-contain" : "object-cover"}
-                                sizes="(max-width: 640px) 50vw, 40vw"
+                                className={media.objectFit === "contain" ? "object-contain object-right" : "object-cover"}
+                                sizes="(max-width: 640px) 50vw, 45vw"
                                 priority
                                 unoptimized
                             />
