@@ -56,7 +56,7 @@ export default function AddToCartButton({ product }: Props) {
             // Cambiamos la variante base dinámicamente para evitar conflictos con Tailwind
             variant={isOutOfStock ? "outline" : "default"}
             className={cn(
-                "group relative w-full h-10 md:h-[42px] flex items-center justify-center overflow-hidden rounded-full font-bold tracking-wide transition-all duration-300",
+                "group relative w-full h-10 md:h-[42px] flex items-center justify-center overflow-hidden rounded-full font-semibold transition-all duration-300",
                 "text-[11px] sm:text-xs md:text-sm", // Tipografía responsive
                 
                 // --- ESTADO: AGOTADO ---
