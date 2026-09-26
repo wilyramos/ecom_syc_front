@@ -58,7 +58,7 @@ export default async function CashShiftPage() {
                             </p>
                             <p className="text-[11px] text-[var(--color-text-secondary)] leading-relaxed">
                                 El saldo esperado refleja solo <strong className="font-bold text-[var(--color-text-primary)]">efectivo físico</strong>.
-                                Los métodos digitales se concilian en el arqueo final.
+                                Los métodos de pago electrónicos (tarjetas, transferencias, etc.) no se incluyen en este cálculo.
                             </p>
                         </div>
                     </section>

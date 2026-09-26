@@ -1,11 +1,7 @@
-/* File: src/store/usePosStore.ts 
-    @Author: whramos 
-    @Description: Global POS state management. Zero-Any implementation.
-    Fixed: Added missing action definitions for payment and discounts.
-*/
-
+/* File: src/store/usePosStore.ts */
 import { create } from 'zustand';
 import { Product, ProductVariant } from "@/src/schemas/product.schema";
+import { toast } from "sonner";
 
 export interface CartItem {
     productId: string;
@@ -17,10 +13,10 @@ export interface CartItem {
     discount: number;
     atributos?: Record<string, string>;
     subtotal: number;
+    maxStock: number; // Límite de stock físico disponible
 }
 
 interface PosState {
-    // --- ESTADO ---
     cart: CartItem[];
     subtotal: number;
     totalDiscountAmount: number;
@@ -29,18 +25,14 @@ interface PosState {
     itemsCount: number;
     paymentMethod: string;
 
-    // --- ACCIONES DEL CARRITO ---
     addToCart: (product: Product, variant?: ProductVariant) => void;
     removeFromCart: (productId: string, variantId?: string) => void;
     updateQuantity: (productId: string, quantity: number, variantId?: string) => void;
     clearCart: () => void;
-    
-    // --- ACCIONES DE PAGO Y TOTALES (CORREGIDO: Agregadas funciones faltantes) ---
+
     setPaymentMethod: (method: string) => void;
     setGlobalDiscount: (amount: number) => void;
     setSurcharge: (amount: number) => void;
-    
-    // Helper interno
     calculateTotals: () => void;
 }
 
@@ -56,17 +48,34 @@ export const usePosStore = create<PosState>((set, get) => ({
     addToCart: (product, variant) => {
         const { cart } = get();
         const vId = variant?._id?.toString();
-        
-        const existingItem = cart.find(item => 
-            item.productId === product._id && item.variantId === vId
+
+        // Determinar stock disponible real
+        const availableStock = variant ? (variant.stock ?? 0) : (product.stock ?? 0);
+
+        if (availableStock <= 0) {
+            toast.error(`"${product.nombre}" no cuenta con existencias disponibles.`);
+            return;
+        }
+
+        const existingItem = cart.find(
+            (item) => item.productId === product._id && item.variantId === vId
         );
 
         let newCart: CartItem[];
 
         if (existingItem) {
-            newCart = cart.map(item => 
-                (item.productId === product._id && item.variantId === vId)
-                    ? { ...item, quantity: item.quantity + 1, subtotal: (item.quantity + 1) * item.precio }
+            if (existingItem.quantity + 1 > availableStock) {
+                toast.error(`Stock máximo alcanzado (${availableStock} uds.) para "${existingItem.nombre}"`);
+                return;
+            }
+
+            newCart = cart.map((item) =>
+                item.productId === product._id && item.variantId === vId
+                    ? {
+                        ...item,
+                        quantity: item.quantity + 1,
+                        subtotal: (item.quantity + 1) * item.precio,
+                    }
                     : item
             );
         } else {
@@ -80,6 +89,7 @@ export const usePosStore = create<PosState>((set, get) => ({
                 discount: 0,
                 atributos: variant?.atributos,
                 subtotal: variant?.precio ?? product.precio ?? 0,
+                maxStock: availableStock,
             };
             newCart = [...cart, newItem];
         }
@@ -90,34 +100,49 @@ export const usePosStore = create<PosState>((set, get) => ({
 
     removeFromCart: (productId, variantId) => {
         set((state) => ({
-            cart: state.cart.filter(item => !(item.productId === productId && item.variantId === variantId))
+            cart: state.cart.filter(
+                (item) => !(item.productId === productId && item.variantId === variantId)
+            ),
         }));
         get().calculateTotals();
     },
 
-    updateQuantity: (productId, quantity, variantId) => {
-        if (quantity < 1) return;
-        set((state) => ({
-            cart: state.cart.map(item => 
-                (item.productId === productId && item.variantId === variantId)
-                    ? { ...item, quantity, subtotal: quantity * item.precio }
+    updateQuantity: (productId, requestedQuantity, variantId) => {
+        if (requestedQuantity < 1) return;
+
+        const { cart } = get();
+        const targetItem = cart.find(
+            (item) => item.productId === productId && item.variantId === variantId
+        );
+
+        if (!targetItem) return;
+
+        if (requestedQuantity > targetItem.maxStock) {
+            toast.error(`Solo hay ${targetItem.maxStock} unidades disponibles en inventario.`);
+            return;
+        }
+
+        set({
+            cart: cart.map((item) =>
+                item.productId === productId && item.variantId === variantId
+                    ? { ...item, quantity: requestedQuantity, subtotal: requestedQuantity * item.precio }
                     : item
-            )
-        }));
+            ),
+        });
         get().calculateTotals();
     },
 
-    clearCart: () => set({ 
-        cart: [], 
-        subtotal: 0, 
-        total: 0, 
-        itemsCount: 0, 
-        totalDiscountAmount: 0, 
-        totalSurchargeAmount: 0,
-        paymentMethod: 'CASH' 
-    }),
+    clearCart: () =>
+        set({
+            cart: [],
+            subtotal: 0,
+            total: 0,
+            itemsCount: 0,
+            totalDiscountAmount: 0,
+            totalSurchargeAmount: 0,
+            paymentMethod: 'CASH',
+        }),
 
-    // --- IMPLEMENTACIÓN DE ACCIONES FALTANTES ---
     setPaymentMethod: (method) => set({ paymentMethod: method }),
 
     setGlobalDiscount: (amount) => {
@@ -132,17 +157,14 @@ export const usePosStore = create<PosState>((set, get) => ({
 
     calculateTotals: () => {
         const { cart, totalDiscountAmount, totalSurchargeAmount } = get();
-        
         const subtotal = cart.reduce((acc, item) => acc + item.subtotal, 0);
         const itemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-        
-        // El total final aplica descuentos y recargos
         const totalFinal = subtotal - totalDiscountAmount + totalSurchargeAmount;
 
-        set({ 
-            subtotal, 
-            total: Math.max(0, totalFinal), 
-            itemsCount 
+        set({
+            subtotal,
+            total: Math.max(0, totalFinal),
+            itemsCount,
         });
-    }
+    },
 }));

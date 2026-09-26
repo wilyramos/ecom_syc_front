@@ -1,3 +1,4 @@
+/* File: frontend/src/components/sales/sales-filters.tsx */
 "use client";
 
 import * as React from "react";
@@ -7,7 +8,6 @@ import { es } from "date-fns/locale";
 import { Calendar as CalendarIcon, Search, X } from "lucide-react";
 import { DateRange, Range, RangeKeyDict } from "react-date-range";
 
-// Estilos de la librería
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
@@ -20,9 +20,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 
-/**
- * Helper para obtener fechas seguras desde la URL
- */
 const getInitialDate = (param: string | null, defaultDate: Date): Date => {
     if (!param) return defaultDate;
     const parsed = parseISO(param);
@@ -34,7 +31,6 @@ export function SalesFilters() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // 1. Sincronizar estado local con la URL
     const [dateRange, setDateRange] = React.useState<Range[]>([
         {
             startDate: getInitialDate(searchParams.get("startDate"), new Date()),
@@ -43,19 +39,17 @@ export function SalesFilters() {
         },
     ]);
 
-    // 2. Manejo de búsqueda de texto
     const handleSearch = (term: string) => {
         const params = new URLSearchParams(searchParams.toString());
         params.set("page", "1");
-        if (term) {
-            params.set("search", term);
+        if (term.trim()) {
+            params.set("search", term.trim());
         } else {
             params.delete("search");
         }
         router.replace(`${pathname}?${params.toString()}`);
     };
 
-    // 3. Aplicar Filtro de Fechas a la URL
     const handleDateChange = (ranges: RangeKeyDict) => {
         const { selection } = ranges;
         if (!selection) return;
@@ -65,17 +59,17 @@ export function SalesFilters() {
         const params = new URLSearchParams(searchParams.toString());
         params.set("page", "1");
 
+        // Formato seguro YYYY-MM-DD para evitar desfases de hora UTC
         if (selection.startDate) {
-            params.set("startDate", selection.startDate.toISOString());
+            params.set("startDate", format(selection.startDate, "yyyy-MM-dd"));
         }
         if (selection.endDate) {
-            params.set("endDate", selection.endDate.toISOString());
+            params.set("endDate", format(selection.endDate, "yyyy-MM-dd"));
         }
 
         router.replace(`${pathname}?${params.toString()}`);
     };
 
-    // 4. Limpiar Filtros
     const handleClear = () => {
         const initialRange: Range = {
             startDate: new Date(),
@@ -86,42 +80,41 @@ export function SalesFilters() {
         router.replace(pathname);
     };
 
-    const hasFilters = !!(searchParams.get("search") || searchParams.get("startDate"));
+    const hasFilters = Boolean(searchParams.get("search") || searchParams.get("startDate"));
 
     return (
-        <div className="flex flex-col gap-4 bg-bg-secondary p-4 rounded-xs border border-border-default sm:flex-row sm:items-center">
-
-            {/* Grupo de Búsqueda */}
+        <div className="flex flex-col gap-3 bg-[var(--color-bg-secondary)] p-4 rounded-2xl border border-[var(--color-border-default)] sm:flex-row sm:items-center">
+            {/* Buscador */}
             <div className="relative flex-1 group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-text-tertiary group-focus-within:text-accent-warm transition-colors" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-[var(--color-text-tertiary)] group-focus-within:text-[var(--color-accent)] transition-colors" />
                 <Input
-                    placeholder="Buscar por ticket, cliente o DNI..."
-                    className="pl-10 h-11 bg-bg-primary border-border-default focus-visible:ring-accent-warm text-text-primary placeholder:text-text-tertiary"
+                    placeholder="Buscar por ticket, cliente o documento..."
+                    className="pl-10 h-10 bg-[var(--color-bg-primary)] border-[var(--color-border-default)] rounded-xl text-xs font-medium text-[var(--color-text-primary)]"
                     defaultValue={searchParams.get("search") ?? ""}
                     onChange={(e) => handleSearch(e.target.value)}
                 />
             </div>
 
-            {/* Grupo de Selectores */}
+            {/* Selector de Rango de Fechas */}
             <div className="flex flex-wrap items-center gap-2">
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
-                            className="h-11 justify-start text-left font-normal px-4 border-border-default bg-bg-primary hover:bg-bg-tertiary text-text-primary min-w-[240px]"
+                            className="h-10 justify-start text-left font-bold text-xs px-3 border-[var(--color-border-default)] bg-[var(--color-bg-primary)] rounded-xl text-[var(--color-text-primary)] min-w-[210px]"
                         >
-                            <CalendarIcon className="mr-2 size-4 text-accent-warm" />
+                            <CalendarIcon className="mr-2 size-3.5 text-[var(--color-accent)]" />
                             {searchParams.get("startDate") ? (
-                                <span className="text-sm">
+                                <span>
                                     {format(dateRange[0].startDate!, "dd MMM", { locale: es })} -{" "}
                                     {format(dateRange[0].endDate!, "dd MMM, yyyy", { locale: es })}
                                 </span>
                             ) : (
-                                <span className="text-text-secondary">Rango de fechas</span>
+                                <span className="text-[var(--color-text-tertiary)] font-medium">Filtrar por fecha</span>
                             )}
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 border-border-default shadow-2xl" align="end">
+                    <PopoverContent className="w-auto p-0 border-[var(--color-border-default)] shadow-2xl rounded-2xl overflow-hidden" align="end">
                         <DateRange
                             ranges={dateRange}
                             onChange={handleDateChange}
@@ -129,8 +122,8 @@ export function SalesFilters() {
                             months={1}
                             direction="vertical"
                             locale={es}
-                            rangeColors={["#F97316"]} // --color-accent-warm
-                            className="rounded-lg text-sm"
+                            rangeColors={["#3098b3"]}
+                            className="text-xs"
                             editableDateInputs={true}
                         />
                     </PopoverContent>
@@ -140,14 +133,14 @@ export function SalesFilters() {
                     <Button
                         variant="ghost"
                         onClick={handleClear}
-                        className="h-11 px-3 text-accent-warm hover:bg-accent-warm-light"
+                        className="h-10 px-3 text-xs font-bold text-[var(--color-error)] hover:bg-[var(--color-error-light)] rounded-xl"
                     >
-                        <X className="size-4 mr-2" />
+                        <X className="size-3.5 mr-1" />
                         Limpiar
                     </Button>
                 )}
 
-                <div className="h-8 w-px bg-border-default mx-1 hidden sm:block" />
+                <div className="h-6 w-px bg-[var(--color-border-default)] mx-1 hidden sm:block" />
 
                 <ExportButton />
             </div>

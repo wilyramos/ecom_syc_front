@@ -32,7 +32,7 @@ const ROUTES: NavItem[] = [
     // { label: "Proformas", href: "/quotes", icon: FileText, roles: ["administrador", "vendedor"] },
     // { label: "Productos", href: "/inventory", icon: Package, roles: ["administrador", "vendedor"] },
     // { label: "Clientes", href: "/customers", icon: Users, roles: ["administrador", "vendedor"] },
-    { label: "Reportes", href: "/reports", icon: BarChart3, roles: ["administrador"] },
+    { label: "Reportes", href: "/reportes", icon: BarChart3, roles: ["administrador", "vendedor"] },
     // { label: "Ajustes", href: "/settings", icon: Settings, roles: ["administrador"] },
 ];
 
