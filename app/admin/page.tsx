@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import AdminPageWrapper from "@/components/admin/AdminPageWrapper";
 
+
 export default async function AdminPage() {
     const links = [
         { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
