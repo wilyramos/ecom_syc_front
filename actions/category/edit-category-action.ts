@@ -5,7 +5,7 @@
 import getToken from "@/src/auth/token";
 import { categoryFormSchema } from "@/src/schemas/category.schema";
 import { SuccessResponse, ErrorResponse } from "@/src/schemas";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export type ActionStateType = {
     errors: string[];
@@ -84,6 +84,10 @@ export async function editCategoryAction(
         }
 
         const successParsed = SuccessResponse.parse(json);
+
+     // Revalidación basada en tags para purgar las llamadas fetch oxidadas
+        revalidateTag("categories");
+        revalidateTag(`category-${id}`);
 
         // Revalidación selectiva de las rutas administrativas del panel
         revalidatePath("/admin/category");

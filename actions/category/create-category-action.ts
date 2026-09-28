@@ -8,6 +8,7 @@ import {
 import { SuccessResponse, ErrorResponse } from "@/src/schemas";
 import { revalidatePath } from "next/cache";
 import getToken from "@/src/auth/token";
+import { revalidateTag } from "next/cache"; // <-- Importamos revalidateTag
 
 export type ActionStateType = {
     errors: string[];
@@ -82,7 +83,7 @@ export async function createCategoryAction(prevState: ActionStateType, formData:
         }
 
         const successParsed = SuccessResponse.parse(json);
-        
+        revalidateTag("categories"); // <-- Limpia la caché estática global de todas las categorías
         revalidatePath("/admin/category");
 
         return {
