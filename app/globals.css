@@ -233,3 +233,301 @@
   --sl-badge-default-bg: var(--color-text-primary);
 }
 
+
+
+
+/* ============================================
+   HALLOWEEN (temporal) — quitar al terminar la temporada
+   ============================================ */
+
+/* Paleta naranja solo dentro de la tienda */
+.halloween-theme {
+  --color-accent: #ff7a18;
+  --color-accent-hover: #ffa640;
+  --color-accent-light: #fff1e6;
+  --color-success: #ff7a18;
+}
+
+/* Capa fija que contiene toda la decoración.
+   z-index muy alto y montada en document.body (ver el componente).
+   --hw-top: altura del navbar (aviso + header). Las columnas empiezan debajo.
+   Pon 0px si quieres que pasen también por encima del navbar. */
+.hw-layer {
+  --hw-col: clamp(2.75rem, 9vw, 10rem);
+  --hw-unit: clamp(26px, 4.2vw, 60px);
+  --hw-top: 7.5rem; /* móvil: aviso (2.5rem) + header (5rem) */
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2147483000;
+  max-width: 100vw;
+}
+
+@media (min-width: 768px) {
+  .hw-layer { --hw-top: 10.5rem; } /* escritorio: aviso + header + categorías */
+}
+
+/* Ocultar elementos en móvil */
+.hw-md { display: none; }
+@media (min-width: 768px) {
+  .hw-md { display: block; }
+}
+
+/* Columnas laterales */
+.hw-side {
+  position: absolute;
+  top: var(--hw-top);
+  bottom: 0;
+  width: var(--hw-col);
+  overflow: hidden;
+}
+.hw-side-left  { left: 0; }
+.hw-side-right { right: 0; }
+
+/* Contenedor posicionado: centra con translateX sin chocar con las animaciones */
+.hw-lane {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.hw-pumpkin-lane {
+  left: 50%;
+  bottom: 3%;
+}
+
+
+/* ============================================
+   HALLOWEEN (temporal) — quitar al terminar la temporada
+   ============================================ */
+
+/* Paleta naranja solo dentro de la tienda */
+.halloween-theme {
+  --color-accent: #ff7a18;
+  --color-accent-hover: #ffa640;
+  --color-accent-light: #fff1e6;
+  --color-success: #ff7a18;
+}
+
+/* Capa fija que contiene toda la decoración.
+   z-index muy alto y montada en document.body (ver el componente).
+   --hw-top: altura del navbar (aviso + header). Las columnas empiezan debajo.
+   Pon 0px si quieres que pasen también por encima del navbar. */
+.hw-layer {
+  --hw-col: clamp(2.75rem, 9vw, 10rem);
+  --hw-unit: clamp(26px, 4.2vw, 60px);
+  --hw-top: 7.5rem; /* móvil: aviso (2.5rem) + header (5rem) */
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2147483000;
+  max-width: 100vw;
+}
+
+@media (min-width: 768px) {
+  .hw-layer { --hw-top: 10.5rem; } /* escritorio: aviso + header + categorías */
+}
+
+/* Ocultar elementos en móvil */
+.hw-md { display: none; }
+@media (min-width: 768px) {
+  .hw-md { display: block; }
+}
+
+/* Columnas laterales */
+.hw-side {
+  position: absolute;
+  top: var(--hw-top);
+  bottom: 0;
+  width: var(--hw-col);
+  overflow: hidden;
+}
+.hw-side-left  { left: 0; }
+.hw-side-right { right: 0; }
+
+/* Contenedor posicionado: centra con translateX sin chocar con las animaciones */
+.hw-lane {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.hw-pumpkin-lane {
+  left: 50%;
+  bottom: 3%;
+}
+
+/* Telarañas */
+.hw-web {
+  position: absolute;
+  width: clamp(80px, 16vw, 240px);
+  height: auto;
+  opacity: 0.55;
+  animation: hw-web-sway 7s ease-in-out infinite alternate;
+}
+.hw-web-tl { top: 0;    left: 0;  }
+.hw-web-tr { top: 0;    right: 0; transform: scaleX(-1); }
+.hw-web-bl { bottom: 0; left: 0;  transform: scaleY(-1); }
+.hw-web-br { bottom: 0; right: 0; transform: scale(-1, -1); }
+
+.hw-web-ml,
+.hw-web-mr {
+  width: clamp(60px, 10vw, 150px);
+  opacity: 0.4;
+}
+.hw-web-ml { top: 34%; left: 0; }
+.hw-web-mr { top: 58%; right: 0; transform: scaleX(-1); }
+
+/* Telarañas balanceándose muy poco.
+   Usa la propiedad "rotate" para no pisar el "transform" de las espejadas. */
+@keyframes hw-web-sway {
+  from { rotate: -1deg; }
+  to   { rotate: 1deg; }
+}
+
+/* Arañas: bajan y suben desde un hilo */
+.hw-spider {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: hw-drop 8s ease-in-out infinite alternate;
+}
+.hw-spider svg {
+  display: block;
+  width: var(--hw-unit);
+  height: auto;
+}
+
+.hw-thread {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: 100vh;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+@keyframes hw-drop {
+  from { transform: translateY(0); }
+  to   { transform: translateY(var(--drop)); }
+}
+
+/* Patas de la araña que se mueven al colgar */
+.hw-legs {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hw-legs 1.2s ease-in-out infinite alternate;
+}
+@keyframes hw-legs {
+  from { transform: skewX(-4deg); }
+  to   { transform: skewX(4deg); }
+}
+
+/* Ojos de la araña con parpadeo */
+.hw-eye {
+  animation: hw-blink 3.2s steps(1) infinite;
+}
+.hw-eye-2 {
+  animation-delay: -0.4s;
+}
+@keyframes hw-blink {
+  0%, 85%, 100% { opacity: 1; }
+  90%           { opacity: 0; }
+}
+
+/* Murciélagos: se desplazan dentro de su columna */
+.hw-bat {
+  position: relative;
+  animation: hw-sway 10s ease-in-out infinite alternate;
+}
+.hw-bat svg {
+  display: block;
+  width: calc(var(--hw-unit) * 1.3);
+  height: auto;
+}
+
+.hw-flap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hw-flap 0.35s ease-in-out infinite alternate;
+}
+
+
+@keyframes hw-sway {
+  0% {
+    transform: translate(0, 0) rotate(-5deg);
+  }
+  50% {
+    transform: translate(10px, -12px) rotate(5deg);
+  }
+  100% {
+    transform: translate(-8px, 8px) rotate(-3deg);
+  }
+}
+
+@keyframes hw-flap {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0.35); }
+}
+
+/* Calabaza con leve balanceo y resplandor */
+.hw-pumpkin {
+  position: relative;
+  isolation: isolate;
+  animation: hw-bob 3s ease-in-out infinite alternate;
+}
+.hw-pumpkin svg {
+  display: block;
+  position: relative;
+  width: calc(var(--hw-unit) * 1.4);
+  height: auto;
+}
+
+@keyframes hw-bob {
+  from { transform: translateY(0) rotate(-3deg); }
+  to   { transform: translateY(-8px) rotate(3deg); }
+}
+
+/* Resplandor detrás de la calabaza (z-index -1 para quedar debajo del SVG) */
+.hw-halo {
+  position: absolute;
+  inset: -35%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 24, 0.45) 0%, rgba(255, 122, 24, 0) 70%);
+  animation: hw-halo 3s ease-in-out infinite alternate;
+}
+@keyframes hw-halo {
+  from { opacity: 0.35; transform: scale(0.9); }
+  to   { opacity: 1;    transform: scale(1.1); }
+}
+
+/* Ojos de la calabaza que parpadean de forma irregular */
+.hw-pumpkin-eyes {
+  animation: hw-flicker 2.4s steps(1) infinite;
+}
+@keyframes hw-flicker {
+  0%, 100% { opacity: 1; }
+  20%      { opacity: 0.25; }
+  22%      { opacity: 1; }
+  60%      { opacity: 0.4; }
+  62%      { opacity: 1; }
+}
+
+/* Accesibilidad: sin animación si el usuario la desactiva.
+   Va al final para que ninguna regla posterior la sobrescriba. */
+@media (prefers-reduced-motion: reduce) {
+  .hw-spider,
+  .hw-bat,
+  .hw-flap,
+  .hw-pumpkin,
+  .hw-halo,
+  .hw-legs,
+  .hw-eye,
+  .hw-pumpkin-eyes,
+  .hw-web {
+    animation: none !important;
+  }
+}
